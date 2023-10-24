@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "ES6",
+    "target": "es2017",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "outDir": "dist/lib",
+    "declaration": true,
+    "esModuleInterop": true,
+    "declarationDir": "dist/types",
+    "baseUrl": "./src",
+    "paths": {
+      "unsafe": ["@war3js/unsafe"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["web-api"]
+}
