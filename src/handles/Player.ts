@@ -4,7 +4,9 @@ import { Handle, HandleEventMap } from "./Handle.js";
 const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");
 const GetLocalPlayer = getNativeByName<HandleHolder<"player">, []>("GetLocalPlayer");
 
-export interface PlayerEventMap extends HandleEventMap {}
+export interface PlayerEventMap extends HandleEventMap {
+
+}
 
 export interface Player {
   get handle(): HandleHolder<"player">;

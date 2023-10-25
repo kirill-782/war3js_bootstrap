@@ -1,22 +1,26 @@
 import { setToHandleHolder, getNativeByName } from "./unsafe.js";
 
 import { Console } from "./console/Console.js";
-import { toHandleHolder } from "./utils/ToHandleHolder.js";
+import { toHandleHolderSoft } from "./utils/ToHandleHolder.js";
 import { HandleBuilder } from "./services/HandleBuilder.js";
-import { Widget as CWidget } from "./handles/Widget.js";
-import { Unit as CUnit } from "./handles/Unit.js";
-import { Player as CPlayer } from "./handles/Player.js";
+import { Widget } from "./handles/Widget.js";
+import { Unit } from "./handles/Unit.js";
+import { Player } from "./handles/Player.js";
 
 export const console = new Console();
 
-setToHandleHolder(toHandleHolder);
+setToHandleHolder(toHandleHolderSoft);
 
 const builder = new HandleBuilder();
 
-builder.addChainProperty(CWidget, "widget");
-builder.addChainProperty(CUnit, "unit");
-builder.addChainProperty(CPlayer as any, "player");
+builder.addChainProperties(Widget, "widget");
+builder.addChainProperties(Unit, "unit");
+builder.addChainProperties(Player as any, "player");
 
-export const Widget = CWidget;
-export const Unit = CUnit;
-export const Player = CPlayer;
+builder.addMethods(Widget, "widget");
+builder.addMethods(Unit, "unit");
+builder.addMethods(Player as any, "player");
+
+export * from "./handles/Widget.js";
+export * from "./handles/Unit.js";
+export * from "./handles/Player.js";

@@ -1,14 +1,11 @@
-import { EventEmitter } from "events";
-import TypedEmitter, { EventMap } from "typed-emitter";
+import { EventEmitter, EventMap } from "@war3js/events";
 
 export interface HandleEventMap extends EventMap {
   error: (error: Error) => void;
   remove: () => void;
 }
 
-export class Handle<T extends HandleEventMap = HandleEventMap> extends (EventEmitter as {
-  new <T extends EventMap>(): TypedEmitter<T>;
-})<T> {
+export class Handle<T extends HandleEventMap = HandleEventMap> extends EventEmitter<T> {
   #handle: HandleHolder<string>;
 
   constructor(handleHolder: Handle | HandleHolder<string>) {
