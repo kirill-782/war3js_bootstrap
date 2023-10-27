@@ -1,11 +1,13 @@
-import { EventEmitter } from "@war3js/events";
 import { getNativeByName } from "./unsafe.js";
-import { Handle } from "./handles/Handle.js";
+import { Player, Unit } from "./index.js";
 
-const Player = getNativeByName<HandleHolder<string>, [number]>("Player");
 
-const ee = new Handle({} as any);
+const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");
 
-ee.addListener("error", function() {
-    this
-})
+const u = new Unit(new Player(PlayerNative(0)), 0, 0, 0, 0);
+console.log(u);
+
+u.addListener("death", () => {});
+
+
+u.emit("death");

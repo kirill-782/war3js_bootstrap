@@ -7,6 +7,8 @@ import { Widget } from "./handles/Widget.js";
 import { Unit } from "./handles/Unit.js";
 import { Player } from "./handles/Player.js";
 
+export const isUjApi = !!getNativeByName("GetUjAPIVersion");
+
 export const console = new Console();
 
 setToHandleHolder(toHandleHolderSoft);
@@ -20,6 +22,8 @@ builder.addChainProperties(Player as any, "player");
 builder.addMethods(Widget, "widget");
 builder.addMethods(Unit, "unit");
 builder.addMethods(Player as any, "player");
+
+export { TextDecoder, TextEncoder } from "text-decoding";
 
 export * from "./handles/Widget.js";
 export * from "./handles/Unit.js";

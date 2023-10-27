@@ -13,8 +13,8 @@ export interface Player {
 }
 
 export class Player<T extends PlayerEventMap = PlayerEventMap> extends Handle<T> {
-  protected constructor(handleHolder: HandleHolder<"player">);
-  protected constructor(arg1: HandleHolder<"player"> | Player) {
+  public constructor(handleHolder: HandleHolder<"player">);
+  public constructor(arg1: HandleHolder<"player"> | Player) {
     super(arg1);
   }
 

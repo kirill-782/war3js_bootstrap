@@ -12,7 +12,10 @@
     "license": "MIT",
     "dependencies": {
         "@war3js/events": "^3.3.0",
-        "@war3js/unsafe": "file:../unsafe"
+        "@war3js/text-decoding-types": "^0.0.9999",
+        "@war3js/unsafe": "file:../unsafe",
+        "jass-to-ast": "^2.0.2",
+        "text-decoding": "^1.0.0"
     },
     "devDependencies": {
         "dts-bundle": "^0.7.3",

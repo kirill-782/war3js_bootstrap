@@ -1,4 +1,4 @@
-import { EventEmitter } from "events";
+import { EventEmitter } from "@war3js/events";
 import TypedEmitter, { EventMap } from "typed-emitter";
 
 import { setOnNewHandle, setOnHandleDestroy } from "../unsafe.js";

@@ -12,6 +12,9 @@
     "esModuleInterop": true,
     "declarationDir": "dist/types",
     "baseUrl": "./src",
+    "types": [
+      "@war3js/text-decoding-types"
+    ],
     "paths": {
       "unsafe": ["@war3js/unsafe"]
     }
