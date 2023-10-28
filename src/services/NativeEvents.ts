@@ -1,16 +1,15 @@
-import { EventEmitter } from "@war3js/events";
-import TypedEmitter, { EventMap } from "typed-emitter";
+import { EventEmitter, EventMap } from "@war3js/events";
 
-import { setOnNewHandle, setOnHandleDestroy } from "../unsafe.js";
+import { setOnNewHandle, setOnHandleDestroy } from "@war3js/unsafe";
 
 export interface NativeEventsEventMap extends EventMap {
   newHandle: (handle: HandleHolder<string>, constructorNative: string) => void;
   handleDestroy: (handle: HandleHolder<string>) => void;
 }
 
-class NativeEvents extends EventEmitter {}
+class NativeEvents extends EventEmitter<NativeEventsEventMap> {}
 
-export const nativeEvents = new NativeEvents() as TypedEmitter<NativeEventsEventMap>;
+export const nativeEvents = new NativeEvents();
 
 setOnNewHandle((handle, constructorNative) => {
   nativeEvents.emit("newHandle", handle, constructorNative);

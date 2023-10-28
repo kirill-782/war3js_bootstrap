@@ -1,7 +1,7 @@
 import TypedEmitter, { EventMap } from "typed-emitter";
 import { Widget, WidgetEventMap } from "./Widget.js";
 
-import { getNativeByName } from "../unsafe.js";
+import { getNativeByName } from "@war3js/unsafe";
 import { Player } from "./Player.js";
 import { EventEmitterHook, OnEmitterAddListener } from "../utils/EventEmitterHook.js";
 import { unitEmiter } from "../services/emitters/UnitEmiter.js";
@@ -22,8 +22,11 @@ export interface Unit {
 }
 
 export class Unit<T extends UnitEventMap = UnitEventMap> extends Widget<T> {
-    constructor(arg: Unit | Player, unitId?: number, x?: number, y?: number, facing?: number) {
-        if (arg instanceof Unit) super(arg);
+    constructor(unitHandle: HandleHolder<"unit">);
+    constructor(unitobject: Unit);
+    constructor(unitobject: Player, unitId: number, x: number, y: number, facing: number);
+    constructor(arg: Unit | Player | HandleHolder<"unit">, unitId?: number, x?: number, y?: number, facing?: number) {
+        if (arg instanceof Unit || arg instanceof HandleHolder) super(arg);
         else if (arg instanceof Player) {
             super(CreateUnit(arg.handle, unitId, x, y, facing));
         } else {
@@ -35,7 +38,7 @@ export class Unit<T extends UnitEventMap = UnitEventMap> extends Widget<T> {
 
     public onEmitterAddListener(event: string | number | symbol, listener: (...args: any[]) => void) {
         if (unitEmiter.isSupport(event) && typeof event === "string") {
-            unitEmiter.subscribe(event, this as Unit<UnitEventMap>);
+            unitEmiter.subscribe(event, this);
         }
     }
 }

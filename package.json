@@ -4,14 +4,15 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "package": "esbuild ./src/index.ts --bundle --outfile=bootstrap/out.js --format=esm  --external:unsafe --target=es6",
-        "start": "ts-node-esm ./src/test.ts"
+        "package": "esbuild ./src/index.ts --bundle --outfile=bootstrap/out.js --format=esm  --external:unsafe --target=es6 --alias:@war3js/unsafe=unsafe",
+        "start": "ts-node-esm ./src/test.ts",
+        "typesgen": "tsc && dts-bundle-generator -o bootstrap/out.d.ts  --export-referenced-types dist/types/index.d.ts --external-inlines=@war3js/events --external-imports=@war3js/unsafe --inline-declare-global=true"
     },
     "type": "module",
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "@war3js/events": "^3.3.0",
+        "@war3js/events": "^3.3.2",
         "@war3js/text-decoding-types": "^0.0.9999",
         "@war3js/unsafe": "file:../unsafe",
         "jass-to-ast": "^2.0.2",

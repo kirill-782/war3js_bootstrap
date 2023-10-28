@@ -1,5 +1,5 @@
 import { Unit } from "../../handles/Unit.js";
-import { getNativeByName } from "../../unsafe.js";
+import { getNativeByName } from "@war3js/unsafe";
 import {
     CreateTrigger,
     DestroyTrigger,

@@ -1,4 +1,4 @@
-import { getNativeByName, getListNatives } from "../unsafe.js";
+import { getNativeByName, getListNatives } from "@war3js/unsafe";
 import { Handle } from "../handles/Handle.js";
 import { toHandleHolderSoft } from "../utils/ToHandleHolder.js";
 import { fromHandleHolderSoft } from "../utils/FromHandleHolder.js";

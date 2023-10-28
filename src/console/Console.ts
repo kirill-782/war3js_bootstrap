@@ -1,4 +1,4 @@
-import { consoleLog } from "../unsafe.js";
+import { consoleLog } from "@war3js/unsafe";
 
 export class Console {
   trace(...args: any) {

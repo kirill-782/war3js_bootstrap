@@ -1,4 +1,4 @@
-import { getNativeByName } from "../unsafe.js";
+import { getNativeByName } from "@war3js/unsafe";
 import { Handle, HandleEventMap } from "./Handle.js";
 
 const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");
