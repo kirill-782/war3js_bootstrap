@@ -8,7 +8,7 @@ export interface WidgetEventMap extends HandleEventMap {
 }
 
 export class Widget<T extends WidgetEventMap = WidgetEventMap> extends Handle<T> {
-    constructor(handleHolder: HandleHolder<"widget" | "unit" | "item" | "destructable"> | Unit) {
+    constructor(handleHolder: HandleHolder<"widget" | "unit" | "item" | "destructable"> | Widget) {
         super(handleHolder);
     }
 }
