@@ -16,7 +16,8 @@
         "@war3js/text-decoding-types": "^0.0.9999",
         "@war3js/unsafe": "file:../unsafe",
         "jass-to-ast": "^2.0.2",
-        "text-decoding": "^1.0.0"
+        "text-decoding": "^1.0.0",
+        "typescript": "^5.2.2"
     },
     "devDependencies": {
         "dts-bundle": "^0.7.3",
