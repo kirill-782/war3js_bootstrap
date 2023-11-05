@@ -19,11 +19,11 @@ const builder = new HandleBuilder();
 
 builder.addChainProperties(Widget, "widget");
 builder.addChainProperties(Unit, "unit");
-builder.addChainProperties(Player as any, "player");
+builder.addChainProperties(Player, "player");
 
 builder.addMethods(Widget, "widget");
 builder.addMethods(Unit, "unit");
-builder.addMethods(Player as any, "player");
+builder.addMethods(Player, "player");
 
 export { TextDecoder, TextEncoder } from "text-decoding";
 
