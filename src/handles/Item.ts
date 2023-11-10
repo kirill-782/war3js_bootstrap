@@ -16,6 +16,5 @@ export class Item<T extends ItemEventMap = ItemEventMap> extends Widget<T> {
         } else {
             throw new TypeError("Unknown first arg");
         }
-
     }
 }

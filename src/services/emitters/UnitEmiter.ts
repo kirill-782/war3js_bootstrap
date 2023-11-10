@@ -1,5 +1,4 @@
 import { Unit } from "../../handles/Unit.js";
-import { getNativeByName } from "@war3js/unsafe";
 import {
     CreateTrigger,
     DestroyTrigger,
@@ -8,41 +7,76 @@ import {
     TriggerRegisterUnitEvent,
     UnitEvents,
 } from "../../utils/common.js";
-import { TriggerUnitEvent } from "../../triggerEvents/unit/Event.js";
-import { TriggerUnitEventDeath } from "../../triggerEvents/unit/EventDeath.js";
-import { TriggerUnitEventAcquiredTarget } from "../../triggerEvents/unit/EventAcquiredTarget.js";
-import { TriggerUnitEventAttacked } from "../../triggerEvents/unit/EventAttacked.js";
-import { TriggerUnitEventConstructFinish } from "../../triggerEvents/unit/EventConstructFinish.js";
-import { TriggerUnitEventDetected } from "../../triggerEvents/unit/EventDetected.js";
-import { TriggerUnitEventStateLimit } from "../../triggerEvents/unit/EventStateLimit.js";
-import { TriggerUnitEventTargetInRange } from "../../triggerEvents/unit/EventTargetInRange.js";
-import { TriggerUnitEventRescued } from "../../triggerEvents/unit/EventRescued.js";
-import { TriggerUnitEventTrainStart } from "../../triggerEvents/unit/EventTrainStart.js";
-import { TriggerUnitEventTrainCancel } from "../../triggerEvents/unit/EventTrainCancel.js";
-import { TriggerUnitEventTrainFinish } from "../../triggerEvents/unit/EventTrainFinish.js";
-import { TriggerUnitEventResearchStart } from "../../triggerEvents/unit/EventResearchStart.js";
-import { TriggerUnitEventResearchCancel } from "../../triggerEvents/unit/EventResearchCancel.js";
-import { TriggerUnitEventResearchFinish } from "../../triggerEvents/unit/EventResearchFinish.js";
-import { TriggerUnitEventIssuedOrder } from "../../triggerEvents/unit/EventIssuedOrder.js";
-import { TriggerUnitEventIssuedPointOrder } from "../../triggerEvents/unit/EventIssuedPointOrder.js";
-import { TriggerUnitEventIssuedTargetOrder } from "../../triggerEvents/unit/EventIssuedTargetOrder.js";
-import { TriggerUnitEvenHeroSkill } from "../../triggerEvents/unit/EventHeroSkill.js";
-import { TriggerUnitEventHeroRevivable } from "../../triggerEvents/unit/EventHeroRevivable.js";
-import { TriggerUnitEventHeroReviveStart } from "../../triggerEvents/unit/EventHeroReviveStart.js";
-import { TriggerUnitEventHeroReviveCancel } from "../../triggerEvents/unit/EventHeroReviveCancel.js";
-import { TriggerUnitEventHeroReviveFinish } from "../../triggerEvents/unit/EventHeroReviveFinish.js";
-import { TriggerUnitEventSummon } from "../../triggerEvents/unit/EventSummon.js";
-import { TriggerUnitEventDropItem } from "../../triggerEvents/unit/EventDropItem.js";
-import { TriggerUnitEventPickupItem } from "../../triggerEvents/unit/EventPickupItem.js";
-import { TriggerUnitEventUseItem } from "../../triggerEvents/unit/EventUseItem.js";
-import { TriggerUnitEventLoaded } from "../../triggerEvents/unit/EventLoaded.js";
+import { UnitEvent } from "../../triggerEvents/unit/UnitEvent.js";
+import { UnitEventDeath } from "../../triggerEvents/unit/UnitEventDeath.js";
+import { UnitEventAcquiredTarget } from "../../triggerEvents/unit/UnitEventAcquiredTarget.js";
+import { UnitEventAttacked } from "../../triggerEvents/unit/UnitEventAttacked.js";
+import { UnitEventConstructFinish } from "../../triggerEvents/unit/UnitEventConstructFinish.js";
+import { UnitEventDetected } from "../../triggerEvents/unit/UnitEventDetected.js";
+import { UnitEventStateLimit } from "../../triggerEvents/unit/UnitEventStateLimit.js";
+import { UnitEventTargetInRange } from "../../triggerEvents/unit/UnitEventTargetInRange.js";
+import { UnitEventRescued } from "../../triggerEvents/unit/UnitEventRescued.js";
+import { UnitEventTrainStart } from "../../triggerEvents/unit/UnitEventTrainStart.js";
+import { UnitEventTrainCancel } from "../../triggerEvents/unit/UnitEventTrainCancel.js";
+import { UnitEventTrainFinish } from "../../triggerEvents/unit/UnitEventTrainFinish.js";
+import { UnitEventResearchStart } from "../../triggerEvents/unit/UnitEventResearchStart.js";
+import { UnitEventResearchCancel } from "../../triggerEvents/unit/UnitEventResearchCancel.js";
+import { UnitEventResearchFinish } from "../../triggerEvents/unit/UnitEventResearchFinish.js";
+import { UnitEventIssuedOrder } from "../../triggerEvents/unit/UnitEventIssuedOrder.js";
+import { UnitEventIssuedPointOrder } from "../../triggerEvents/unit/UnitEventIssuedPointOrder.js";
+import { UnitEventIssuedTargetOrder } from "../../triggerEvents/unit/UnitEventIssuedTargetOrder.js";
+import { UnitEventHeroSkill } from "../../triggerEvents/unit/UnitEventHeroSkill.js";
+import { UnitEventHeroRevivable } from "../../triggerEvents/unit/UnitEventHeroRevivable.js";
+import { UnitEventHeroReviveStart } from "../../triggerEvents/unit/UnitEventHeroReviveStart.js";
+import { UnitEventHeroReviveCancel } from "../../triggerEvents/unit/UnitEventHeroReviveCancel.js";
+import { UnitEventHeroReviveFinish } from "../../triggerEvents/unit/UnitEventHeroReviveFinish.js";
+import { UnitEventSummon } from "../../triggerEvents/unit/UnitEventSummon.js";
+import { UnitEventDropItem } from "../../triggerEvents/unit/UnitEventDropItem.js";
+import { UnitEventPickupItem } from "../../triggerEvents/unit/UnitEventPickupItem.js";
+import { UnitEventUseItem } from "../../triggerEvents/unit/UnitEventUseItem.js";
+import { UnitEventLoaded } from "../../triggerEvents/unit/UnitEventLoaded.js";
 
-export type UnitEventType = "damaged" | "damaging" | "selected" | "deselected" | "death" | "decay" | "detected" | "hidden" | "stateLimit" |
-    "acquiredTarget" | "targetInRange" | "attacked" | "rescued" | "constructCancel" | "constructFinish" | "upgradeStart" | "upgradeCancel" | "upgradeFinish" |
-    "trainStart" | "trainCancel" | "trainFinish" | "researchStart" | "researchCancel" | "researchFinish" | "issuedOrder" | "issuedPointOrder" | "issuedTargetOrder" |
-    "heroLevel" | "heroSkill" | "heroRevivable" | "heroReviveStart" | "heroReviveCancel" | "heroReviveFinish" | "summon" | "dropItem" | "pickupItem" | "useItem" |
-    "loaded" | "attackFinished" | "decayFinished"
-
+export type UnitEventType =
+    | "damaged"
+    | "damaging"
+    | "selected"
+    | "deselected"
+    | "death"
+    | "decay"
+    | "detected"
+    | "hidden"
+    | "stateLimit"
+    | "acquiredTarget"
+    | "targetInRange"
+    | "attacked"
+    | "rescued"
+    | "constructCancel"
+    | "constructFinish"
+    | "upgradeStart"
+    | "upgradeCancel"
+    | "upgradeFinish"
+    | "trainStart"
+    | "trainCancel"
+    | "trainFinish"
+    | "researchStart"
+    | "researchCancel"
+    | "researchFinish"
+    | "issuedOrder"
+    | "issuedPointOrder"
+    | "issuedTargetOrder"
+    | "heroLevel"
+    | "heroSkill"
+    | "heroRevivable"
+    | "heroReviveStart"
+    | "heroReviveCancel"
+    | "heroReviveFinish"
+    | "summon"
+    | "dropItem"
+    | "pickupItem"
+    | "useItem"
+    | "loaded"
+    | "attackFinished"
+    | "decayFinished";
 
 const stringToHandle: Record<string, HandleHolder<"unitevent">> = {
     damaged: UnitEvents.EVENT_UNIT_DAMAGED,
@@ -106,7 +140,7 @@ export class UnitEmiter {
     public subscribe(eventType: UnitEventType, unit: Unit): void {
         if (!unit.handle || !stringToHandle[eventType]) return;
 
-        let registerUnitEvents = this.unitToTriggerMap.get(unit) || {};
+        const registerUnitEvents = this.unitToTriggerMap.get(unit) || {};
         if (registerUnitEvents[eventType]) return;
 
         const newTrigger = CreateTrigger();
@@ -125,94 +159,94 @@ export class UnitEmiter {
                 case "heroLevel":
                 case "attackFinished":
                 case "decayFinished":
-                    unit.emit(eventType, new TriggerUnitEvent(eventType));
+                    unit.emit(eventType, new UnitEvent(eventType));
                     break;
                 case "damaged":
-                    unit.emit("damaged"); // TODO: add event arg when TriggerUnitEventDamaged will be done
+                    unit.emit("damaged"); // TODO: add event arg when UnitEventDamaged will be done
                     break;
                 case "damaging":
-                    unit.emit("damaging"); // TODO: add event arg when TriggerUnitEventDamaging will be done
+                    unit.emit("damaging"); // TODO: add event arg when UnitEventDamaging will be done
                     break;
                 case "death":
-                    unit.emit("death", new TriggerUnitEventDeath());
+                    unit.emit("death", new UnitEventDeath());
                     break;
                 case "acquiredTarget":
-                    unit.emit("acquiredTarget", new TriggerUnitEventAcquiredTarget());
+                    unit.emit("acquiredTarget", new UnitEventAcquiredTarget());
                     break;
                 case "attacked":
-                    unit.emit("attacked", new TriggerUnitEventAttacked());
+                    unit.emit("attacked", new UnitEventAttacked());
                     break;
                 case "constructFinish":
-                    unit.emit("constructFinish", new TriggerUnitEventConstructFinish());
+                    unit.emit("constructFinish", new UnitEventConstructFinish());
                     break;
                 case "detected":
-                    unit.emit("detected", new TriggerUnitEventDetected());
+                    unit.emit("detected", new UnitEventDetected());
                     break;
                 case "stateLimit":
-                    unit.emit("stateLimit", new TriggerUnitEventStateLimit());
+                    unit.emit("stateLimit", new UnitEventStateLimit());
                     break;
                 case "targetInRange":
-                    unit.emit('targetInRange', new TriggerUnitEventTargetInRange());
+                    unit.emit("targetInRange", new UnitEventTargetInRange());
                     break;
                 case "rescued":
-                    unit.emit('rescued', new TriggerUnitEventRescued);
+                    unit.emit("rescued", new UnitEventRescued());
                     break;
                 case "trainStart":
-                    unit.emit("trainStart", new TriggerUnitEventTrainStart());
+                    unit.emit("trainStart", new UnitEventTrainStart());
                     break;
                 case "trainCancel":
-                    unit.emit("trainCancel", new TriggerUnitEventTrainCancel())
+                    unit.emit("trainCancel", new UnitEventTrainCancel());
                     break;
                 case "trainFinish":
-                    unit.emit("trainFinish", new TriggerUnitEventTrainFinish())
+                    unit.emit("trainFinish", new UnitEventTrainFinish());
                     break;
                 case "researchStart":
-                    unit.emit("researchStart", new TriggerUnitEventResearchStart())
+                    unit.emit("researchStart", new UnitEventResearchStart());
                     break;
                 case "researchCancel":
-                    unit.emit("researchCancel", new TriggerUnitEventResearchCancel())
+                    unit.emit("researchCancel", new UnitEventResearchCancel());
                     break;
                 case "researchFinish":
-                    unit.emit("researchFinish", new TriggerUnitEventResearchFinish())
+                    unit.emit("researchFinish", new UnitEventResearchFinish());
                     break;
                 case "issuedOrder":
-                    unit.emit("issuedOrder", new TriggerUnitEventIssuedOrder())
+                    unit.emit("issuedOrder", new UnitEventIssuedOrder());
                     break;
                 case "issuedPointOrder":
-                    unit.emit("issuedPointOrder", new TriggerUnitEventIssuedPointOrder())
+                    unit.emit("issuedPointOrder", new UnitEventIssuedPointOrder());
                     break;
                 case "issuedTargetOrder":
-                    unit.emit("issuedTargetOrder", new TriggerUnitEventIssuedTargetOrder())
+                    unit.emit("issuedTargetOrder", new UnitEventIssuedTargetOrder());
                     break;
                 case "heroSkill":
-                    unit.emit("heroSkill", new TriggerUnitEvenHeroSkill())
+                    unit.emit("heroSkill", new UnitEventHeroSkill());
                     break;
                 case "heroRevivable":
-                    unit.emit("heroRevivable", new TriggerUnitEventHeroRevivable())
+                    unit.emit("heroRevivable", new UnitEventHeroRevivable());
                     break;
                 case "heroReviveStart":
-                    unit.emit("heroReviveStart", new TriggerUnitEventHeroReviveStart())
+                    unit.emit("heroReviveStart", new UnitEventHeroReviveStart());
                     break;
                 case "heroReviveCancel":
-                    unit.emit("heroReviveCancel", new TriggerUnitEventHeroReviveCancel())
+                    unit.emit("heroReviveCancel", new UnitEventHeroReviveCancel());
                     break;
                 case "heroReviveFinish":
-                    unit.emit("heroReviveFinish", new TriggerUnitEventHeroReviveFinish())
+                    unit.emit("heroReviveFinish", new UnitEventHeroReviveFinish());
                     break;
                 case "summon":
-                    unit.emit("summon", new TriggerUnitEventSummon())
+                    unit.emit("summon", new UnitEventSummon());
                     break;
                 case "dropItem":
-                    unit.emit("dropItem", new TriggerUnitEventDropItem())
+                    unit.emit("dropItem", new UnitEventDropItem());
                     break;
                 case "pickupItem":
-                    unit.emit("pickupItem", new TriggerUnitEventPickupItem())
+                    unit.emit("pickupItem", new UnitEventPickupItem());
                     break;
                 case "useItem":
-                    unit.emit("useItem", new TriggerUnitEventUseItem())
+                    unit.emit("useItem", new UnitEventUseItem());
                     break;
                 case "loaded":
-                    unit.emit("loaded", new TriggerUnitEventLoaded())
+                    unit.emit("loaded", new UnitEventLoaded());
                     break;
                 default:
                     throw new TypeError(`Unexpected eventType: ${eventType}`);
@@ -224,7 +258,7 @@ export class UnitEmiter {
     }
 
     public unsubscribe(eventType: string, unit: Unit): void {
-        let registerUnitEvents = this.unitToTriggerMap.get(unit);
+        const registerUnitEvents = this.unitToTriggerMap.get(unit);
         if (!registerUnitEvents) return;
 
         const trigger = registerUnitEvents[eventType];

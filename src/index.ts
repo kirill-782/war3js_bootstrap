@@ -6,12 +6,9 @@ import { HandleBuilder } from "./services/HandleBuilder.js";
 import { Widget } from "./handles/Widget.js";
 import { Unit } from "./handles/Unit.js";
 import { Player } from "./handles/Player.js";
-import { HandleWrapper } from "./services/HandleWrapper.js";
 
 export const isUjApi = !!getNativeByName("GetUjAPIVersion");
 export const console = new Console();
-
-const handleWrapper = new HandleWrapper();
 
 setToHandleHolder(toHandleHolderSoft);
 

@@ -9,12 +9,10 @@ export type UnitEvent = HandleHolder<"unitevent">;
 export type Trigger = HandleHolder<"trigger">;
 export type TriggerAction = HandleHolder<"triggeraction">;
 export type Event = HandleHolder<"event">;
-export type UnitState = HandleHolder<"unitstate">
-export type Location = HandleHolder<"location">
+export type UnitState = HandleHolder<"unitstate">;
+export type Location = HandleHolder<"location">;
 
 export type Code = () => number | void;
-
-const ConvertUnitEvent = getNativeByName<UnitEvent, [number]>("ConvertUnitEvent", false, true);
 
 export const CreateTrigger = getNativeByName<Trigger, []>("CreateTrigger", false, true);
 export const GetTriggeringTrigger = getNativeByName<Trigger, []>("GetTriggeringTrigger", false, true);

@@ -1,0 +1,11 @@
+{
+    "rules": {
+        "semi": "error",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unsafe-declaration-merging": "off",
+        "matching-export-to-class-name": "error"
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "extends": ["plugin:@typescript-eslint/eslint-recommended", "plugin:@typescript-eslint/recommended"]
+}

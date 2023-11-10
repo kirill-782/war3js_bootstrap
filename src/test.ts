@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { getNativeByName } from "@war3js/unsafe";
 import { Player, Unit } from "./index.js";
-import { TriggerUnitEvent } from "./triggerEvents/unit/Event.js";
+import { UnitEvent } from "./triggerEvents/unit/UnitEvent.js";
 
 const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");
 
@@ -13,4 +15,4 @@ u.addListener("selected", (event) => {
 });
 
 u.emit("damaged");
-u.emit("selected", new TriggerUnitEvent<"selected">("selected"));
+u.emit("selected", new UnitEvent<"selected">("selected"));

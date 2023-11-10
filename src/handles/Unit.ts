@@ -1,38 +1,37 @@
-import TypedEmitter, { EventMap } from "typed-emitter";
 import { Widget, WidgetEventMap } from "./Widget.js";
 
 import { getNativeByName } from "@war3js/unsafe";
 import { Player } from "./Player.js";
-import { EventEmitterHook, OnEmitterAddListener } from "../utils/EventEmitterHook.js";
+import { EventEmitterHook } from "../utils/EventEmitterHook.js";
 import { UnitEventType, unitEmiter } from "../services/emitters/UnitEmiter.js";
-import { TriggerUnitEvent } from "../triggerEvents/unit/Event.js";
-import { TriggerUnitEventDeath } from "../triggerEvents/unit/EventDeath.js";
-import { TriggerUnitEventDetected } from "../triggerEvents/unit/EventDetected.js";
-import { TriggerUnitEventStateLimit } from "../triggerEvents/unit/EventStateLimit.js";
-import { TriggerUnitEventAcquiredTarget } from "../triggerEvents/unit/EventAcquiredTarget.js";
-import { TriggerUnitEventTargetInRange } from "../triggerEvents/unit/EventTargetInRange.js";
-import { TriggerUnitEventAttacked } from "../triggerEvents/unit/EventAttacked.js";
-import { TriggerUnitEventRescued } from "../triggerEvents/unit/EventRescued.js";
-import { TriggerUnitEventConstructFinish } from "../triggerEvents/unit/EventConstructFinish.js";
-import { TriggerUnitEventTrainStart } from "../triggerEvents/unit/EventTrainStart.js";
-import { TriggerUnitEventTrainCancel } from "../triggerEvents/unit/EventTrainCancel.js";
-import { TriggerUnitEventTrainFinish } from "../triggerEvents/unit/EventTrainFinish.js";
-import { TriggerUnitEventResearchStart } from "../triggerEvents/unit/EventResearchStart.js";
-import { TriggerUnitEventResearchCancel } from "../triggerEvents/unit/EventResearchCancel.js";
-import { TriggerUnitEventResearchFinish } from "../triggerEvents/unit/EventResearchFinish.js";
-import { TriggerUnitEventIssuedOrder } from "../triggerEvents/unit/EventIssuedOrder.js";
-import { TriggerUnitEventIssuedPointOrder } from "../triggerEvents/unit/EventIssuedPointOrder.js";
-import { TriggerUnitEventIssuedTargetOrder } from "../triggerEvents/unit/EventIssuedTargetOrder.js";
-import { TriggerUnitEvenHeroSkill } from "../triggerEvents/unit/EventHeroSkill.js";
-import { TriggerUnitEventHeroRevivable } from "../triggerEvents/unit/EventHeroRevivable.js";
-import { TriggerUnitEventHeroReviveStart } from "../triggerEvents/unit/EventHeroReviveStart.js";
-import { TriggerUnitEventHeroReviveCancel } from "../triggerEvents/unit/EventHeroReviveCancel.js";
-import { TriggerUnitEventHeroReviveFinish } from "../triggerEvents/unit/EventHeroReviveFinish.js";
-import { TriggerUnitEventSummon } from "../triggerEvents/unit/EventSummon.js";
-import { TriggerUnitEventDropItem } from "../triggerEvents/unit/EventDropItem.js";
-import { TriggerUnitEventPickupItem } from "../triggerEvents/unit/EventPickupItem.js";
-import { TriggerUnitEventUseItem } from "../triggerEvents/unit/EventUseItem.js";
-import { TriggerUnitEventLoaded } from "../triggerEvents/unit/EventLoaded.js";
+import { UnitEvent } from "../triggerEvents/unit/UnitEvent.js";
+import { UnitEventDeath } from "../triggerEvents/unit/UnitEventDeath.js";
+import { UnitEventDetected } from "../triggerEvents/unit/UnitEventDetected.js";
+import { UnitEventStateLimit } from "../triggerEvents/unit/UnitEventStateLimit.js";
+import { UnitEventAcquiredTarget } from "../triggerEvents/unit/UnitEventAcquiredTarget.js";
+import { UnitEventTargetInRange } from "../triggerEvents/unit/UnitEventTargetInRange.js";
+import { UnitEventAttacked } from "../triggerEvents/unit/UnitEventAttacked.js";
+import { UnitEventRescued } from "../triggerEvents/unit/UnitEventRescued.js";
+import { UnitEventConstructFinish } from "../triggerEvents/unit/UnitEventConstructFinish.js";
+import { UnitEventTrainStart } from "../triggerEvents/unit/UnitEventTrainStart.js";
+import { UnitEventTrainCancel } from "../triggerEvents/unit/UnitEventTrainCancel.js";
+import { UnitEventTrainFinish } from "../triggerEvents/unit/UnitEventTrainFinish.js";
+import { UnitEventResearchStart } from "../triggerEvents/unit/UnitEventResearchStart.js";
+import { UnitEventResearchCancel } from "../triggerEvents/unit/UnitEventResearchCancel.js";
+import { UnitEventResearchFinish } from "../triggerEvents/unit/UnitEventResearchFinish.js";
+import { UnitEventIssuedOrder } from "../triggerEvents/unit/UnitEventIssuedOrder.js";
+import { UnitEventIssuedPointOrder } from "../triggerEvents/unit/UnitEventIssuedPointOrder.js";
+import { UnitEventIssuedTargetOrder } from "../triggerEvents/unit/UnitEventIssuedTargetOrder.js";
+import { UnitEventHeroSkill } from "../triggerEvents/unit/UnitEventHeroSkill.js";
+import { UnitEventHeroRevivable } from "../triggerEvents/unit/UnitEventHeroRevivable.js";
+import { UnitEventHeroReviveStart } from "../triggerEvents/unit/UnitEventHeroReviveStart.js";
+import { UnitEventHeroReviveCancel } from "../triggerEvents/unit/UnitEventHeroReviveCancel.js";
+import { UnitEventHeroReviveFinish } from "../triggerEvents/unit/UnitEventHeroReviveFinish.js";
+import { UnitEventSummon } from "../triggerEvents/unit/UnitEventSummon.js";
+import { UnitEventDropItem } from "../triggerEvents/unit/UnitEventDropItem.js";
+import { UnitEventPickupItem } from "../triggerEvents/unit/UnitEventPickupItem.js";
+import { UnitEventUseItem } from "../triggerEvents/unit/UnitEventUseItem.js";
+import { UnitEventLoaded } from "../triggerEvents/unit/UnitEventLoaded.js";
 
 const CreateUnit = getNativeByName<HandleHolder<"unit">, [HandleHolder<"player">, number, number, number, number]>(
     "CreateUnit",
@@ -41,46 +40,46 @@ const CreateUnit = getNativeByName<HandleHolder<"unit">, [HandleHolder<"player">
 );
 
 export interface UnitEventMap extends WidgetEventMap {
-    selected: (event: TriggerUnitEvent<"selected">) => void;
-    deselected: (event: TriggerUnitEvent<"deselected">) => void;
-    damaged: () => void; // TODO: add event arg when TriggerUnitEventDamaged will be done
-    damaging: () => void; // TODO: add event arg when TriggerUnitEventDamaging will be done
-    death: (event: TriggerUnitEventDeath) => void;
-    decay: (event: TriggerUnitEvent<"decay">) => void;
-    detected: (event: TriggerUnitEventDetected) => void;
-    hidden: (event: TriggerUnitEvent<"hidden">) => void;
-    stateLimit: (event: TriggerUnitEventStateLimit) => void;
-    acquiredTarget: (event: TriggerUnitEventAcquiredTarget) => void;
-    targetInRange: (event: TriggerUnitEventTargetInRange) => void;
-    attacked: (event: TriggerUnitEventAttacked) => void;
-    rescued: (event: TriggerUnitEventRescued) => void;
-    constructCancel: (event: TriggerUnitEvent<"constructCancel">) => void;
-    constructFinish: (event: TriggerUnitEventConstructFinish) => void;
-    upgradeStart: (event: TriggerUnitEvent<"upgradeStart">) => void;
-    upgradeCancel: (event: TriggerUnitEvent<"upgradeCancel">) => void;
-    upgradeFinish: (event: TriggerUnitEvent<"upgradeFinish">) => void;
-    trainStart: (event: TriggerUnitEventTrainStart) => void;
-    trainCancel: (event: TriggerUnitEventTrainCancel) => void;
-    trainFinish: (event: TriggerUnitEventTrainFinish) => void;
-    researchStart: (event: TriggerUnitEventResearchStart) => void;
-    researchCancel: (event: TriggerUnitEventResearchCancel) => void;
-    researchFinish: (event: TriggerUnitEventResearchFinish) => void;
-    issuedOrder: (event: TriggerUnitEventIssuedOrder) => void;
-    issuedPointOrder: (event: TriggerUnitEventIssuedPointOrder) => void;
-    issuedTargetOrder: (event: TriggerUnitEventIssuedTargetOrder) => void;
-    heroLevel: (event: TriggerUnitEvent<"heroLevel">) => void;
-    heroSkill: (event: TriggerUnitEvenHeroSkill) => void;
-    heroRevivable: (event: TriggerUnitEventHeroRevivable) => void;
-    heroReviveStart: (event: TriggerUnitEventHeroReviveStart) => void;
-    heroReviveCancel: (event: TriggerUnitEventHeroReviveCancel) => void;
-    heroReviveFinish: (event: TriggerUnitEventHeroReviveFinish) => void;
-    summon: (event: TriggerUnitEventSummon) => void;
-    dropItem: (event: TriggerUnitEventDropItem) => void;
-    pickupItem: (event: TriggerUnitEventPickupItem) => void;
-    useItem: (event: TriggerUnitEventUseItem) => void;
-    loaded: (event: TriggerUnitEventLoaded) => void;
-    attackFinished: (event: TriggerUnitEvent<"attackFinished">) => void;
-    decayFinished: (event: TriggerUnitEvent<"decayFinished">) => void;
+    selected: (event: UnitEvent<"selected">) => void;
+    deselected: (event: UnitEvent<"deselected">) => void;
+    damaged: () => void; // TODO: add event arg when UnitEventDamaged will be done
+    damaging: () => void; // TODO: add event arg when UnitEventDamaging will be done
+    death: (event: UnitEventDeath) => void;
+    decay: (event: UnitEvent<"decay">) => void;
+    detected: (event: UnitEventDetected) => void;
+    hidden: (event: UnitEvent<"hidden">) => void;
+    stateLimit: (event: UnitEventStateLimit) => void;
+    acquiredTarget: (event: UnitEventAcquiredTarget) => void;
+    targetInRange: (event: UnitEventTargetInRange) => void;
+    attacked: (event: UnitEventAttacked) => void;
+    rescued: (event: UnitEventRescued) => void;
+    constructCancel: (event: UnitEvent<"constructCancel">) => void;
+    constructFinish: (event: UnitEventConstructFinish) => void;
+    upgradeStart: (event: UnitEvent<"upgradeStart">) => void;
+    upgradeCancel: (event: UnitEvent<"upgradeCancel">) => void;
+    upgradeFinish: (event: UnitEvent<"upgradeFinish">) => void;
+    trainStart: (event: UnitEventTrainStart) => void;
+    trainCancel: (event: UnitEventTrainCancel) => void;
+    trainFinish: (event: UnitEventTrainFinish) => void;
+    researchStart: (event: UnitEventResearchStart) => void;
+    researchCancel: (event: UnitEventResearchCancel) => void;
+    researchFinish: (event: UnitEventResearchFinish) => void;
+    issuedOrder: (event: UnitEventIssuedOrder) => void;
+    issuedPointOrder: (event: UnitEventIssuedPointOrder) => void;
+    issuedTargetOrder: (event: UnitEventIssuedTargetOrder) => void;
+    heroLevel: (event: UnitEvent<"heroLevel">) => void;
+    heroSkill: (event: UnitEventHeroSkill) => void;
+    heroRevivable: (event: UnitEventHeroRevivable) => void;
+    heroReviveStart: (event: UnitEventHeroReviveStart) => void;
+    heroReviveCancel: (event: UnitEventHeroReviveCancel) => void;
+    heroReviveFinish: (event: UnitEventHeroReviveFinish) => void;
+    summon: (event: UnitEventSummon) => void;
+    dropItem: (event: UnitEventDropItem) => void;
+    pickupItem: (event: UnitEventPickupItem) => void;
+    useItem: (event: UnitEventUseItem) => void;
+    loaded: (event: UnitEventLoaded) => void;
+    attackFinished: (event: UnitEvent<"attackFinished">) => void;
+    decayFinished: (event: UnitEvent<"decayFinished">) => void;
 }
 
 export interface Unit {
@@ -102,6 +101,7 @@ export class Unit<T extends UnitEventMap = UnitEventMap> extends Widget<T> {
         EventEmitterHook.hookAddListener(Unit);
     }
 
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     public onEmitterAddListener(event: UnitEventType | number | symbol, listener: (...args: any[]) => void) {
         if (unitEmiter.isSupport(event) && typeof event === "string") {
             unitEmiter.subscribe(event, this);

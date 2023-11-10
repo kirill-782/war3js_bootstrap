@@ -1,5 +1,4 @@
 import { EventMap, EventEmitter } from "@war3js/events";
-import { getNativeByName } from "@war3js/unsafe";
 
 export type HandleConstructor<T extends string = string, H extends Handle = Handle> = new (
     handle: HandleHolder<T>

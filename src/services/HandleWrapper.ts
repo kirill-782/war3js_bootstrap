@@ -16,6 +16,8 @@ export class HandleWrapper {
         nativeEvents.addListener("newHandle", this.onNewHandle);
     }
 
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+
     public onNewHandle = (handle: HandleHolder<string>, constructorNative: string) => {
         if (handle.type === fakeHandleType) {
             handle.payload = handle;

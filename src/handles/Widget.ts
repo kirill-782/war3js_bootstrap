@@ -1,5 +1,4 @@
 import { Handle, HandleEventMap } from "./Handle.js";
-import { Unit } from "./Unit.js";
 
 export interface WidgetEventMap extends HandleEventMap {
     death: (event: any) => void;
