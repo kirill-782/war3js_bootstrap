@@ -4,9 +4,10 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "package": "esbuild ./src/index.ts --bundle --outfile=bootstrap/out.js --format=esm  --external:unsafe --target=es6 --alias:@war3js/unsafe=unsafe",
-        "start": "ts-node-esm ./src/test.ts",
-        "typesgen": "tsc && dts-bundle-generator -o bootstrap/out.d.ts  --export-referenced-types dist/types/index.d.ts --external-inlines=@war3js/events --external-imports=@war3js/unsafe --inline-declare-global=true"
+        "package": "eslint && esbuild ./src/index.ts --bundle --outfile=bootstrap/out.js --format=esm  --external:unsafe --target=es6 --alias:@war3js/unsafe=unsafe",
+        "start": "ts-node-esm ./src/test.ts", 
+        "lint": "eslint ./src/ --ext .ts --rulesdir ./eslint/rules/",
+        "typesgen": "eslint && tsc && dts-bundle-generator -o bootstrap/out.d.ts  --export-referenced-types dist/types/index.d.ts --external-inlines=@war3js/events --external-imports=@war3js/unsafe --inline-declare-global=true"
     },
     "type": "module",
     "author": "",
