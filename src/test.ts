@@ -14,5 +14,12 @@ u.addListener("selected", (event) => {
     console.log(event);
 });
 
+u.addListener("acquiredTarget", () => {
+
+});
+
+
+
+
 u.emit("damaged");
 u.emit("selected", new UnitEvent<"selected">("selected"));
