@@ -8,7 +8,8 @@
         "start": "ts-node-esm ./src/test.ts",
         "lint": "eslint ./src/ --ext .ts --rulesdir ./eslint/rules/",
         "typesgen": "tsc && dts-bundle-generator -o bootstrap/out.d.ts  --export-referenced-types dist/types/index.d.ts --external-inlines=@war3js/events --external-imports=@war3js/unsafe --inline-declare-global=true",
-        "test": "npm run lint && npm run package && npm run typesgen"
+        "test": "npm run lint && npm run package && npm run typesgen",
+        "prepare": "husky install"
     },
     "type": "module",
     "author": "",
@@ -26,6 +27,7 @@
         "dts-bundle-generator": "^8.1.1",
         "esbuild": "^0.19.4",
         "eslint": "^8.53.0",
+        "husky": "^8.0.3",
         "prettier": "3.0.3",
         "ts-node": "^10.9.1",
         "typed-emitter": "^2.1.0",
