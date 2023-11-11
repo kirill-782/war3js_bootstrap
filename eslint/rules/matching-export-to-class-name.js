@@ -18,6 +18,7 @@ module.exports = {
             namedExportMissmatchName:
                 "Named export name does not match file name. Excepted {{ fileName }} got {{ className }}",
         },
+        fixable: "code",
     },
     create(context) {
         if (!isNeedCheck(path.relative(context.getCwd(), context.filename))) return {};
@@ -30,6 +31,9 @@ module.exports = {
             context.report({
                 node: defaultExportNodes[0],
                 messageId: "avoidDefaultExport",
+                fix(fixer) {
+                    return fixer.remove(defaultExportNodes[0]);
+                },
             });
         }
 
@@ -54,12 +58,18 @@ module.exports = {
                         fileName,
                         className,
                     },
+                    fix(fixer) {
+                        return fixer.replaceText(namedExportNodes[0].declaration.id, fileName);
+                    },
                 });
         } else if (namedExportNodes.length > 1) {
             namedExportNodes.forEach((i) => {
                 context.report({
                     node: i,
                     messageId: "allowSingleNamedExport",
+                    fix(fixer) {
+                        return fixer.remove(i);
+                    },
                 });
             });
         }
