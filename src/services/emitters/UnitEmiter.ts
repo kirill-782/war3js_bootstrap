@@ -36,49 +36,9 @@ import { UnitEventPickupItem } from "../../triggerEvents/unit/UnitEventPickupIte
 import { UnitEventUseItem } from "../../triggerEvents/unit/UnitEventUseItem.js";
 import { UnitEventLoaded } from "../../triggerEvents/unit/UnitEventLoaded.js";
 
-export type UnitEventType =
-    | "damaged"
-    | "damaging"
-    | "selected"
-    | "deselected"
-    | "death"
-    | "decay"
-    | "detected"
-    | "hidden"
-    | "stateLimit"
-    | "acquiredTarget"
-    | "targetInRange"
-    | "attacked"
-    | "rescued"
-    | "constructCancel"
-    | "constructFinish"
-    | "upgradeStart"
-    | "upgradeCancel"
-    | "upgradeFinish"
-    | "trainStart"
-    | "trainCancel"
-    | "trainFinish"
-    | "researchStart"
-    | "researchCancel"
-    | "researchFinish"
-    | "issuedOrder"
-    | "issuedPointOrder"
-    | "issuedTargetOrder"
-    | "heroLevel"
-    | "heroSkill"
-    | "heroRevivable"
-    | "heroReviveStart"
-    | "heroReviveCancel"
-    | "heroReviveFinish"
-    | "summon"
-    | "dropItem"
-    | "pickupItem"
-    | "useItem"
-    | "loaded"
-    | "attackFinished"
-    | "decayFinished";
+export type UnitEventType = keyof typeof stringToHandle;
 
-const stringToHandle: Record<string, HandleHolder<"unitevent">> = {
+const stringToHandle = {
     damaged: UnitEvents.EVENT_UNIT_DAMAGED,
     damaging: UnitEvents.EVENT_UNIT_DAMAGING,
     selected: UnitEvents.EVENT_UNIT_SELECTED,
@@ -125,6 +85,113 @@ type UnitTriggerInfo = {
     [key: string]: Trigger;
 };
 
+const dispatchUnitEvent = (unit: Unit, eventType: string) => {
+    switch (eventType) {
+        case "selected":
+        case "deselected":
+        case "decay":
+        case "hidden":
+        case "constructCancel":
+        case "upgradeStart":
+        case "upgradeFinish":
+        case "upgradeCancel":
+        case "heroLevel":
+        case "attackFinished":
+        case "decayFinished":
+            unit.emit(eventType, new UnitEvent(eventType));
+            break;
+        case "damaged":
+            unit.emit("damaged"); // TODO: add event arg when UnitEventDamaged will be done
+            break;
+        case "damaging":
+            unit.emit("damaging"); // TODO: add event arg when UnitEventDamaging will be done
+            break;
+        case "death":
+            unit.emit("death", new UnitEventDeath());
+            break;
+        case "acquiredTarget":
+            unit.emit("acquiredTarget", new UnitEventAcquiredTarget());
+            break;
+        case "attacked":
+            unit.emit("attacked", new UnitEventAttacked());
+            break;
+        case "constructFinish":
+            unit.emit("constructFinish", new UnitEventConstructFinish());
+            break;
+        case "detected":
+            unit.emit("detected", new UnitEventDetected());
+            break;
+        case "stateLimit":
+            unit.emit("stateLimit", new UnitEventStateLimit());
+            break;
+        case "targetInRange":
+            unit.emit("targetInRange", new UnitEventTargetInRange());
+            break;
+        case "rescued":
+            unit.emit("rescued", new UnitEventRescued());
+            break;
+        case "trainStart":
+            unit.emit("trainStart", new UnitEventTrainStart());
+            break;
+        case "trainCancel":
+            unit.emit("trainCancel", new UnitEventTrainCancel());
+            break;
+        case "trainFinish":
+            unit.emit("trainFinish", new UnitEventTrainFinish());
+            break;
+        case "researchStart":
+            unit.emit("researchStart", new UnitEventResearchStart());
+            break;
+        case "researchCancel":
+            unit.emit("researchCancel", new UnitEventResearchCancel());
+            break;
+        case "researchFinish":
+            unit.emit("researchFinish", new UnitEventResearchFinish());
+            break;
+        case "issuedOrder":
+            unit.emit("issuedOrder", new UnitEventIssuedOrder());
+            break;
+        case "issuedPointOrder":
+            unit.emit("issuedPointOrder", new UnitEventIssuedPointOrder());
+            break;
+        case "issuedTargetOrder":
+            unit.emit("issuedTargetOrder", new UnitEventIssuedTargetOrder());
+            break;
+        case "heroSkill":
+            unit.emit("heroSkill", new UnitEventHeroSkill());
+            break;
+        case "heroRevivable":
+            unit.emit("heroRevivable", new UnitEventHeroRevivable());
+            break;
+        case "heroReviveStart":
+            unit.emit("heroReviveStart", new UnitEventHeroReviveStart());
+            break;
+        case "heroReviveCancel":
+            unit.emit("heroReviveCancel", new UnitEventHeroReviveCancel());
+            break;
+        case "heroReviveFinish":
+            unit.emit("heroReviveFinish", new UnitEventHeroReviveFinish());
+            break;
+        case "summon":
+            unit.emit("summon", new UnitEventSummon());
+            break;
+        case "dropItem":
+            unit.emit("dropItem", new UnitEventDropItem());
+            break;
+        case "pickupItem":
+            unit.emit("pickupItem", new UnitEventPickupItem());
+            break;
+        case "useItem":
+            unit.emit("useItem", new UnitEventUseItem());
+            break;
+        case "loaded":
+            unit.emit("loaded", new UnitEventLoaded());
+            break;
+        default:
+            throw new TypeError(`Unexpected eventType: ${eventType}`);
+    }
+};
+
 export class UnitEmiter {
     private unitToTriggerMap: Map<Unit, UnitTriggerInfo>;
 
@@ -133,8 +200,7 @@ export class UnitEmiter {
     }
 
     public isSupport(eventType: string | number | symbol): boolean {
-        if (typeof eventType === "symbol") return false;
-        return stringToHandle[eventType] !== null;
+        return eventType in stringToHandle;
     }
 
     public subscribe(eventType: UnitEventType, unit: Unit): void {
@@ -147,110 +213,7 @@ export class UnitEmiter {
 
         TriggerRegisterUnitEvent(newTrigger, unit.handle, stringToHandle[eventType]);
         TriggerAddAction(newTrigger, () => {
-            switch (eventType) {
-                case "selected":
-                case "deselected":
-                case "decay":
-                case "hidden":
-                case "constructCancel":
-                case "upgradeStart":
-                case "upgradeFinish":
-                case "upgradeCancel":
-                case "heroLevel":
-                case "attackFinished":
-                case "decayFinished":
-                    unit.emit(eventType, new UnitEvent(eventType));
-                    break;
-                case "damaged":
-                    unit.emit("damaged"); // TODO: add event arg when UnitEventDamaged will be done
-                    break;
-                case "damaging":
-                    unit.emit("damaging"); // TODO: add event arg when UnitEventDamaging will be done
-                    break;
-                case "death":
-                    unit.emit("death", new UnitEventDeath());
-                    break;
-                case "acquiredTarget":
-                    unit.emit("acquiredTarget", new UnitEventAcquiredTarget());
-                    break;
-                case "attacked":
-                    unit.emit("attacked", new UnitEventAttacked());
-                    break;
-                case "constructFinish":
-                    unit.emit("constructFinish", new UnitEventConstructFinish());
-                    break;
-                case "detected":
-                    unit.emit("detected", new UnitEventDetected());
-                    break;
-                case "stateLimit":
-                    unit.emit("stateLimit", new UnitEventStateLimit());
-                    break;
-                case "targetInRange":
-                    unit.emit("targetInRange", new UnitEventTargetInRange());
-                    break;
-                case "rescued":
-                    unit.emit("rescued", new UnitEventRescued());
-                    break;
-                case "trainStart":
-                    unit.emit("trainStart", new UnitEventTrainStart());
-                    break;
-                case "trainCancel":
-                    unit.emit("trainCancel", new UnitEventTrainCancel());
-                    break;
-                case "trainFinish":
-                    unit.emit("trainFinish", new UnitEventTrainFinish());
-                    break;
-                case "researchStart":
-                    unit.emit("researchStart", new UnitEventResearchStart());
-                    break;
-                case "researchCancel":
-                    unit.emit("researchCancel", new UnitEventResearchCancel());
-                    break;
-                case "researchFinish":
-                    unit.emit("researchFinish", new UnitEventResearchFinish());
-                    break;
-                case "issuedOrder":
-                    unit.emit("issuedOrder", new UnitEventIssuedOrder());
-                    break;
-                case "issuedPointOrder":
-                    unit.emit("issuedPointOrder", new UnitEventIssuedPointOrder());
-                    break;
-                case "issuedTargetOrder":
-                    unit.emit("issuedTargetOrder", new UnitEventIssuedTargetOrder());
-                    break;
-                case "heroSkill":
-                    unit.emit("heroSkill", new UnitEventHeroSkill());
-                    break;
-                case "heroRevivable":
-                    unit.emit("heroRevivable", new UnitEventHeroRevivable());
-                    break;
-                case "heroReviveStart":
-                    unit.emit("heroReviveStart", new UnitEventHeroReviveStart());
-                    break;
-                case "heroReviveCancel":
-                    unit.emit("heroReviveCancel", new UnitEventHeroReviveCancel());
-                    break;
-                case "heroReviveFinish":
-                    unit.emit("heroReviveFinish", new UnitEventHeroReviveFinish());
-                    break;
-                case "summon":
-                    unit.emit("summon", new UnitEventSummon());
-                    break;
-                case "dropItem":
-                    unit.emit("dropItem", new UnitEventDropItem());
-                    break;
-                case "pickupItem":
-                    unit.emit("pickupItem", new UnitEventPickupItem());
-                    break;
-                case "useItem":
-                    unit.emit("useItem", new UnitEventUseItem());
-                    break;
-                case "loaded":
-                    unit.emit("loaded", new UnitEventLoaded());
-                    break;
-                default:
-                    throw new TypeError(`Unexpected eventType: ${eventType}`);
-            }
+            dispatchUnitEvent(unit, eventType);
         });
 
         registerUnitEvents[eventType] = newTrigger;

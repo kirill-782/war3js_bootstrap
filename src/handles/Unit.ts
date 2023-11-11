@@ -33,8 +33,33 @@ import { UnitEventPickupItem } from "../triggerEvents/unit/UnitEventPickupItem.j
 import { UnitEventUseItem } from "../triggerEvents/unit/UnitEventUseItem.js";
 import { UnitEventLoaded } from "../triggerEvents/unit/UnitEventLoaded.js";
 
+const eventUnitEmiter = unitEmiter;
+
 const CreateUnit = getNativeByName<HandleHolder<"unit">, [HandleHolder<"player">, number, number, number, number]>(
     "CreateUnit",
+    false,
+    true,
+);
+
+const CreateCorpse = getNativeByName<HandleHolder<"unit">, [HandleHolder<"player">, number, number, number, number]>(
+    "CreateCorpse",
+    false,
+    true,
+);
+
+const CreateBuildingEx = getNativeByName<
+    HandleHolder<"unit">,
+    [HandleHolder<"player">, number, number, number, number, boolean, boolean]
+>("CreateBuildingEx", false, true);
+
+const CreateIllusion = getNativeByName<HandleHolder<"unit">, [HandleHolder<"player">, number, number, number, number]>(
+    "CreateIllusion",
+    false,
+    true,
+);
+
+const CreateIllusionFromUnitEx = getNativeByName<HandleHolder<"unit">, [HandleHolder<"unit">, boolean]>(
+    "CreateIllusionFromUnitEx",
     false,
     true,
 );
@@ -86,14 +111,48 @@ export interface Unit {
     get handle(): HandleHolder<"unit">;
 }
 
+export type UnitOptions =
+    | {
+          type: "building";
+          isAutoBuild?: boolean;
+          workersCanAssist?: boolean;
+      }
+    | {
+          type: "illusion";
+      }
+    | {
+          type: "corpse";
+      };
+
+export type UnitIllusionOptions = {
+    copyPassives: boolean;
+};
+
 export class Unit<T extends UnitEventMap = UnitEventMap> extends Widget<T> {
     constructor(unitHandle: HandleHolder<"unit">);
     constructor(unitobject: Unit);
     constructor(unitobject: Player, unitId: number, x: number, y: number, facing: number);
-    constructor(arg: Unit | Player | HandleHolder<"unit">, unitId?: number, x?: number, y?: number, facing?: number) {
+    constructor(
+        arg: Unit | Player | HandleHolder<"unit">,
+        unitId?: number,
+        x?: number,
+        y?: number,
+        facing?: number,
+        options?: UnitOptions,
+    ) {
         if (arg instanceof Unit || arg instanceof HandleHolder) super(arg);
         else if (arg instanceof Player) {
-            super(CreateUnit(arg.handle, unitId, x, y, facing));
+            if (!options) {
+                super(CreateUnit(arg.handle, unitId, x, y, facing));
+            } else if (options.type === "corpse") {
+                super(CreateCorpse(arg.handle, unitId, x, y, facing));
+            } else if (options.type === "building") {
+                super(
+                    CreateBuildingEx(arg.handle, unitId, x, y, facing, options.isAutoBuild, options.workersCanAssist),
+                );
+            } else if (options.type === "illusion") {
+                super(CreateIllusion(arg.handle, unitId, x, y, facing));
+            }
         } else {
             throw new TypeError("Unknown first arg");
         }
@@ -101,10 +160,16 @@ export class Unit<T extends UnitEventMap = UnitEventMap> extends Widget<T> {
         EventEmitterHook.hookAddListener(Unit);
     }
 
+    public static createIllusionFromUnit(unit: Unit, options?: UnitIllusionOptions) {
+        const handleHolder = CreateIllusionFromUnitEx(unit.handle, options?.copyPassives);
+
+        return new Unit(handleHolder);
+    }
+
     /* eslint-disable @typescript-eslint/no-unused-vars */
     public onEmitterAddListener(event: UnitEventType | number | symbol, listener: (...args: any[]) => void) {
-        if (unitEmiter.isSupport(event) && typeof event === "string") {
-            unitEmiter.subscribe(event, this);
+        if (eventUnitEmiter.isSupport(event) && typeof event === "string") {
+            eventUnitEmiter.subscribe(event, this);
         }
     }
 }
