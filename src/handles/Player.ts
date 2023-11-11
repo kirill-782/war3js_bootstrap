@@ -6,15 +6,9 @@ const GetLocalPlayer = getNativeByName<HandleHolder<"player">, []>("GetLocalPlay
 
 export interface PlayerEventMap extends HandleEventMap {}
 
-
-
-
 export interface Player {
     get handle(): HandleHolder<"player">;
 }
-
-
-
 
 export class Player<T extends PlayerEventMap = PlayerEventMap> extends Handle<T> {
     public constructor(handleHolder: HandleHolder<"player">);
