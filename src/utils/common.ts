@@ -55,7 +55,7 @@ export const GetTransportUnit = getNativeByName<Unit, []>("GetTransportUnit");
 export const TriggerRegisterUnitEvent = getNativeByName<Event, [Trigger, HandleHolder<"unit">, UnitEvent]>(
     "TriggerRegisterUnitEvent",
     false,
-    true
+    true,
 );
 export const TriggerAddAction = getNativeByName<TriggerAction, [Trigger, Code]>("TriggerAddAction", false, true);
 

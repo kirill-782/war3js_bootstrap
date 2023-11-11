@@ -4,27 +4,29 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "package": "eslint && esbuild ./src/index.ts --bundle --outfile=bootstrap/out.js --format=esm  --external:unsafe --target=es6 --alias:@war3js/unsafe=unsafe",
-        "start": "ts-node-esm ./src/test.ts", 
+        "package": "esbuild ./src/index.ts --bundle --outfile=bootstrap/out.js --format=esm  --external:unsafe --target=es6 --alias:@war3js/unsafe=unsafe",
+        "start": "ts-node-esm ./src/test.ts",
         "lint": "eslint ./src/ --ext .ts --rulesdir ./eslint/rules/",
-        "typesgen": "eslint && tsc && dts-bundle-generator -o bootstrap/out.d.ts  --export-referenced-types dist/types/index.d.ts --external-inlines=@war3js/events --external-imports=@war3js/unsafe --inline-declare-global=true"
+        "typesgen": "tsc && dts-bundle-generator -o bootstrap/out.d.ts  --export-referenced-types dist/types/index.d.ts --external-inlines=@war3js/events --external-imports=@war3js/unsafe --inline-declare-global=true",
+        "test": "npm run lint && npm run package && npm run typesgen"
     },
     "type": "module",
     "author": "",
     "license": "MIT",
     "dependencies": {
         "@war3js/events": "^3.3.2",
-        "@war3js/text-decoding-types": "^0.0.9999",
-        "@war3js/unsafe": "file:../unsafe",
         "jass-to-ast": "^2.0.2",
         "text-decoding": "^1.0.0"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^6.10.0",
         "@typescript-eslint/parser": "^6.10.0",
+        "@war3js/text-decoding-types": "^0.0.9999",
+        "@war3js/unsafe": "file:../unsafe",
         "dts-bundle-generator": "^8.1.1",
         "esbuild": "^0.19.4",
         "eslint": "^8.53.0",
+        "prettier": "3.0.3",
         "ts-node": "^10.9.1",
         "typed-emitter": "^2.1.0",
         "typescript": "^5.2.2"

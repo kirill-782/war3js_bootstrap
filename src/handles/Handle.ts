@@ -1,7 +1,7 @@
 import { EventMap, EventEmitter } from "@war3js/events";
 
 export type HandleConstructor<T extends string = string, H extends Handle = Handle> = new (
-    handle: HandleHolder<T>
+    handle: HandleHolder<T>,
 ) => H;
 
 export interface HandleEventMap extends EventMap {

@@ -1,5 +1,10 @@
 {
     "eslint.options": {
         "rulePaths": ["./eslint/rules/"]
-    }
+    },
+    "files.eol": "\n",
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.preferences.importModuleSpecifierEnding": "js",
+    "javascript.preferences.importModuleSpecifier": "relative",
+    "javascript.preferences.importModuleSpecifierEnding": "js"
 }

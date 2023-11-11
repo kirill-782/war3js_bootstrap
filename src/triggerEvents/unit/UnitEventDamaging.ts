@@ -1,1 +1,1 @@
-/* eslint matching-export-to-class-name: 0 */
+/* eslint matching-export-value-to-file-name: 0 */

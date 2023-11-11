@@ -3,7 +3,8 @@
         "semi": "error",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-unsafe-declaration-merging": "off",
-        "matching-export-to-class-name": "error"
+        "matching-export-value-to-file-name": "error",
+        "eqeqeq": "error"
     },
     "parser": "@typescript-eslint/parser",
     "plugins": ["@typescript-eslint"],

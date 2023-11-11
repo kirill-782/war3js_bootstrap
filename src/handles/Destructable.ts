@@ -6,7 +6,7 @@ export interface DestructableEventMap extends WidgetEventMap {}
 const CreateDestructable = getNativeByName<HandleHolder<"item">, [number, number, number, number, number, number]>(
     "CreateDestructable",
     false,
-    true
+    true,
 );
 
 export class Destructable<T extends DestructableEventMap = DestructableEventMap> extends Widget<T> {
@@ -19,7 +19,7 @@ export class Destructable<T extends DestructableEventMap = DestructableEventMap>
         y?: number,
         face?: number,
         scale?: number,
-        variation?: number
+        variation?: number,
     ) {
         if (arg instanceof Destructable || arg instanceof HandleHolder) super(arg);
         else if (typeof arg === "number") {

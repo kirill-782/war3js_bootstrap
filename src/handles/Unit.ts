@@ -36,7 +36,7 @@ import { UnitEventLoaded } from "../triggerEvents/unit/UnitEventLoaded.js";
 const CreateUnit = getNativeByName<HandleHolder<"unit">, [HandleHolder<"player">, number, number, number, number]>(
     "CreateUnit",
     false,
-    true
+    true,
 );
 
 export interface UnitEventMap extends WidgetEventMap {
