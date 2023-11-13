@@ -1,8 +1,8 @@
 import { Unit } from "../../handles/Unit.js";
 import { GetEventTargetUnit } from "../../utils/common.js";
-import { UnitEvent } from "./UnitEvent.js";
+import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 
-export class UnitEventAcquiredTarget extends UnitEvent<"acquiredTarget"> {
+export class UnitEventAcquiredTarget extends TriggerUnitEvent<"acquiredTarget"> {
     readonly target: Unit;
     constructor() {
         super("acquiredTarget");

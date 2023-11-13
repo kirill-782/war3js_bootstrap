@@ -1,7 +1,7 @@
 import { GetIssuedOrderId } from "../../utils/common.js";
-import { UnitEvent } from "./UnitEvent.js";
+import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 
-export class UnitEventIssuedOrder extends UnitEvent<"issuedOrder"> {
+export class UnitEventIssuedOrder extends TriggerUnitEvent<"issuedOrder"> {
     readonly issuedOrderId: number;
     constructor() {
         super("issuedOrder");

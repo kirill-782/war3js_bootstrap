@@ -1,8 +1,8 @@
 import { Unit } from "../../handles/Unit.js";
 import { GetKillingUnit } from "../../utils/common.js";
-import { UnitEvent } from "./UnitEvent.js";
+import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 
-export class UnitEventDeath extends UnitEvent<"death"> {
+export class UnitEventDeath extends TriggerUnitEvent<"death"> {
     readonly killingUnit: Unit;
     constructor() {
         super("death");

@@ -1,8 +1,8 @@
 import { Unit } from "../../handles/Unit.js";
 import { GetRevivingUnit } from "../../utils/common.js";
-import { UnitEvent } from "./UnitEvent.js";
+import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 
-export class UnitEventHeroReviveCancel extends UnitEvent<"heroReviveCancel"> {
+export class UnitEventHeroReviveCancel extends TriggerUnitEvent<"heroReviveCancel"> {
     readonly revivingUnit: Unit;
     constructor() {
         super("heroReviveCancel");

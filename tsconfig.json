@@ -1,24 +1,20 @@
 {
-  "compilerOptions": {
-    "module": "ES6",
-    "target": "es2017",
-    "moduleResolution": "node",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "outDir": "dist/lib",
-    "declaration": true,
-    "esModuleInterop": true,
-    "declarationDir": "dist/types",
-    "baseUrl": "./src",
-    "types": [
-      "@war3js/text-decoding-types"
-    ],
-    "paths": {
-      "unsafe": ["@war3js/unsafe"]
-    }
-  },
-  "include": ["src/**/*"],
-  "exclude": ["web-api"]
+    "compilerOptions": {
+        "module": "ES6",
+        "target": "es2017",
+        "lib": ["ES2017"],
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "outDir": "build/tsc/lib",
+        "declaration": true,
+        "esModuleInterop": true,
+        "declarationDir": "build/tsc/types",
+        "baseUrl": "./src",
+        "types": ["@war3js/text-decoding-types", "@types/node"]
+    },
+    "include": ["src/**/*", "src/typesAppener"],
+    "exclude": ["web-api", "../typesAppenderConfig.d.ts"]
 }

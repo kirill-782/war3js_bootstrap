@@ -2,14 +2,15 @@
 
 import { getNativeByName } from "@war3js/unsafe";
 import { Player, Unit } from "./index.js";
-import { UnitEvent } from "./triggerEvents/unit/UnitEvent.js";
+import { TriggerUnitEvent } from "./triggerEvents/unit/TriggerUnitEvent.js";
+import { isNode } from "./utils/runtime.js";
 
 const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");
 
+console.log(isNode);
+
 const u = new Unit(Player.getById(0), 0, 0, 0, 0);
 console.log(u);
-
-console.assert();
 
 u.addListener("damaged", () => {});
 u.addListener("selected", (event) => {
@@ -19,4 +20,4 @@ u.addListener("selected", (event) => {
 u.addListener("acquiredTarget", () => {});
 
 u.emit("damaged");
-u.emit("selected", new UnitEvent<"selected">("selected"));
+u.emit("selected", new TriggerUnitEvent<"selected">("selected"));

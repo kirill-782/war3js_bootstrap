@@ -1,7 +1,7 @@
 import { GetLearnedSkill, GetLearnedSkillLevel } from "../../utils/common.js";
-import { UnitEvent } from "./UnitEvent.js";
+import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 
-export class UnitEventHeroSkill extends UnitEvent<"heroSkill"> {
+export class UnitEventHeroSkill extends TriggerUnitEvent<"heroSkill"> {
     readonly learnedSkill: number;
     readonly learnedSkillLevel: number;
     constructor() {

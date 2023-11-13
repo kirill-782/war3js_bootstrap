@@ -27,6 +27,9 @@ export { TextDecoder, TextEncoder } from "text-decoding";
 export * from "./handles/Widget.js";
 export * from "./handles/Unit.js";
 export * from "./handles/Player.js";
+export * from "./handles/Handle.js";
+
+export { JassCodeCallback } from "./utils/common.js";
 
 // -- ONLY FOR dts-bundle
 

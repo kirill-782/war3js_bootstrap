@@ -7,7 +7,7 @@ import {
     TriggerRegisterUnitEvent,
     UnitEvents,
 } from "../../utils/common.js";
-import { UnitEvent } from "../../triggerEvents/unit/UnitEvent.js";
+import { TriggerUnitEvent } from "../../triggerEvents/unit/TriggerUnitEvent.js";
 import { UnitEventDeath } from "../../triggerEvents/unit/UnitEventDeath.js";
 import { UnitEventAcquiredTarget } from "../../triggerEvents/unit/UnitEventAcquiredTarget.js";
 import { UnitEventAttacked } from "../../triggerEvents/unit/UnitEventAttacked.js";
@@ -98,7 +98,7 @@ const dispatchUnitEvent = (unit: Unit, eventType: string) => {
         case "heroLevel":
         case "attackFinished":
         case "decayFinished":
-            unit.emit(eventType, new UnitEvent(eventType));
+            unit.emit(eventType, new TriggerUnitEvent(eventType));
             break;
         case "damaged":
             unit.emit("damaged"); // TODO: add event arg when UnitEventDamaged will be done

@@ -3,23 +3,24 @@
     "version": "0.0.1",
     "description": "",
     "main": "index.js",
+    "types": "build/bootstrap.d.ts",
     "scripts": {
-        "package": "esbuild ./src/index.ts --bundle --outfile=bootstrap/out.js --format=esm  --external:unsafe --target=es6 --alias:@war3js/unsafe=unsafe",
+        "package": "esbuild ./src/index.ts --bundle --outfile=build/esbuild/bootstrap.js --format=esm  --external:unsafe --target=es2017 --alias:@war3js/unsafe=unsafe",
         "start": "ts-node-esm ./src/test.ts",
         "lint": "eslint ./src/ --ext .ts --rulesdir ./eslint/rules/",
-        "typesgen": "tsc && dts-bundle-generator -o bootstrap/out.d.ts  --export-referenced-types dist/types/index.d.ts --external-inlines=@war3js/events --external-imports=@war3js/unsafe --inline-declare-global=true",
-        "test": "npm run lint && npm run package && npm run typesgen",
-        "prepare": "husky install"
+        "typesgen": "tsc && dts-bundle-generator -o build/dts-bundle/out.d.ts --export-referenced-types build/tsc/types/index.d.ts --external-inlines=@war3js/events --external-imports=@war3js/unsafe --inline-declare-global=true",
+        "test": "npm run lint && npm run package && npm run typesgen"
     },
     "type": "module",
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "@war3js/events": "^3.3.2",
+        "@war3js/events": "^3.3.3",
         "jass-to-ast": "^2.0.2",
         "text-decoding": "^1.0.0"
     },
     "devDependencies": {
+        "@types/node": "^20.9.0",
         "@typescript-eslint/eslint-plugin": "^6.10.0",
         "@typescript-eslint/parser": "^6.10.0",
         "@war3js/text-decoding-types": "^0.0.9999",
@@ -28,8 +29,10 @@
         "esbuild": "^0.19.4",
         "eslint": "^8.53.0",
         "prettier": "3.0.3",
+        "ts-morph": "^20.0.0",
         "ts-node": "^10.9.1",
         "typed-emitter": "^2.1.0",
+        "typedoc": "^0.25.3",
         "typescript": "^5.2.2"
     }
 }

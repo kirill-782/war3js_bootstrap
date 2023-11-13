@@ -1,7 +1,7 @@
 import { GetEventUnitState, UnitState } from "../../utils/common.js";
-import { UnitEvent } from "./UnitEvent.js";
+import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 
-export class UnitEventStateLimit extends UnitEvent<"stateLimit"> {
+export class UnitEventStateLimit extends TriggerUnitEvent<"stateLimit"> {
     readonly eventUnitState: UnitState;
     constructor() {
         super("stateLimit");

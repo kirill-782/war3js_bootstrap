@@ -1,8 +1,8 @@
 import { Unit } from "../../handles/Unit.js";
 import { GetConstructedStructure } from "../../utils/common.js";
-import { UnitEvent } from "./UnitEvent.js";
+import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 
-export class UnitEventConstructFinish extends UnitEvent<"constructFinish"> {
+export class UnitEventConstructFinish extends TriggerUnitEvent<"constructFinish"> {
     readonly constructedStructure: Unit;
     constructor() {
         super("constructFinish");

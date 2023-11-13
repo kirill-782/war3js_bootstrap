@@ -1,7 +1,7 @@
 import { GetTrainedUnitType } from "../../utils/common.js";
-import { UnitEvent } from "./UnitEvent.js";
+import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 
-export class UnitEventTrainCancel extends UnitEvent<"trainCancel"> {
+export class UnitEventTrainCancel extends TriggerUnitEvent<"trainCancel"> {
     readonly trainedUnitType: number;
     constructor() {
         super("trainCancel");

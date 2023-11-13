@@ -1,7 +1,7 @@
 import { GetIssuedOrderId, GetOrderPointX, GetOrderPointLoc, GetOrderPointY, Location } from "../../utils/common.js";
-import { UnitEvent } from "./UnitEvent.js";
+import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 
-export class UnitEventIssuedPointOrder extends UnitEvent<"issuedPointOrder"> {
+export class UnitEventIssuedPointOrder extends TriggerUnitEvent<"issuedPointOrder"> {
     readonly issuedOrderId: number;
     readonly orderPointX: number;
     readonly orderPointY: number;

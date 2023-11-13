@@ -1,7 +1,7 @@
 import { GetResearched } from "../../utils/common.js";
-import { UnitEvent } from "./UnitEvent.js";
+import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 
-export class UnitEventResearchStart extends UnitEvent<"researchStart"> {
+export class UnitEventResearchStart extends TriggerUnitEvent<"researchStart"> {
     readonly researched: number;
     constructor() {
         super("researchStart");

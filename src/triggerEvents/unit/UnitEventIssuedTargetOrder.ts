@@ -9,9 +9,9 @@ import {
     GetOrderTargetItem,
     GetOrderTargetUnit,
 } from "../../utils/common.js";
-import { UnitEvent } from "./UnitEvent.js";
+import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 
-export class UnitEventIssuedTargetOrder extends UnitEvent<"issuedTargetOrder"> {
+export class UnitEventIssuedTargetOrder extends TriggerUnitEvent<"issuedTargetOrder"> {
     readonly issuedOrderId: number;
     readonly orderTarget: Widget;
     readonly orderTargetDestructable: Destructable;

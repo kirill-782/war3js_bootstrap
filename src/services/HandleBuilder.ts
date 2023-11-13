@@ -2,11 +2,26 @@ import { getNativeByName, getListNatives } from "@war3js/unsafe";
 import { Handle } from "../handles/Handle.js";
 import { toHandleHolderSoft } from "../utils/ToHandleHolder.js";
 import { fromHandleHolderSoft } from "../utils/FromHandleHolder.js";
+import { isNode } from "../utils/runtime.js";
 
 type NativeFunctionType<R, A extends any[]> = ReturnType<typeof getNativeByName<R, A>>;
 type AbstractNative = NativeFunctionType<any, any[]>;
 
-type HandleConstructor = new (...args: any) => Handle;
+type HandleConstructor = {
+    new (...args: any): Handle;
+};
+
+export type AutoMappedMethodMetadata =
+    | {
+          methodType: "method";
+          argTypes: string[];
+          argNames: string[];
+          returnType: string;
+      }
+    | {
+          methodType: "chainProperty";
+          type: string;
+      };
 
 interface NativeMeta {
     native: AbstractNative;
@@ -22,6 +37,7 @@ interface ChainPropertyNativeMeta {
     getterNative: AbstractNative;
     setterNative: AbstractNative;
     name: string;
+    argumentType: string;
 }
 
 const typeNameToTypePart = (typeName: string) => {
@@ -30,6 +46,17 @@ const typeNameToTypePart = (typeName: string) => {
 
 const toHandleHolderArgs = (args: any[]) => {
     return args.map((i) => toHandleHolderSoft(i));
+};
+
+const typeGenMetaSymbol = Symbol("typeGenMeta");
+const typeGenNeedAssist = isNode;
+
+export const isClassHasModified = (value: any): boolean => {
+    return !!value[typeGenMetaSymbol];
+};
+
+export const getMethodMeta = (value: any): AutoMappedMethodMetadata => {
+    return value[typeGenMetaSymbol];
 };
 
 export class HandleBuilder {
@@ -52,6 +79,10 @@ export class HandleBuilder {
     }
 
     public addMethods(target: HandleConstructor, handleType: string) {
+        if (typeGenNeedAssist) {
+            (target as any)[typeGenMetaSymbol] = true;
+        }
+
         const typePart = typeNameToTypePart(handleType);
 
         const methodNatives = Object.entries(this.unusedNatives).filter((i) => {
@@ -75,10 +106,25 @@ export class HandleBuilder {
 
                 return fromHandleHolderSoft(method.callNative(this.handle, ...toHandleHolderArgs(args)));
             };
+
+            if (typeGenNeedAssist) {
+                const methodMeta: AutoMappedMethodMetadata = {
+                    methodType: "method",
+                    argTypes: [...method.callNative.parametres].splice(1),
+                    argNames: [],
+                    returnType: method.callNative.returnType,
+                };
+
+                target.prototype[method.name][typeGenMetaSymbol] = methodMeta;
+            }
         });
     }
 
     public addChainProperties(target: HandleConstructor, handleType: string) {
+        if (typeGenNeedAssist) {
+            (target as any)[typeGenMetaSymbol] = true;
+        }
+
         const typePart = typeNameToTypePart(handleType);
 
         const properties = new Array<ChainPropertyNativeMeta>();
@@ -126,6 +172,7 @@ export class HandleBuilder {
                 getterNative: native,
                 setterNative: setterNative[1].native,
                 name: nativeName.charAt(0).toLocaleLowerCase() + nativeName.substring(1),
+                argumentType: native.returnType,
             });
 
             return true;
@@ -151,6 +198,15 @@ export class HandleBuilder {
 
                 return this;
             };
+
+            if (typeGenNeedAssist) {
+                const methodMeta: AutoMappedMethodMetadata = {
+                    methodType: "chainProperty",
+                    type: property.argumentType,
+                };
+
+                target.prototype[property.name][typeGenMetaSymbol] = methodMeta;
+            }
         });
 
         this.markNativesAsUsed(getNatives.map((i) => i[0]));

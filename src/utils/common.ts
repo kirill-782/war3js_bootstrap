@@ -12,7 +12,7 @@ export type Event = HandleHolder<"event">;
 export type UnitState = HandleHolder<"unitstate">;
 export type Location = HandleHolder<"location">;
 
-export type Code = () => number | void;
+export type JassCodeCallback = () => number | void;
 
 export const CreateTrigger = getNativeByName<Trigger, []>("CreateTrigger", false, true);
 export const GetTriggeringTrigger = getNativeByName<Trigger, []>("GetTriggeringTrigger", false, true);
@@ -57,7 +57,11 @@ export const TriggerRegisterUnitEvent = getNativeByName<Event, [Trigger, HandleH
     false,
     true,
 );
-export const TriggerAddAction = getNativeByName<TriggerAction, [Trigger, Code]>("TriggerAddAction", false, true);
+export const TriggerAddAction = getNativeByName<TriggerAction, [Trigger, JassCodeCallback]>(
+    "TriggerAddAction",
+    false,
+    true,
+);
 
 getGlobal<Record<string, UnitEvent>>("EVENT_UNIT_DAMAGED");
 

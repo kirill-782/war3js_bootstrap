@@ -1,8 +1,8 @@
 import { Unit } from "../../handles/Unit.js";
 import { GetTransportUnit } from "../../utils/common.js";
-import { UnitEvent } from "./UnitEvent.js";
+import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 
-export class UnitEventLoaded extends UnitEvent<"loaded"> {
+export class UnitEventLoaded extends TriggerUnitEvent<"loaded"> {
     readonly transport: Unit;
     constructor() {
         super("loaded");

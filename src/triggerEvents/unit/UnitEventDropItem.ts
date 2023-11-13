@@ -1,8 +1,8 @@
 import { Item } from "../../handles/Item.js";
 import { GetManipulatedItem } from "../../utils/common.js";
-import { UnitEvent } from "./UnitEvent.js";
+import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 
-export class UnitEventDropItem extends UnitEvent<"dropItem"> {
+export class UnitEventDropItem extends TriggerUnitEvent<"dropItem"> {
     readonly droppedItem: Item;
     constructor() {
         super("dropItem");

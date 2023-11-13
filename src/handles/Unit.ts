@@ -4,7 +4,7 @@ import { getNativeByName } from "@war3js/unsafe";
 import { Player } from "./Player.js";
 import { EventEmitterHook } from "../utils/EventEmitterHook.js";
 import { UnitEventType, unitEmiter } from "../services/emitters/UnitEmiter.js";
-import { UnitEvent } from "../triggerEvents/unit/UnitEvent.js";
+import { TriggerUnitEvent } from "../triggerEvents/unit/TriggerUnitEvent.js";
 import { UnitEventDeath } from "../triggerEvents/unit/UnitEventDeath.js";
 import { UnitEventDetected } from "../triggerEvents/unit/UnitEventDetected.js";
 import { UnitEventStateLimit } from "../triggerEvents/unit/UnitEventStateLimit.js";
@@ -65,24 +65,24 @@ const CreateIllusionFromUnitEx = getNativeByName<HandleHolder<"unit">, [HandleHo
 );
 
 export interface UnitEventMap extends WidgetEventMap {
-    selected: (event: UnitEvent<"selected">) => void;
-    deselected: (event: UnitEvent<"deselected">) => void;
+    selected: (event: TriggerUnitEvent<"selected">) => void;
+    deselected: (event: TriggerUnitEvent<"deselected">) => void;
     damaged: () => void; // TODO: add event arg when UnitEventDamaged will be done
     damaging: () => void; // TODO: add event arg when UnitEventDamaging will be done
     death: (event: UnitEventDeath) => void;
-    decay: (event: UnitEvent<"decay">) => void;
+    decay: (event: TriggerUnitEvent<"decay">) => void;
     detected: (event: UnitEventDetected) => void;
-    hidden: (event: UnitEvent<"hidden">) => void;
+    hidden: (event: TriggerUnitEvent<"hidden">) => void;
     stateLimit: (event: UnitEventStateLimit) => void;
     acquiredTarget: (event: UnitEventAcquiredTarget) => void;
     targetInRange: (event: UnitEventTargetInRange) => void;
     attacked: (event: UnitEventAttacked) => void;
     rescued: (event: UnitEventRescued) => void;
-    constructCancel: (event: UnitEvent<"constructCancel">) => void;
+    constructCancel: (event: TriggerUnitEvent<"constructCancel">) => void;
     constructFinish: (event: UnitEventConstructFinish) => void;
-    upgradeStart: (event: UnitEvent<"upgradeStart">) => void;
-    upgradeCancel: (event: UnitEvent<"upgradeCancel">) => void;
-    upgradeFinish: (event: UnitEvent<"upgradeFinish">) => void;
+    upgradeStart: (event: TriggerUnitEvent<"upgradeStart">) => void;
+    upgradeCancel: (event: TriggerUnitEvent<"upgradeCancel">) => void;
+    upgradeFinish: (event: TriggerUnitEvent<"upgradeFinish">) => void;
     trainStart: (event: UnitEventTrainStart) => void;
     trainCancel: (event: UnitEventTrainCancel) => void;
     trainFinish: (event: UnitEventTrainFinish) => void;
@@ -92,7 +92,7 @@ export interface UnitEventMap extends WidgetEventMap {
     issuedOrder: (event: UnitEventIssuedOrder) => void;
     issuedPointOrder: (event: UnitEventIssuedPointOrder) => void;
     issuedTargetOrder: (event: UnitEventIssuedTargetOrder) => void;
-    heroLevel: (event: UnitEvent<"heroLevel">) => void;
+    heroLevel: (event: TriggerUnitEvent<"heroLevel">) => void;
     heroSkill: (event: UnitEventHeroSkill) => void;
     heroRevivable: (event: UnitEventHeroRevivable) => void;
     heroReviveStart: (event: UnitEventHeroReviveStart) => void;
@@ -103,8 +103,8 @@ export interface UnitEventMap extends WidgetEventMap {
     pickupItem: (event: UnitEventPickupItem) => void;
     useItem: (event: UnitEventUseItem) => void;
     loaded: (event: UnitEventLoaded) => void;
-    attackFinished: (event: UnitEvent<"attackFinished">) => void;
-    decayFinished: (event: UnitEvent<"decayFinished">) => void;
+    attackFinished: (event: TriggerUnitEvent<"attackFinished">) => void;
+    decayFinished: (event: TriggerUnitEvent<"decayFinished">) => void;
 }
 
 export interface Unit {
