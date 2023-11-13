@@ -5,7 +5,7 @@
         "lib": ["ES2017"],
         "moduleResolution": "node",
         "noImplicitAny": true,
-        "removeComments": true,
+        "removeComments": false,
         "preserveConstEnums": true,
         "sourceMap": true,
         "outDir": "build/tsc/lib",
@@ -15,6 +15,6 @@
         "baseUrl": "./src",
         "types": ["@war3js/text-decoding-types", "@types/node"]
     },
-    "include": ["src/**/*", "src/typesAppener"],
-    "exclude": ["web-api", "../typesAppenderConfig.d.ts"]
+    "include": ["src/**/*"],
+    "exclude": ["../typesAppenderConfig.d.ts"]
 }

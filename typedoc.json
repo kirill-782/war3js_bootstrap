@@ -1,0 +1,5 @@
+{
+    "entryPoints": ["./build/fullTypes/bootstrap.d.ts", "./build/fullTypes/natives.d.ts"],
+    "out": "./build/doc",
+    "tsconfig": "./build/fullTypes/tsconfig.json"
+}
