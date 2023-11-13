@@ -1,8 +1,5 @@
-import { getNativeByName } from "@war3js/unsafe";
+import { PlayerNative, GetLocalPlayer } from "../utils/common.js";
 import { Handle, HandleEventMap } from "./Handle.js";
-
-const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");
-const GetLocalPlayer = getNativeByName<HandleHolder<"player">, []>("GetLocalPlayer");
 
 export interface PlayerEventMap extends HandleEventMap {}
 

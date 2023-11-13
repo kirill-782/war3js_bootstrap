@@ -1,6 +1,6 @@
 import { Unit } from "../../handles/Unit.js";
 import {
-    CreateTrigger,
+    CreateTriggerNe,
     DestroyTrigger,
     Trigger,
     TriggerAddAction,
@@ -209,7 +209,7 @@ export class UnitEmiter {
         const registerUnitEvents = this.unitToTriggerMap.get(unit) || {};
         if (registerUnitEvents[eventType]) return;
 
-        const newTrigger = CreateTrigger();
+        const newTrigger = CreateTriggerNe();
 
         TriggerRegisterUnitEvent(newTrigger, unit.handle, stringToHandle[eventType]);
         TriggerAddAction(newTrigger, () => {

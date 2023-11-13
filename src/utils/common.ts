@@ -14,14 +14,50 @@ export type Location = HandleHolder<"location">;
 
 export type JassCodeCallback = () => number | void;
 
-export const CreateTrigger = getNativeByName<Trigger, []>("CreateTrigger", false, true);
-export const GetTriggeringTrigger = getNativeByName<Trigger, []>("GetTriggeringTrigger", false, true);
+export const CreateDestructableNe = getNativeByName<
+    HandleHolder<"item">,
+    [number, number, number, number, number, number]
+>("CreateDestructable", false, true);
 
-export const DestroyTrigger = getNativeByName<void, [Trigger]>("DestroyTrigger", false, true);
-export const ResetTrigger = getNativeByName<void, [Trigger]>("ResetTrigger", false, true);
-export const EnableTrigger = getNativeByName<void, [Trigger]>("EnableTrigger", false, true);
-export const DisableTrigger = getNativeByName<void, [Trigger]>("DisableTrigger", false, true);
-export const IsTriggerEnabled = getNativeByName<boolean, []>("IsTriggerEnabled", false, true);
+export const CreateItemNe = getNativeByName<HandleHolder<"item">, [number, number, number]>("CreateItem", false, true);
+
+export const CreateTriggerNe = getNativeByName<Trigger, []>("CreateTrigger", false, true);
+export const GetTriggeringTriggerNe = getNativeByName<Trigger, []>("GetTriggeringTrigger", false, true);
+
+export const CreateUnitNe = getNativeByName<
+    HandleHolder<"unit">,
+    [HandleHolder<"player">, number, number, number, number]
+>("CreateUnit", false, true);
+
+export const CreateCorpseNe = getNativeByName<
+    HandleHolder<"unit">,
+    [HandleHolder<"player">, number, number, number, number]
+>("CreateCorpse", false, true);
+
+export const CreateBuildingExNe = getNativeByName<
+    HandleHolder<"unit">,
+    [HandleHolder<"player">, number, number, number, number, boolean, boolean]
+>("CreateBuildingEx", false, true);
+
+export const CreateIllusionNe = getNativeByName<
+    HandleHolder<"unit">,
+    [HandleHolder<"player">, number, number, number, number]
+>("CreateIllusion", false, true);
+
+export const CreateIllusionFromUnitExNe = getNativeByName<HandleHolder<"unit">, [HandleHolder<"unit">, boolean]>(
+    "CreateIllusionFromUnitEx",
+    false,
+    true,
+);
+
+export const DestroyTrigger = getNativeByName<void, [Trigger]>("DestroyTrigger");
+export const ResetTrigger = getNativeByName<void, [Trigger]>("ResetTrigger");
+export const EnableTrigger = getNativeByName<void, [Trigger]>("EnableTrigger");
+export const DisableTrigger = getNativeByName<void, [Trigger]>("DisableTrigger");
+export const IsTriggerEnabled = getNativeByName<boolean, []>("IsTriggerEnabled");
+
+export const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");
+export const GetLocalPlayer = getNativeByName<HandleHolder<"player">, []>("GetLocalPlayer");
 
 export const GetTriggerUnit = getNativeByName<Unit, []>("GetTriggerUnit");
 export const GetEventDamage = getNativeByName<number, []>("GetEventDamage");

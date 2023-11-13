@@ -1,13 +1,7 @@
-import { getNativeByName } from "@war3js/unsafe";
+import { CreateDestructableNe } from "../utils/common.js";
 import { Widget, WidgetEventMap } from "./Widget.js";
 
 export interface DestructableEventMap extends WidgetEventMap {}
-
-const CreateDestructable = getNativeByName<HandleHolder<"item">, [number, number, number, number, number, number]>(
-    "CreateDestructable",
-    false,
-    true,
-);
 
 export class Destructable<T extends DestructableEventMap = DestructableEventMap> extends Widget<T> {
     constructor(destructableHandle: HandleHolder<"item">);
@@ -23,7 +17,7 @@ export class Destructable<T extends DestructableEventMap = DestructableEventMap>
     ) {
         if (arg instanceof Destructable || arg instanceof HandleHolder) super(arg);
         else if (typeof arg === "number") {
-            super(CreateDestructable(arg, x, y, face, scale, variation));
+            super(CreateDestructableNe(arg, x, y, face, scale, variation));
         } else {
             throw new TypeError("Unknown first arg");
         }

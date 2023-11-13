@@ -1,6 +1,5 @@
 import { Widget, WidgetEventMap } from "./Widget.js";
 
-import { getNativeByName } from "@war3js/unsafe";
 import { Player } from "./Player.js";
 import { EventEmitterHook } from "../utils/EventEmitterHook.js";
 import { UnitEventType, unitEmiter } from "../services/emitters/UnitEmiter.js";
@@ -32,37 +31,15 @@ import { UnitEventDropItem } from "../triggerEvents/unit/UnitEventDropItem.js";
 import { UnitEventPickupItem } from "../triggerEvents/unit/UnitEventPickupItem.js";
 import { UnitEventUseItem } from "../triggerEvents/unit/UnitEventUseItem.js";
 import { UnitEventLoaded } from "../triggerEvents/unit/UnitEventLoaded.js";
+import {
+    CreateUnitNe,
+    CreateCorpseNe,
+    CreateBuildingExNe,
+    CreateIllusionNe,
+    CreateIllusionFromUnitExNe,
+} from "../utils/common.js";
 
 const eventUnitEmiter = unitEmiter;
-
-const CreateUnit = getNativeByName<HandleHolder<"unit">, [HandleHolder<"player">, number, number, number, number]>(
-    "CreateUnit",
-    false,
-    true,
-);
-
-const CreateCorpse = getNativeByName<HandleHolder<"unit">, [HandleHolder<"player">, number, number, number, number]>(
-    "CreateCorpse",
-    false,
-    true,
-);
-
-const CreateBuildingEx = getNativeByName<
-    HandleHolder<"unit">,
-    [HandleHolder<"player">, number, number, number, number, boolean, boolean]
->("CreateBuildingEx", false, true);
-
-const CreateIllusion = getNativeByName<HandleHolder<"unit">, [HandleHolder<"player">, number, number, number, number]>(
-    "CreateIllusion",
-    false,
-    true,
-);
-
-const CreateIllusionFromUnitEx = getNativeByName<HandleHolder<"unit">, [HandleHolder<"unit">, boolean]>(
-    "CreateIllusionFromUnitEx",
-    false,
-    true,
-);
 
 export interface UnitEventMap extends WidgetEventMap {
     selected: (event: TriggerUnitEvent<"selected">) => void;
@@ -143,15 +120,15 @@ export class Unit<T extends UnitEventMap = UnitEventMap> extends Widget<T> {
         if (arg instanceof Unit || arg instanceof HandleHolder) super(arg);
         else if (arg instanceof Player) {
             if (!options) {
-                super(CreateUnit(arg.handle, unitId, x, y, facing));
+                super(CreateUnitNe(arg.handle, unitId, x, y, facing));
             } else if (options.type === "corpse") {
-                super(CreateCorpse(arg.handle, unitId, x, y, facing));
+                super(CreateCorpseNe(arg.handle, unitId, x, y, facing));
             } else if (options.type === "building") {
                 super(
-                    CreateBuildingEx(arg.handle, unitId, x, y, facing, options.isAutoBuild, options.workersCanAssist),
+                    CreateBuildingExNe(arg.handle, unitId, x, y, facing, options.isAutoBuild, options.workersCanAssist),
                 );
             } else if (options.type === "illusion") {
-                super(CreateIllusion(arg.handle, unitId, x, y, facing));
+                super(CreateIllusionNe(arg.handle, unitId, x, y, facing));
             }
         } else {
             throw new TypeError("Unknown first arg");
@@ -161,7 +138,7 @@ export class Unit<T extends UnitEventMap = UnitEventMap> extends Widget<T> {
     }
 
     public static createIllusionFromUnit(unit: Unit, options?: UnitIllusionOptions) {
-        const handleHolder = CreateIllusionFromUnitEx(unit.handle, options?.copyPassives);
+        const handleHolder = CreateIllusionFromUnitExNe(unit.handle, options?.copyPassives);
 
         return new Unit(handleHolder);
     }
