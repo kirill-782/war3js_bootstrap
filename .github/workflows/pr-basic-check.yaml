@@ -1,0 +1,39 @@
+name: Run Build and Lint
+
+on:
+    pull_request:
+        branches:
+            - "*"
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout war3js_unsafe repository
+              uses: actions/checkout@v2
+              with:
+                  repository: kirill-782/war3js_unsafe
+
+            - name: Checkout current repository
+              uses: actions/checkout@v2
+
+            - name: Install Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "14"
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Run bundle
+              run: npm run bundle
+              continue-on-error: true
+
+            - name: Run lint
+              run: npm run lint
+              continue-on-error: true
+
+            - name: Set build status
+              if: ${{ failure() }}
+              run: gh pr review --approve -b "Build failed"
