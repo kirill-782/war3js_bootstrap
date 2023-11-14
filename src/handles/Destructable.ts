@@ -8,17 +8,17 @@ export class Destructable<T extends DestructableEventMap = DestructableEventMap>
     constructor(destructableHandle: Destructable);
     constructor(destructableId: number, x: number, y: number, face: number, scale: number, variation: number);
     constructor(
-        arg: number | Destructable | HandleHolder<"item">,
-        x?: number,
+         arg: number | Destructable | HandleHolder<"item">,
+           x?: number,
         y?: number,
-        face?: number,
-        scale?: number,
-        variation?: number,
+            face?: number,       
+           scale?: number,
+         variation?: number,
     ) {
         if (arg instanceof Destructable || arg instanceof HandleHolder) super(arg);
-        else if (typeof arg === "number") {
+              else if (typeof arg === "number") {
             super(CreateDestructableNe(arg, x, y, face, scale, variation));
-        } else {
+          } else {
             throw new TypeError("Unknown first arg");
         }
     }
