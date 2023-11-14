@@ -1,11 +1,9 @@
-name: Run Build and Lint
+name: Run Lint & Prettier
 
 on:
     pull_request:
         branches:
-            - "*"
-
-    workflow_dispatch:
+            - "main"
 
 jobs:
     build:
@@ -16,26 +14,20 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: "16"
-            
+
             - name: Checkout war3js_unsafe repository
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
               with:
                   repository: kirill-782/war3js_unsafe
 
             - name: Checkout current repository
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Install dependencies
               run: npm install
 
-            - name: Run bundle
-              run: npm run bundle
-              continue-on-error: true
-
             - name: Run lint
               run: npm run lint
-              continue-on-error: true
 
-            - name: Set build status
-              if: ${{ failure() }}
-              run: gh pr review --approve -b "Build failed"
+            - name: Run Prettier
+              run: npx prettier ./src --check
