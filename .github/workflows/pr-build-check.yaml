@@ -16,37 +16,25 @@ jobs:
               with:
                   node-version: "16"
 
-            - name: ls
-              run: ls -la
-
             - name: Checkout war3js_unsafe repository
               uses: actions/checkout@v4
               with:
                   repository: kirill-782/war3js_unsafe
                   path: unsafe
 
-            - name: ls
-              run: ls -la
-
             - name: Checkout current repository
               uses: actions/checkout@v4
               with:
                   path: bootstrap
 
-            - name: ls
-              run: ls -la
-
-            - name: Switch to bootstrap project directory
-              run: cd bootstrap
-
-            - name: ls
-              run: ls -la
-
             - name: Install dependencies
               run: npm install
+              working-directory: ./bootstrap
 
             - name: Bundle js file
               run: npm run bundle
+              working-directory: ./bootstrap
 
             - name: Bundle types
               run: npm run typesgen
+              working-directory: ./bootstrap
