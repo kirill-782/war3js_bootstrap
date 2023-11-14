@@ -105,7 +105,7 @@ export type UnitIllusionOptions = {
     copyPassives: boolean;
 };
 
-export class Unit2<T extends UnitEventMap = UnitEventMap> extends Widget<T> {
+export class Unit<T extends UnitEventMap = UnitEventMap> extends Widget<T> {
     constructor(unitHandle: HandleHolder<"unit">);
     constructor(unitobject: Unit);
     constructor(unitobject: Player, unitId: number, x: number, y: number, facing: number);
