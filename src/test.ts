@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { getNativeByName } from "@war3js/unsafe";
 import { Player, Unit } from "./index.js";
 import { TriggerUnitEvent } from "./triggerEvents/unit/TriggerUnitEvent.js";
 
