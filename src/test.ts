@@ -7,8 +7,6 @@ import { isNode } from "./utils/runtime.js";
 
 const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");
 
-console.log(isNode);
-
 const u = new Unit(Player.getById(0), 0, 0, 0, 0);
 
 u.addListener("damaged", () => {});
