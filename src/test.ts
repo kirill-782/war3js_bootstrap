@@ -10,7 +10,6 @@ const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player")
 console.log(isNode);
 
 const u = new Unit(Player.getById(0), 0, 0, 0, 0);
-console.log(u);
 
 u.addListener("damaged", () => {});
 u.addListener("selected", (event) => {
