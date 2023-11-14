@@ -19,9 +19,15 @@ jobs:
               uses: actions/checkout@v4
               with:
                   repository: kirill-782/war3js_unsafe
+                  path: unsafe
 
             - name: Checkout current repository
               uses: actions/checkout@v4
+              with:
+                  path: bootstrap
+
+            - name: Switch to bootstrap project directory
+              run: cd bootstrap
 
             - name: Install dependencies
               run: npm install
