@@ -37,7 +37,7 @@ export * from "./handles/Handle.js";
 export * from "./handles/Destructable.js";
 export * from "./handles/Item.js";
 
-export { JassCodeCallback } from "./utils/common.js";
+export { Event, JassCodeCallback, Location, Trigger, TriggerAction, UnitEvent, UnitState } from "./utils/common.js";
 
 // -- ONLY FOR dts-bundle
 

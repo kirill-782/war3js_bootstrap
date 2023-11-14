@@ -8,8 +8,8 @@
         "bundle": "esbuild ./src/index.ts --bundle --outfile=build/esbuild/bootstrap.js --format=esm  --external:unsafe --target=es2017 --alias:@war3js/unsafe=unsafe",
         "start": "ts-node-esm ./src/test.ts",
         "lint": "eslint ./src/ --ext .ts --rulesdir ./eslint/rules/",
-        "typesgen": "tsc && dts-bundle-generator -o build/dts-bundle/out.d.ts --export-referenced-types build/tsc/types/index.d.ts --external-inlines=@war3js/events --external-imports=@war3js/unsafe --inline-declare-global=true && ts-node-esm ./src/typesAppener.ts && tsc -p ./build/fullTypes/tsconfig.json",
-        "docgen": "node ./utils/docPrepare.js && typedoc && node ./utils/docEnd.js",
+        "typesgen": "tsc && dts-bundle-generator build/tsc/types/index.d.ts -o build/dts-bundle/out.d.ts --export-referenced-types=false --external-inlines=@war3js/events --external-imports=@war3js/unsafe --inline-declare-global=true && ts-node-esm ./src/typesAppener.ts && node ./utils/tsconfigPrepare.js && tsc -p ./build/fullTypes/tsconfig.json && node ./utils/tsconfigRemove.js",
+        "docgen": "node ./utils/tsconfigPrepare.js && typedoc && node ./utils/tsconfigRemove.js",
         "clean": "node ./utils/clean.js",
         "build": "npm run bundle && npm run typesgen && npm run docgen"
     },
