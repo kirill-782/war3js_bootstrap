@@ -41,6 +41,9 @@ import {
 
 const eventUnitEmiter = unitEmiter;
 
+const stateEvent: unique symbol = Symbol("stateEventSymbol");
+export type StateEventSymbol = typeof stateEvent;
+
 export interface UnitEventMap extends WidgetEventMap {
     selected: (event: TriggerUnitEvent<"selected">) => void;
     deselected: (event: TriggerUnitEvent<"deselected">) => void;
@@ -82,6 +85,7 @@ export interface UnitEventMap extends WidgetEventMap {
     loaded: (event: UnitEventLoaded) => void;
     attackFinished: (event: TriggerUnitEvent<"attackFinished">) => void;
     decayFinished: (event: TriggerUnitEvent<"decayFinished">) => void;
+    [stateEvent]: (event: unknown) => void;
 }
 
 export interface Unit {
