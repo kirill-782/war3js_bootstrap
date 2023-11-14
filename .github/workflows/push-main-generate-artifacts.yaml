@@ -1,9 +1,9 @@
-name: Run Lint & Prettier
+name: Build project check
 
 on:
-    pull_request:
+    push:
         branches:
-            - "main"
+            - main
 
 jobs:
     build:
@@ -37,10 +37,28 @@ jobs:
               run: npm install
               working-directory: ./bootstrap
 
-            - name: Run lint
-              run: npm run lint
+            - name: Bundle js file
+              run: npm run bundle
               working-directory: ./bootstrap
 
-            - name: Run Prettier
-              run: npx prettier ./src --check
+            - name: Bundle types
+              run: npm run typesgen
               working-directory: ./bootstrap
+
+            - name: Upload bootstrap.js
+              uses: actions/upload-artifact@v3
+              with:
+                  name: bootstrap.js
+                  path: ./bootstrap/build/esbuild/bootstrap.js
+
+            - name: Upload natives.d.ts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: natives.js
+                  path: ./bootstrap/build/fullTypes/natives.d.ts
+
+            - name: Upload bootstrap.d.ts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: bootstrap.d.ts
+                  path: ./bootstrap/build/fullTypes/bootstrap.d.ts
