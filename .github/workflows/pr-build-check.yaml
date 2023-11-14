@@ -22,6 +22,10 @@ jobs:
                   repository: kirill-782/war3js_unsafe
                   path: unsafe
 
+            - name: ls
+              run: ls
+              working-directory: ./unsafe
+
             - name: Checkout current repository
               uses: actions/checkout@v4
               with:
