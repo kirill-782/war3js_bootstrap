@@ -10,7 +10,7 @@ declare const __ColnfigOnlyBundlePath = "./build/dts-bundle/out.d.ts";
 declare const __ColnfigOnlyFixedBundleOutPath = "./build/fullTypes/bootstrap.d.ts";
 declare const __ColnfigOnlyNativesOutPath = "./build/fullTypes/natives.d.ts";
 
-interface __ColnfigOnlyTypeToHandle {
+interface __ColnfigOnlyTypeToHandleAss {
     I: number;
     R: number;
     B: boolean;
