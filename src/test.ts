@@ -3,7 +3,6 @@
 import { getNativeByName } from "@war3js/unsafe";
 import { Player, Unit } from "./index.js";
 import { TriggerUnitEvent } from "./triggerEvents/unit/TriggerUnitEvent.js";
-import { isNode } from "./utils/runtime.js";
 
 const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");
 
