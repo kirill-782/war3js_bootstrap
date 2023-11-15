@@ -4,6 +4,7 @@
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-unsafe-declaration-merging": "off",
         "matching-export-value-to-file-name": "error",
+        "bad-unsafe-import": "error",
         "eqeqeq": "error"
     },
     "parser": "@typescript-eslint/parser",
