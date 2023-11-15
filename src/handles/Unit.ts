@@ -6,7 +6,6 @@ import { UnitEventType, unitEmiter } from "../services/emitters/UnitEmiter.js";
 import { TriggerUnitEvent } from "../triggerEvents/unit/TriggerUnitEvent.js";
 import { UnitEventDeath } from "../triggerEvents/unit/UnitEventDeath.js";
 import { UnitEventDetected } from "../triggerEvents/unit/UnitEventDetected.js";
-import { UnitEventStateLimit } from "../triggerEvents/unit/UnitEventStateLimit.js";
 import { UnitEventAcquiredTarget } from "../triggerEvents/unit/UnitEventAcquiredTarget.js";
 import { UnitEventTargetInRange } from "../triggerEvents/unit/UnitEventTargetInRange.js";
 import { UnitEventAttacked } from "../triggerEvents/unit/UnitEventAttacked.js";
@@ -38,7 +37,7 @@ import {
     CreateIllusionNe,
     CreateIllusionFromUnitExNe,
 } from "../utils/common.js";
-import { UnitStateEvent } from "../triggerEvents/unit/UnitStateEvent.js";
+import { UnitEventStateLimit } from "../triggerEvents/unit/UnitEventStateLimit.js";
 import { UnitStateEmiter } from "../services/emitters/UnitStateEmiter.js";
 import { LimitOp, UnitState } from "./../services/emitters/UnitStateEmiter.js";
 
@@ -88,7 +87,7 @@ export interface UnitEventMap extends WidgetEventMap {
     loaded: (event: UnitEventLoaded) => void;
     attackFinished: (event: TriggerUnitEvent<"attackFinished">) => void;
     decayFinished: (event: TriggerUnitEvent<"decayFinished">) => void;
-    [stateEvent]: (event: UnitStateEvent, emiter: UnitStateEmiter) => void;
+    [stateEvent]: (event: UnitEventStateLimit, emiter: UnitStateEmiter) => void;
 }
 
 export interface Unit {

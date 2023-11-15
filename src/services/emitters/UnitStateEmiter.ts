@@ -1,5 +1,5 @@
 import { StateEventSymbol, Unit } from "../../handles/Unit.js";
-import { UnitStateEvent } from "../../triggerEvents/unit/UnitStateEvent.js";
+import { UnitEventStateLimit } from "../../triggerEvents/unit/UnitEventStateLimit.js";
 import {
     CreateTriggerNe,
     Trigger,
@@ -90,7 +90,7 @@ export class UnitStateEmiter implements IDisposable {
 
         TriggerRegisterUnitStateEventNe(this.#trigger, target.handle, unitStateHandle, limitOpHandle, value);
         TriggerAddAction(this.#trigger, () => {
-            if (!target.emit(this.#emitSymbolEvent, new UnitStateEvent(), this)) {
+            if (!target.emit(this.#emitSymbolEvent, new UnitEventStateLimit(), this)) {
                 this.dispose(); // no listeners
             }
         });

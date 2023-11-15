@@ -36,7 +36,7 @@ import { UnitEventPickupItem } from "../../triggerEvents/unit/UnitEventPickupIte
 import { UnitEventUseItem } from "../../triggerEvents/unit/UnitEventUseItem.js";
 import { UnitEventLoaded } from "../../triggerEvents/unit/UnitEventLoaded.js";
 
-export type UnitEventType = keyof typeof stringToHandle | "unitstate";
+export type UnitEventType = keyof typeof stringToHandle;
 
 const stringToHandle = {
     damaged: UnitEvents.EVENT_UNIT_DAMAGED,
