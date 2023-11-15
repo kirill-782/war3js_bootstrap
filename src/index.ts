@@ -42,9 +42,25 @@ export { Event, JassCodeCallback, Location, Trigger, TriggerAction, UnitEvent, U
 // -- ONLY FOR dts-bundle
 
 declare global {
+    /**
+     * A low-level object that replaces the handle type in war3js.
+     * It is not recommended to use it as an object, as some fields may start to be used by the war3js backend.
+     */
     interface HandleHolder<S extends string = string> {
+        /**
+         * Returns jass handle type. For fake handles this is _enum.
+         */
         get type(): S;
+        /**
+         * The library object this handle is bound to
+         */
         payload: any;
+
+        /**
+         * Compares handle's internal pointers as numbers. ``null`` is interpreted as 0
+         * @param handle another handle for compare
+         * @returns true if jass
+         */
         equals: (handle: HandleHolder<string> | null) => boolean;
     }
 }
