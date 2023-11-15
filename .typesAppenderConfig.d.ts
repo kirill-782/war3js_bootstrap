@@ -15,12 +15,13 @@ interface __ColnfigOnlyTypeToHandle {
     R: number;
     B: boolean;
     S: string;
+    V: void;
     C: JassCodeCallback;
 
     handle: Handle;
-    agent: HandleHolder<"agent">
+    agent: HandleHolder<"agent">;
     player: Player;
-    declareestructable: Destructable;
+    destructable: Destructable;
     widget: Widget;
     unit: Unit;
     event: Event;

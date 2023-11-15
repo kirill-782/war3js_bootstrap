@@ -17,10 +17,13 @@ export type AutoMappedMethodMetadata =
           argTypes: string[];
           argNames: string[];
           returnType: string;
+          nativeName: string;
       }
     | {
           methodType: "chainProperty";
           type: string;
+          getNativeName: string;
+          setNativeName: string;
       };
 
 interface NativeMeta {
@@ -110,8 +113,9 @@ export class HandleBuilder {
             if (typeGenNeedAssist) {
                 const methodMeta: AutoMappedMethodMetadata = {
                     methodType: "method",
+                    nativeName: method.callNative.nativeName,
                     argTypes: [...method.callNative.parametres].splice(1),
-                    argNames: [],
+                    argNames: [...method.callNative.parametresName].splice(1),
                     returnType: method.callNative.returnType,
                 };
 
@@ -201,6 +205,8 @@ export class HandleBuilder {
 
             if (typeGenNeedAssist) {
                 const methodMeta: AutoMappedMethodMetadata = {
+                    getNativeName: property.getterNative.nativeName,
+                    setNativeName: property.setterNative.nativeName,
                     methodType: "chainProperty",
                     type: property.argumentType,
                 };

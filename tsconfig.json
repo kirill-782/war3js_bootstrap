@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
         "module": "ES6",
-        "target": "es2017",
-        "lib": ["ES2017"],
+        "target": "es2021",
+        "lib": ["es2021"],
         "moduleResolution": "node",
         "noImplicitAny": true,
         "removeComments": false,

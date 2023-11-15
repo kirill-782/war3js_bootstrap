@@ -16,12 +16,13 @@ import {
     ExportedDeclarations,
     ModuleDeclaration,
     ModuleDeclarationKind,
+    ClassMemberTypes,
 } from "ts-morph";
 import path from "path";
 
 import * as bootstrapExport from "./index.js";
 import { AutoMappedMethodMetadata, getMethodMeta, isClassHasModified } from "./services/HandleBuilder.js";
-import { getListNatives } from "@war3js/unsafe";
+import { getListNatives, __getDatabaseDocKey } from "@war3js/unsafe";
 
 const project = new Project();
 const configSourceFile = project.addSourceFileAtPath("./.typesAppenderConfig.d.ts");
@@ -68,16 +69,6 @@ if (!declareGlobalBlock) {
 }
 
 // Append chain property type
-
-// export type ChainPropertyMethodSign<T, C> = ;
-
-/*
-declareGlobalBlock.addTypeAlias({
-    name: "ChainPropertyMethodSign",
-    type: "(() => T) | ((value: T | ((this: C, currentValue: T) => T)) => void)",
-    typeParameters: ["T,C"],
-});
-*/
 
 moveExportToGlobal(exportedDeclarations, declareGlobalBlock);
 
@@ -133,17 +124,21 @@ Object.entries(nativesList).forEach((entry) => {
     const nativeName = entry[0];
     const nativeFunction = entry[1];
 
-    declareNativesBlock.addFunction({
+    const method = declareNativesBlock.addFunction({
         name: nativeName,
         parameters: nativeFunction.parametres.map((argType, i) => {
             return {
                 type: convertJassTypeToJsType(argType),
-                name: `arg${i + 1}`,
+                name: nativeFunction.parametresName[i],
             };
         }),
 
         returnType: convertJassTypeToJsType(nativeFunction.returnType),
     });
+
+    if (__getDatabaseDocKey(nativeName)) {
+        method.addJsDoc(__getDatabaseDocKey(nativeName).replaceAll("{.lua}", "lua"));
+    }
 });
 
 nativesSourceFile.saveSync();
@@ -187,41 +182,40 @@ function moveExportToGlobal(exportedDeclarations: ExportedDeclarations[], global
 function appendGeneratedClassMethod(declaration: ClassDeclaration, name: string, metadata: AutoMappedMethodMetadata) {
     switch (metadata.methodType) {
         case "method": {
-            declaration.addMember({
+            const method = declaration.addMember({
                 kind: StructureKind.Method,
                 name,
                 scope: Scope.Public,
                 parameters: metadata.argTypes.map((argType, i) => {
                     return {
                         type: convertJassTypeToJsType(argType),
-                        name: `arg${i + 1}`,
+                        name: metadata.argNames[i],
                     };
                 }),
 
                 returnType: convertJassTypeToJsType(metadata.returnType),
-            });
+            }) as ClassMemberTypes;
+
+            method.addJsDoc(`
+            Class member alias for {@link natives.${metadata.nativeName} | ${metadata.nativeName}}
+            `);
 
             break;
         }
         case "chainProperty": {
-            /*
-            declaration.addMember({
-                kind: StructureKind.Property,
-                name,
-                scope: Scope.Public,
-                type: `ChainPropertyMethodSign<${convertJassTypeToJsType(metadata.type)}, this>`,
-            });
-            */
-
             // Getter
-            declaration.addMember({
+            const method = declaration.addMember({
                 kind: StructureKind.Method,
                 name,
                 scope: Scope.Public,
                 parameters: [],
 
                 returnType: convertJassTypeToJsType(metadata.type),
-            });
+            }) as ClassMemberTypes;
+
+            method.addJsDoc(`
+            Class chain property alias for {@link natives.${metadata.getNativeName} | ${metadata.getNativeName}} and {@link natives.${metadata.setNativeName} | ${metadata.setNativeName}}
+            `);
 
             //Setter
             declaration.addMember({
