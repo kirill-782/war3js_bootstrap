@@ -6,6 +6,7 @@ import { Destructable } from "../handles/Destructable.js";
 import { Item } from "../handles/Item.js";
 
 export type UnitEvent = HandleHolder<"unitevent">;
+export type LimitOp = HandleHolder<"limitop">;
 export type Trigger = HandleHolder<"trigger">;
 export type TriggerAction = HandleHolder<"triggeraction">;
 export type Event = HandleHolder<"event">;
@@ -88,18 +89,38 @@ export const GetSummonedUnit = getNativeByName<Unit, []>("GetSummonedUnit");
 export const GetManipulatedItem = getNativeByName<Item, []>("GetManipulatedItem");
 export const GetTransportUnit = getNativeByName<Unit, []>("GetTransportUnit");
 
-export const TriggerRegisterUnitEvent = getNativeByName<Event, [Trigger, HandleHolder<"unit">, UnitEvent]>(
+export const TriggerRegisterUnitEventNe = getNativeByName<Event, [Trigger, HandleHolder<"unit">, UnitEvent]>(
     "TriggerRegisterUnitEvent",
     false,
     true,
 );
+
+export const TriggerRegisterUnitStateEventNe = getNativeByName<
+    Event,
+    [Trigger, HandleHolder<"unit">, UnitState, LimitOp, number]
+>("TriggerRegisterUnitEvent", false, true);
+
 export const TriggerAddAction = getNativeByName<TriggerAction, [Trigger, JassCodeCallback]>(
     "TriggerAddAction",
     false,
     true,
 );
 
-getGlobal<Record<string, UnitEvent>>("EVENT_UNIT_DAMAGED");
+export const UnitState = {
+    UNIT_STATE_LIFE: getGlobal<Record<string, UnitState>>("UNIT_STATE_LIFE"),
+    UNIT_STATE_MAX_LIFE: getGlobal<Record<string, UnitState>>("UNIT_STATE_MAX_LIFE"),
+    UNIT_STATE_MANA: getGlobal<Record<string, UnitState>>("UNIT_STATE_MANA"),
+    UNIT_STATE_MAX_MANA: getGlobal<Record<string, UnitState>>("UNIT_STATE_MAX_MANA"),
+};
+
+export const LimitOp = {
+    LESS_THAN: getGlobal<Record<string, LimitOp>>("LESS_THAN"),
+    LESS_THAN_OR_EQUAL: getGlobal<Record<string, LimitOp>>("LESS_THAN_OR_EQUAL"),
+    EQUAL: getGlobal<Record<string, LimitOp>>("EQUAL"),
+    GREATER_THAN_OR_EQUAL: getGlobal<Record<string, LimitOp>>("GREATER_THAN_OR_EQUAL"),
+    GREATER_THAN: getGlobal<Record<string, LimitOp>>("GREATER_THAN"),
+    NOT_EQUAL: getGlobal<Record<string, LimitOp>>("NOT_EQUAL"),
+};
 
 export const UnitEvents = {
     EVENT_UNIT_DAMAGED: getGlobal<Record<string, UnitEvent>>("EVENT_UNIT_DAMAGED"),

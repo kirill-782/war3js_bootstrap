@@ -4,7 +4,7 @@ import {
     DestroyTrigger,
     Trigger,
     TriggerAddAction,
-    TriggerRegisterUnitEvent,
+    TriggerRegisterUnitEventNe,
     UnitEvents,
 } from "../../utils/common.js";
 import { TriggerUnitEvent } from "../../triggerEvents/unit/TriggerUnitEvent.js";
@@ -36,7 +36,7 @@ import { UnitEventPickupItem } from "../../triggerEvents/unit/UnitEventPickupIte
 import { UnitEventUseItem } from "../../triggerEvents/unit/UnitEventUseItem.js";
 import { UnitEventLoaded } from "../../triggerEvents/unit/UnitEventLoaded.js";
 
-export type UnitEventType = keyof typeof stringToHandle;
+export type UnitEventType = keyof typeof stringToHandle | "unitstate";
 
 const stringToHandle = {
     damaged: UnitEvents.EVENT_UNIT_DAMAGED,
@@ -211,7 +211,7 @@ export class UnitEmiter {
 
         const newTrigger = CreateTriggerNe();
 
-        TriggerRegisterUnitEvent(newTrigger, unit.handle, stringToHandle[eventType]);
+        TriggerRegisterUnitEventNe(newTrigger, unit.handle, stringToHandle[eventType]);
         TriggerAddAction(newTrigger, () => {
             dispatchUnitEvent(unit, eventType);
         });

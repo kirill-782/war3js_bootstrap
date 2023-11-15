@@ -38,6 +38,9 @@ import {
     CreateIllusionNe,
     CreateIllusionFromUnitExNe,
 } from "../utils/common.js";
+import { UnitStateEvent } from "../triggerEvents/unit/UnitStateEvent.js";
+import { UnitStateEmiter } from "../services/emitters/UnitStateEmiter.js";
+import { LimitOp, UnitState } from "./../services/emitters/UnitStateEmiter.js";
 
 const eventUnitEmiter = unitEmiter;
 
@@ -85,7 +88,7 @@ export interface UnitEventMap extends WidgetEventMap {
     loaded: (event: UnitEventLoaded) => void;
     attackFinished: (event: TriggerUnitEvent<"attackFinished">) => void;
     decayFinished: (event: TriggerUnitEvent<"decayFinished">) => void;
-    [stateEvent]: (event: unknown) => void;
+    [stateEvent]: (event: UnitStateEvent, emiter: UnitStateEmiter) => void;
 }
 
 export interface Unit {
@@ -139,6 +142,18 @@ export class Unit<T extends UnitEventMap = UnitEventMap> extends Widget<T> {
         }
 
         EventEmitterHook.hookAddListener(Unit);
+    }
+
+    public onUnitState(
+        unitState: UnitState,
+        limitOp: LimitOp,
+        value: number,
+        callback: UnitEventMap[StateEventSymbol],
+    ) {
+        const stateEmiter = new UnitStateEmiter(this, unitState, limitOp, value);
+
+        this.on(stateEmiter.emitSymbol, callback);
+        return stateEmiter;
     }
 
     public static createIllusionFromUnit(unit: Unit, options?: UnitIllusionOptions) {
