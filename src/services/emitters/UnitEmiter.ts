@@ -2,7 +2,7 @@ import { Unit } from "../../handles/Unit.js";
 import {
     CreateTriggerNe,
     DestroyTrigger,
-    Trigger,
+    HTrigger,
     TriggerAddActionNe,
     TriggerRegisterUnitEventNe,
     UnitEvents,
@@ -82,7 +82,7 @@ const stringToHandle = {
 };
 
 type UnitTriggerInfo = {
-    [key: string]: Trigger;
+    [key: string]: HTrigger;
 };
 
 const dispatchUnitEvent = (unit: Unit, eventType: string) => {

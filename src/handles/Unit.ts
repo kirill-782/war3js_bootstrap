@@ -148,7 +148,7 @@ export class Unit<T extends UnitEventMap = UnitEventMap> extends Widget<T> {
         limitOp: LimitOp,
         value: number,
         callback: UnitEventMap[StateEventSymbol],
-    ) {
+    ): UnitStateEmiter {
         const stateEmiter = new UnitStateEmiter(this, unitState, limitOp, value);
 
         this.on(stateEmiter.emitSymbol, callback);

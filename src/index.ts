@@ -37,7 +37,17 @@ export * from "./handles/Handle.js";
 export * from "./handles/Destructable.js";
 export * from "./handles/Item.js";
 
-export { Event, JassCodeCallback, Location, Trigger, TriggerAction, UnitEvent, UnitState } from "./utils/common.js";
+export {
+    HEvent,
+    JassCodeCallback,
+    HLocation,
+    HTrigger,
+    HTriggerAction,
+    HUnitEvent,
+    HUnitState,
+} from "./utils/common.js";
+
+export { UnitState, LimitOp } from "./services/emitters/UnitStateEmiter.js";
 
 // -- ONLY FOR dts-bundle
 
@@ -46,15 +56,15 @@ declare global {
      * A low-level object that replaces the handle type in war3js.
      * It is not recommended to use it as an object, as some fields may start to be used by the war3js backend.
      */
-    interface HandleHolder<S extends string = string> {
+    interface HandleHolder<T extends string = string, P = unknown> {
         /**
          * Returns jass handle type. For fake handles this is _enum.
          */
-        get type(): S;
+        get type(): T;
         /**
          * The library object this handle is bound to
          */
-        payload: any;
+        payload: P;
 
         /**
          * Compares handle's internal pointers as numbers. ``null`` is interpreted as 0

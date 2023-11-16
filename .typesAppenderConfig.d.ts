@@ -4,7 +4,15 @@ import { Item } from "./src/handles/Item.ts";
 import { Player } from "./src/handles/Player.ts";
 import { Unit } from "./src/handles/Unit.ts";
 import { Widget } from "./src/handles/Widget.ts";
-import { Event, JassCodeCallback, Location, Trigger, TriggerAction, UnitEvent, UnitState } from "./src/utils/common.ts";
+import {
+    HEvent,
+    JassCodeCallback,
+    HLocation,
+    HTrigger,
+    HTriggerAction,
+    HUnitEvent,
+    HUnitState,
+} from "./src/utils/common.ts";
 
 declare const __ColnfigOnlyBundlePath = "./build/dts-bundle/out.d.ts";
 declare const __ColnfigOnlyFixedBundleOutPath = "./build/fullTypes/bootstrap.d.ts";
@@ -24,17 +32,17 @@ interface __ColnfigOnlyTypeToHandle {
     destructable: Destructable;
     widget: Widget;
     unit: Unit;
-    event: Event;
+    event: HEvent;
     item: Item;
     ability: HandleHolder<"ability">;
     buff: HandleHolder<"buff">;
     force: HandleHolder<"force">;
     group: HandleHolder<"group">;
-    trigger: Trigger;
+    trigger: HTrigger;
     triggercondition: HandleHolder<"triggercondition">;
-    triggeraction: TriggerAction;
+    triggeraction: HTriggerAction;
     timer: HandleHolder<"timer">;
-    location: Location;
+    location: HLocation;
     region: HandleHolder<"region">;
     rect: HandleHolder<"rect">;
     boolexpr: HandleHolder<"boolexpr">;
@@ -52,13 +60,13 @@ interface __ColnfigOnlyTypeToHandle {
     playerstate: HandleHolder<"playerstate">;
     playerscore: HandleHolder<"playerscore">;
     playergameresult: HandleHolder<"playergameresult">;
-    unitstate: UnitState;
+    unitstate: HUnitState;
     aidifficulty: HandleHolder<"aidifficulty">;
     eventid: HandleHolder<"eventid">;
     gameevent: HandleHolder<"gameevent">;
     playerevent: HandleHolder<"playerevent">;
     playerunitevent: HandleHolder<"playerunitevent">;
-    unitevent: UnitEvent;
+    unitevent: HUnitEvent;
     limitop: HandleHolder<"limitop">;
     widgetevent: HandleHolder<"widgetevent">;
     dialogevent: HandleHolder<"dialogevent">;

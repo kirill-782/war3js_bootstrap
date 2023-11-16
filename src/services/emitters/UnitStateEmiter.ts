@@ -2,14 +2,16 @@ import { StateEventSymbol, Unit } from "../../handles/Unit.js";
 import { UnitEventStateLimit } from "../../triggerEvents/unit/UnitEventStateLimit.js";
 import {
     CreateTriggerNe,
-    Trigger,
+    HTrigger,
     TriggerRegisterUnitStateEventNe,
-    UnitState as UnitStateHandle,
-    LimitOp as LimitOpHandle,
+    HUnitState as UnitStateHandle,
+    HLimitOp as LimitOpHandle,
     TriggerAddActionNe,
+    UnitStates,
+    LimitOps,
+    DestroyTrigger,
 } from "../../utils/common.js";
 import { IDisposable } from "../IDisposable.js";
-import { DestroyTrigger } from "./../../utils/common";
 
 export const enum UnitState {
     Life,
@@ -28,7 +30,7 @@ export const enum LimitOp {
 
 export class UnitStateEmiter implements IDisposable {
     #unit: Unit;
-    #trigger: Trigger;
+    #trigger: HTrigger;
     #emitSymbolEvent: StateEventSymbol;
 
     #unitState: UnitState;
@@ -49,16 +51,16 @@ export class UnitStateEmiter implements IDisposable {
 
         switch (unitState) {
             case UnitState.Life:
-                unitStateHandle = UnitStateHandle.UNIT_STATE_LIFE;
+                unitStateHandle = UnitStates.UNIT_STATE_LIFE;
                 break;
             case UnitState.MaxLife:
-                unitStateHandle = UnitStateHandle.UNIT_STATE_MAX_LIFE;
+                unitStateHandle = UnitStates.UNIT_STATE_MAX_LIFE;
                 break;
             case UnitState.Mana:
-                unitStateHandle = UnitStateHandle.UNIT_STATE_MANA;
+                unitStateHandle = UnitStates.UNIT_STATE_MANA;
                 break;
             case UnitState.MaxMana:
-                unitStateHandle = UnitStateHandle.UNIT_STATE_MAX_MANA;
+                unitStateHandle = UnitStates.UNIT_STATE_MAX_MANA;
                 break;
             default:
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -67,19 +69,19 @@ export class UnitStateEmiter implements IDisposable {
 
         switch (limitOp) {
             case LimitOp.lt:
-                limitOpHandle = LimitOpHandle.LESS_THAN;
+                limitOpHandle = LimitOps.LESS_THAN;
                 break;
             case LimitOp.le:
-                limitOpHandle = LimitOpHandle.LESS_THAN_OR_EQUAL;
+                limitOpHandle = LimitOps.LESS_THAN_OR_EQUAL;
                 break;
             case LimitOp.eq:
-                limitOpHandle = LimitOpHandle.EQUAL;
+                limitOpHandle = LimitOps.EQUAL;
                 break;
             case LimitOp.gt:
-                limitOpHandle = LimitOpHandle.GREATER_THAN;
+                limitOpHandle = LimitOps.GREATER_THAN;
                 break;
             case LimitOp.ge:
-                limitOpHandle = LimitOpHandle.GREATER_THAN_OR_EQUAL;
+                limitOpHandle = LimitOps.GREATER_THAN_OR_EQUAL;
                 break;
             default:
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars

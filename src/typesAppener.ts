@@ -156,10 +156,12 @@ function moveExportToGlobal(exportedDeclarations: ExportedDeclarations[], global
             declareGlobalBlock.addClass(structure);
         } else if (declaration instanceof InterfaceDeclaration) {
             const structure = declaration.getStructure();
+            structure.hasDeclareKeyword = false;
             structure.isExported = false;
             declareGlobalBlock.addInterface(structure);
         } else if (declaration instanceof EnumDeclaration) {
             const structure = declaration.getStructure();
+            structure.hasDeclareKeyword = false;
             structure.isExported = false;
             declareGlobalBlock.addEnum(structure);
         } else if (declaration instanceof VariableDeclaration) {
