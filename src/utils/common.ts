@@ -1,10 +1,13 @@
 import { getNativeByName, getGlobal } from "@war3js/unsafe";
-import { Unit } from "../handles/Unit.js";
-import { Player } from "../handles/Player.js";
-import { Widget } from "../handles/Widget.js";
-import { Destructable } from "../handles/Destructable.js";
-import { Item } from "../handles/Item.js";
 
+// Handle class types
+export type HUnit = HandleHolder<"unit">;
+export type HPlayer = HandleHolder<"player">;
+export type HWidget = HandleHolder<"widget">;
+export type HDestructable = HandleHolder<"destructable">;
+export type HItem = HandleHolder<"item">;
+
+// Handle only types
 export type UnitEvent = HandleHolder<"unitevent">;
 export type LimitOp = HandleHolder<"limitop">;
 export type Trigger = HandleHolder<"trigger">;
@@ -60,34 +63,34 @@ export const IsTriggerEnabled = getNativeByName<boolean, []>("IsTriggerEnabled")
 export const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");
 export const GetLocalPlayer = getNativeByName<HandleHolder<"player">, []>("GetLocalPlayer");
 
-export const GetTriggerUnit = getNativeByName<Unit, []>("GetTriggerUnit");
+export const GetTriggerUnit = getNativeByName<HUnit, []>("GetTriggerUnit");
 export const GetEventDamage = getNativeByName<number, []>("GetEventDamage");
-export const GetEventDamageSource = getNativeByName<Unit, []>("GetEventDamageSource");
-export const GetKillingUnit = getNativeByName<Unit, []>("GetKillingUnit");
-export const GetEventDetectingPlayer = getNativeByName<Player, []>("GetEventDetectingPlayer");
+export const GetEventDamageSource = getNativeByName<HUnit, []>("GetEventDamageSource");
+export const GetKillingUnit = getNativeByName<HUnit, []>("GetKillingUnit");
+export const GetEventDetectingPlayer = getNativeByName<HPlayer, []>("GetEventDetectingPlayer");
 export const GetEventUnitState = getNativeByName<UnitState, []>("GetEventUnitState");
-export const GetEventTargetUnit = getNativeByName<Unit, []>("GetEventTargetUnit");
-export const GetAttacker = getNativeByName<Unit, []>("GetAttacker");
-export const GetRescuer = getNativeByName<Unit, []>("GetRescuer");
-export const GetConstructedStructure = getNativeByName<Unit, []>("GetConstructedStructure");
+export const GetEventTargetUnit = getNativeByName<HUnit, []>("GetEventTargetUnit");
+export const GetAttacker = getNativeByName<HUnit, []>("GetAttacker");
+export const GetRescuer = getNativeByName<HUnit, []>("GetRescuer");
+export const GetConstructedStructure = getNativeByName<HUnit, []>("GetConstructedStructure");
 export const GetTrainedUnitType = getNativeByName<number, []>("GetTrainedUnitType");
-export const GetTrainedUnit = getNativeByName<Unit, []>("GetTrainedUnit");
+export const GetTrainedUnit = getNativeByName<HUnit, []>("GetTrainedUnit");
 export const GetResearched = getNativeByName<number, []>("GetResearched");
 export const GetIssuedOrderId = getNativeByName<number, []>("GetIssuedOrderId");
 export const GetOrderPointX = getNativeByName<number, []>("GetOrderPointX");
 export const GetOrderPointY = getNativeByName<number, []>("GetOrderPointY");
 export const GetOrderPointLoc = getNativeByName<Location, []>("GetOrderPointLoc");
-export const GetOrderTarget = getNativeByName<Widget, []>("GetOrderTarget");
-export const GetOrderTargetDestructable = getNativeByName<Destructable, []>("GetOrderTargetDestructable");
-export const GetOrderTargetItem = getNativeByName<Item, []>("GetOrderTargetItem");
-export const GetOrderTargetUnit = getNativeByName<Unit, []>("GetOrderTargetUnit");
+export const GetOrderTarget = getNativeByName<HWidget, []>("GetOrderTarget");
+export const GetOrderTargetDestructable = getNativeByName<HDestructable, []>("GetOrderTargetDestructable");
+export const GetOrderTargetItem = getNativeByName<HItem, []>("GetOrderTargetItem");
+export const GetOrderTargetUnit = getNativeByName<HUnit, []>("GetOrderTargetUnit");
 export const GetLearnedSkill = getNativeByName<number, []>("GetLearnedSkill");
 export const GetLearnedSkillLevel = getNativeByName<number, []>("GetLearnedSkillLevel");
-export const GetRevivableUnit = getNativeByName<Unit, []>("GetRevivableUnit");
-export const GetRevivingUnit = getNativeByName<Unit, []>("GetRevivingUnit");
-export const GetSummonedUnit = getNativeByName<Unit, []>("GetSummonedUnit");
-export const GetManipulatedItem = getNativeByName<Item, []>("GetManipulatedItem");
-export const GetTransportUnit = getNativeByName<Unit, []>("GetTransportUnit");
+export const GetRevivableUnit = getNativeByName<HUnit, []>("GetRevivableUnit");
+export const GetRevivingUnit = getNativeByName<HUnit, []>("GetRevivingUnit");
+export const GetSummonedUnit = getNativeByName<HUnit, []>("GetSummonedUnit");
+export const GetManipulatedItem = getNativeByName<HItem, []>("GetManipulatedItem");
+export const GetTransportUnit = getNativeByName<HUnit, []>("GetTransportUnit");
 
 export const TriggerRegisterUnitEventNe = getNativeByName<Event, [Trigger, HandleHolder<"unit">, UnitEvent]>(
     "TriggerRegisterUnitEvent",
