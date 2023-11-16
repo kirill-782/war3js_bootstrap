@@ -5,7 +5,8 @@
         "@typescript-eslint/no-unsafe-declaration-merging": "off",
         "matching-export-value-to-file-name": "error",
         "bad-unsafe-import": "error",
-        "eqeqeq": "error"
+        "eqeqeq": "error",
+        "bad-native-variable-name": "error"
     },
     "parser": "@typescript-eslint/parser",
     "plugins": ["@typescript-eslint"],

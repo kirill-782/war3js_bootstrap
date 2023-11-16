@@ -6,7 +6,7 @@ import {
     TriggerRegisterUnitStateEventNe,
     UnitState as UnitStateHandle,
     LimitOp as LimitOpHandle,
-    TriggerAddAction,
+    TriggerAddActionNe,
 } from "../../utils/common.js";
 import { IDisposable } from "../IDisposable.js";
 import { DestroyTrigger } from "./../../utils/common";
@@ -89,7 +89,7 @@ export class UnitStateEmiter implements IDisposable {
         this.#emitSymbolEvent = Symbol(`stateEventSymbol-${unitState}-${limitOp}-${value}`) as StateEventSymbol;
 
         TriggerRegisterUnitStateEventNe(this.#trigger, target.handle, unitStateHandle, limitOpHandle, value);
-        TriggerAddAction(this.#trigger, () => {
+        TriggerAddActionNe(this.#trigger, () => {
             if (!target.emit(this.#emitSymbolEvent, new UnitEventStateLimit(), this)) {
                 this.dispose(); // no listeners
             }

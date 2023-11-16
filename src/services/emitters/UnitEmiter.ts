@@ -3,7 +3,7 @@ import {
     CreateTriggerNe,
     DestroyTrigger,
     Trigger,
-    TriggerAddAction,
+    TriggerAddActionNe,
     TriggerRegisterUnitEventNe,
     UnitEvents,
 } from "../../utils/common.js";
@@ -212,7 +212,7 @@ export class UnitEmiter {
         const newTrigger = CreateTriggerNe();
 
         TriggerRegisterUnitEventNe(newTrigger, unit.handle, stringToHandle[eventType]);
-        TriggerAddAction(newTrigger, () => {
+        TriggerAddActionNe(newTrigger, () => {
             dispatchUnitEvent(unit, eventType);
         });
 

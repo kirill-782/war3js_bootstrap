@@ -60,6 +60,7 @@ export const EnableTrigger = getNativeByName<void, [Trigger]>("EnableTrigger");
 export const DisableTrigger = getNativeByName<void, [Trigger]>("DisableTrigger");
 export const IsTriggerEnabled = getNativeByName<boolean, []>("IsTriggerEnabled");
 
+// eslint-disable-next-line bad-native-variable-name
 export const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");
 export const GetLocalPlayer = getNativeByName<HandleHolder<"player">, []>("GetLocalPlayer");
 
@@ -101,9 +102,9 @@ export const TriggerRegisterUnitEventNe = getNativeByName<Event, [Trigger, Handl
 export const TriggerRegisterUnitStateEventNe = getNativeByName<
     Event,
     [Trigger, HandleHolder<"unit">, UnitState, LimitOp, number]
->("TriggerRegisterUnitEvent", false, true);
+>("TriggerRegisterUnitStateEvent", false, true);
 
-export const TriggerAddAction = getNativeByName<TriggerAction, [Trigger, JassCodeCallback]>(
+export const TriggerAddActionNe = getNativeByName<TriggerAction, [Trigger, JassCodeCallback]>(
     "TriggerAddAction",
     false,
     true,
