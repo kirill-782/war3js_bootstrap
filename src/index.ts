@@ -8,9 +8,13 @@ import { Unit } from "./handles/Unit.js";
 import { Player } from "./handles/Player.js";
 import { Destructable } from "./handles/Destructable.js";
 import { Item } from "./handles/Item.js";
+import { HandleWrapper } from "./services/HandleWrapper.js";
 
 export const isUjApi = !!getNativeByName("GetUjAPIVersion");
 export const console = new Console();
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const wrapper = new HandleWrapper();
 
 setToHandleHolder(toHandleHolderSoft);
 
