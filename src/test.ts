@@ -5,6 +5,13 @@ import { Player, Unit } from "./index.js";
 import { TriggerUnitEvent } from "./triggerEvents/unit/TriggerUnitEvent.js";
 import { isNode } from "./utils/runtime.js";
 
+const hpal = new Unit(Player.getById(0), 1215324524, 0, 0, 0);
+const hpalI = Unit.createIllusionFromUnit(hpal);
+
+hpalI.on("selected", (e) => {
+    //e.triggerUnit.kill();
+});
+
 const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");
 
 console.log(isNode);

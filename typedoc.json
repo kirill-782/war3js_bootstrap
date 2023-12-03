@@ -1,5 +1,9 @@
 {
-    "entryPoints": ["./build/fullTypes/bootstrap.d.ts", "./build/fullTypes/natives.d.ts"],
+    "entryPoints": [
+        "./build/fullTypes/bootstrap.d.ts",
+        "./build/fullTypes/natives.d.ts",
+        "./build/fullTypes/constants.d.ts"
+    ],
     "out": "./build/doc",
     "tsconfig": "./build/fullTypes/tsconfig.json",
     "modifierTags": [
@@ -29,5 +33,6 @@
         "@hideGroups",
         "@pure",
         "@async"
-    ]
+    ],
+    "useTsLinkResolution": true
 }

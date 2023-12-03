@@ -22,7 +22,7 @@ import path from "path";
 
 import * as bootstrapExport from "./index.js";
 import { AutoMappedMethodMetadata, getMethodMeta, isClassHasModified } from "./services/HandleBuilder.js";
-import { getListNatives, __getDatabaseDocKey } from "@war3js/unsafe";
+import { getListNatives, __getDatabaseDocKey, getGlobalsKeys, __getDatabaseGlobalType } from "@war3js/unsafe";
 
 const project = new Project();
 const configSourceFile = project.addSourceFileAtPath("./.typesAppenderConfig.d.ts");
@@ -44,6 +44,11 @@ const outputNativesFilePath = configSourceFile
     .getInitializerIfKind(SyntaxKind.StringLiteral)
     .getLiteralText();
 
+const outputConstantsFilePath = configSourceFile
+    .getVariableDeclarationOrThrow("__ColnfigOnlyConstantssOutPath")
+    .getInitializerIfKind(SyntaxKind.StringLiteral)
+    .getLiteralText();
+
 const inputBundleFile = project.addSourceFileAtPath(inputFilePath);
 
 const outputBundlleFile = project.createSourceFile(outputBundlleFilePath, "", {
@@ -51,6 +56,10 @@ const outputBundlleFile = project.createSourceFile(outputBundlleFilePath, "", {
 });
 
 const nativesSourceFile = project.createSourceFile(outputNativesFilePath, "", {
+    overwrite: true,
+});
+
+const constantsSourceFile = project.createSourceFile(outputConstantsFilePath, "", {
     overwrite: true,
 });
 
@@ -97,12 +106,26 @@ nativesSourceFile.addStatements("// eslint-disable-next-line @typescript-eslint/
 nativesSourceFile.addStatements(
     `/// <reference path="${path.relative(path.dirname(outputNativesFilePath), outputBundlleFilePath)}" />`,
 );
+nativesSourceFile.addStatements("// eslint-disable-next-line @typescript-eslint/triple-slash-reference");
+nativesSourceFile.addStatements(
+    `/// <reference path="${path.relative(path.dirname(outputConstantsFilePath), outputBundlleFilePath)}" />`,
+);
 
 let declareNativesBlock = nativesSourceFile.getModule("natives");
 
 if (!declareNativesBlock) {
     declareNativesBlock = nativesSourceFile.addModule({
         name: '"natives"',
+        declarationKind: ModuleDeclarationKind.Module,
+        hasDeclareKeyword: true,
+    });
+}
+
+let declareConstantsBlock = constantsSourceFile.getModule("constants");
+
+if (!declareConstantsBlock) {
+    declareConstantsBlock = constantsSourceFile.addModule({
+        name: '"constants"',
         declarationKind: ModuleDeclarationKind.Module,
         hasDeclareKeyword: true,
     });
@@ -142,6 +165,28 @@ Object.entries(nativesList).forEach((entry) => {
 });
 
 nativesSourceFile.saveSync();
+
+// Append constants package
+
+const constants = getGlobalsKeys();
+
+constants.forEach((constaneName) => {
+    const constant = declareConstantsBlock.addVariableStatement({
+        declarationKind: VariableDeclarationKind.Const,
+        declarations: [
+            {
+                name: constaneName,
+                type: convertJassTypeToJsType(__getDatabaseGlobalType(constaneName)),
+            },
+        ],
+    });
+
+    if (__getDatabaseDocKey(constaneName)) {
+        constant.addJsDoc(__getDatabaseDocKey(constaneName).replaceAll("{.lua}", "lua"));
+    }
+});
+
+constantsSourceFile.saveSync();
 
 function convertJassTypeToJsType(typeName: string): string {
     return nativeTypeMappingInterface.getProperty(typeName)?.getTypeNode()?.getText() || "unknown";
