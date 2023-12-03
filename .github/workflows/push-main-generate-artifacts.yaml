@@ -54,8 +54,14 @@ jobs:
             - name: Upload natives.d.ts
               uses: actions/upload-artifact@v3
               with:
-                  name: natives.js
+                  name: natives.d.ts
                   path: ./bootstrap/build/fullTypes/natives.d.ts
+
+            - name: Upload constants.d.ts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: constants.d.ts
+                  path: ./bootstrap/build/fullTypes/constants.d.ts
 
             - name: Upload bootstrap.d.ts
               uses: actions/upload-artifact@v3
