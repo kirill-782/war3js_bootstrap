@@ -12,7 +12,10 @@ const typeToConstructor: Record<string, new (...any: any[]) => Handle> = {
 };
 
 export class HandleWrapper {
+    #ignoreTypes: Array<string>;
+
     constructor() {
+        this.#ignoreTypes = [];
         nativeEvents.addListener("newHandle", this.onNewHandle);
     }
 
@@ -27,7 +30,11 @@ export class HandleWrapper {
 
             // Todo call user class constructor
         } else {
-            console.warn(`Attempting to create a class from an unknown handle type ${handle.type}`);
+            if (this.#ignoreTypes.indexOf(handle.type) === -1) {
+                console.warn(`Attempting to create a class from an unknown handle type ${handle.type}`);
+                this.#ignoreTypes.push(handle.type);
+            }
+
             handle.payload = handle;
         }
     };
