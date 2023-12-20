@@ -4,8 +4,8 @@ import { GetTriggerProjectile, GetTriggerProjectileSource, HProjectile } from ".
 import { Unit } from "../../handles/Unit.js";
 
 export class UnitEventProjectileHit extends TriggerUnitEvent<"projectileHit"> {
-    readonly source:Unit;
-    readonly projectile:HProjectile;
+    readonly source: Unit;
+    readonly projectile: HProjectile;
     constructor() {
         super("projectileHit");
         this.source = fromHandleHolderSoft(GetTriggerProjectileSource());

@@ -1,7 +1,16 @@
 import { Unit } from "../../handles/Unit.js";
 import { TriggerUnitEvent } from "./TriggerUnitEvent.js";
 import { fromHandleHolderSoft } from "../../utils/FromHandleHolder.js";
-import { GetSpellAbility, GetSpellAbilityId, GetSpellTargetDestructable, GetSpellTargetItem, GetSpellTargetUnit, GetSpellTargetX, GetSpellTargetY, HAbility } from "../../utils/common.js";
+import {
+    GetSpellAbility,
+    GetSpellAbilityId,
+    GetSpellTargetDestructable,
+    GetSpellTargetItem,
+    GetSpellTargetUnit,
+    GetSpellTargetX,
+    GetSpellTargetY,
+    HAbility,
+} from "../../utils/common.js";
 import { Destructable } from "../../handles/Destructable.js";
 import { Item } from "../../handles/Item.js";
 
@@ -14,7 +23,7 @@ export class UnitEventSpellFinish extends TriggerUnitEvent<"spellFinish"> {
     readonly targetDestructable: Destructable;
     readonly targetItem: Item;
     readonly targetUnit: Unit;
-    constructor() { 
+    constructor() {
         super("spellFinish");
         this.abilityId = GetSpellAbilityId();
         this.ability = fromHandleHolderSoft(GetSpellAbility());

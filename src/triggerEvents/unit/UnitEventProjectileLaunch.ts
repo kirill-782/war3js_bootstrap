@@ -4,8 +4,8 @@ import { Widget } from "../../handles/Widget.js";
 import { GetTriggerProjectile, GetTriggerProjectileTarget, HProjectile } from "../../utils/common.js";
 
 export class UnitEventProjectileLaunch extends TriggerUnitEvent<"projectileLaunch"> {
-    readonly target:Widget;
-    readonly projecitle:HProjectile;
+    readonly target: Widget;
+    readonly projecitle: HProjectile;
     constructor() {
         super("projectileLaunch");
         this.target = fromHandleHolderSoft(GetTriggerProjectileTarget());
