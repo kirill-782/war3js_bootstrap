@@ -35,6 +35,16 @@ import { UnitEventDropItem } from "../../triggerEvents/unit/UnitEventDropItem.js
 import { UnitEventPickupItem } from "../../triggerEvents/unit/UnitEventPickupItem.js";
 import { UnitEventUseItem } from "../../triggerEvents/unit/UnitEventUseItem.js";
 import { UnitEventLoaded } from "../../triggerEvents/unit/UnitEventLoaded.js";
+import { UnitEventBuffReceived } from "../../triggerEvents/unit/UnitEventBuffReceived.js";
+import { UnitEventBuffRefreshed } from "../../triggerEvents/unit/UnitEventBuffRefreshed.js";
+import { UnitEventBuffEnded } from "../../triggerEvents/unit/UnitEventBuffEnded.js";
+import { UnitEventProjectileLaunch } from "../../triggerEvents/unit/UnitEventProjectileLaunch.js";
+import { UnitEventProjectileHit } from "../../triggerEvents/unit/UnitEventProjectileHit.js";
+import { UnitEventSpellChannel } from "../../triggerEvents/unit/UnitEventSpellChannel.js";
+import { UnitEventSpellCast } from "../../triggerEvents/unit/UnitEventSpellCast.js";
+import { UnitEventSpellEffect } from "../../triggerEvents/unit/UnitEventSpellEffect.js";
+import { UnitEventSpellFinish } from "../../triggerEvents/unit/UnitEventSpellFinish.js";
+import { UnitEventSpellEndcast } from "../../triggerEvents/unit/UnitEventSpellEndcast.js";
 
 export type UnitEventType = keyof typeof stringToHandle;
 
@@ -79,6 +89,20 @@ const stringToHandle = {
     loaded: UnitEvents.EVENT_UNIT_LOADED,
     attackFinished: UnitEvents.EVENT_UNIT_ATTACK_FINISHED,
     decayFinished: UnitEvents.EVENT_UNIT_DECAY_FINISHED,
+    buffReceived: UnitEvents.EVENT_UNIT_BUFF_RECEIVED,
+    buffRefreshed: UnitEvents.EVENT_UNIT_BUFF_REFRESHED,
+    buffEnded: UnitEvents.EVENT_UNIT_BUFF_ENDED,
+    projectileLaunch: UnitEvents.EVENT_UNIT_PROJECTILE_LAUNCH,
+    projectileHit: UnitEvents.EVENT_UNIT_PROJECTILE_HIT,
+    abilityAdded: UnitEvents.EVENT_UNIT_ABILITY_ADDED,
+    abilityRemoved: UnitEvents.EVENT_UNIT_ABILITY_REMOVED,
+    abilityAutocastOn: UnitEvents.EVENT_UNIT_ABILITY_AUTOCAST_ON,
+    abilityAutocastOff: UnitEvents.EVENT_UNIT_ABILITY_AUTOCAST_OFF,
+    spellChannel: UnitEvents.EVENT_UNIT_SPELL_CHANNEL,
+    spellCast: UnitEvents.EVENT_UNIT_SPELL_CAST,
+    spellEffect: UnitEvents.EVENT_UNIT_SPELL_EFFECT,
+    spellFinish: UnitEvents.EVENT_UNIT_SPELL_FINISH,
+    spellEndcast: UnitEvents.EVENT_UNIT_SPELL_ENDCAST,
 };
 
 type UnitTriggerInfo = {
@@ -98,6 +122,10 @@ const dispatchUnitEvent = (unit: Unit, eventType: string) => {
         case "heroLevel":
         case "attackFinished":
         case "decayFinished":
+        case "abilityAdded":
+        case "abilityRemoved":
+        case "abilityAutocastOn":
+        case "abilityAutocastOff":
             unit.emit(eventType, new TriggerUnitEvent(eventType));
             break;
         case "damaged":
@@ -186,6 +214,36 @@ const dispatchUnitEvent = (unit: Unit, eventType: string) => {
             break;
         case "loaded":
             unit.emit("loaded", new UnitEventLoaded());
+            break;
+        case "buffRecieved":
+            unit.emit("buffReceived", new UnitEventBuffReceived());
+            break;
+        case "buffRefreshed":
+            unit.emit("buffRefreshed", new UnitEventBuffRefreshed());
+            break;
+        case "buffEnded":
+            unit.emit("buffEnded", new UnitEventBuffEnded());
+            break;
+        case "projectileLaunch":
+            unit.emit("projectileLaunch", new UnitEventProjectileLaunch());
+            break;
+        case "projectileHit":
+            unit.emit("projectileHit", new UnitEventProjectileHit());
+            break;
+        case "spellChannel":
+            unit.emit("spellChannel", new UnitEventSpellChannel());
+            break;
+        case "spellCast":
+            unit.emit("spellCast", new UnitEventSpellCast());
+            break;
+        case "spellEffect":
+            unit.emit("spellEffect", new UnitEventSpellEffect());
+            break;
+        case "spellFinish":
+            unit.emit("spellFinish", new UnitEventSpellFinish());
+            break;
+        case "spellEndcast":
+            unit.emit("spellEndcast", new UnitEventSpellEndcast());
             break;
         default:
             throw new TypeError(`Unexpected eventType: ${eventType}`);

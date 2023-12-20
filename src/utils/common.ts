@@ -20,6 +20,9 @@ export type HTriggerAction = HandleHolder<"triggeraction">;
 export type HEvent = HandleHolder<"event">;
 export type HUnitState = HandleHolder<"unitstate">;
 export type HLocation = HandleHolder<"location">;
+export type HBuff = HandleHolder<"buff">;
+export type HAbility = HandleHolder<"ability">;
+export type HProjectile = HandleHolder<"projectile">;
 
 export type JassCodeCallback = () => number | void;
 
@@ -97,6 +100,20 @@ export const GetRevivingUnit = getNativeByName<HUnit, []>("GetRevivingUnit");
 export const GetSummonedUnit = getNativeByName<HUnit, []>("GetSummonedUnit");
 export const GetManipulatedItem = getNativeByName<HItem, []>("GetManipulatedItem");
 export const GetTransportUnit = getNativeByName<HUnit, []>("GetTransportUnit");
+export const GetTriggerBuff = getNativeByName<HBuff, []>("GetTriggerBuff");
+export const GetTriggerBuffSourceAbility = getNativeByName<HAbility, []>("GetTriggerBuffSourceAbility");
+export const GetTriggerBuffSourceUnit = getNativeByName<HUnit, []>("GetTriggerBuffSourceUnit");
+export const GetTriggerBuffTarget = getNativeByName<HUnit, []>("GetTriggerBuffTarget");
+export const GetTriggerProjectileTarget = getNativeByName<HWidget, []>("GetTriggerProjectileTarget");
+export const GetTriggerProjectileSource = getNativeByName<HUnit, []>("GetTriggerProjectileSource");
+export const GetTriggerProjectile = getNativeByName<HProjectile, []>("GetTriggerProjectile");
+export const GetSpellAbilityId = getNativeByName<number, []>("GetSpellAbilityId");
+export const GetSpellAbility = getNativeByName<HAbility, []>("GetSpellAbility");
+export const GetSpellTargetX = getNativeByName<number, []>("GetSpellTargetX");
+export const GetSpellTargetY = getNativeByName<number, []>("GetSpellTargetY");
+export const GetSpellTargetDestructable = getNativeByName<HDestructable, []>("GetSpellTargetDestructable");
+export const GetSpellTargetItem = getNativeByName<HItem, []>("GetSpellTargetItem");
+export const GetSpellTargetUnit = getNativeByName<HUnit, []>("GetSpellTargetUnit");
 
 export const TriggerRegisterUnitEventNe = getNativeByName<HEvent, [HTrigger, HandleHolder<"unit">, HUnitEvent]>(
     "TriggerRegisterUnitEvent",
@@ -172,4 +189,18 @@ export const UnitEvents = {
     EVENT_UNIT_LOADED: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_LOADED"),
     EVENT_UNIT_ATTACK_FINISHED: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_ATTACK_FINISHED"),
     EVENT_UNIT_DECAY_FINISHED: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_DECAY_FINISHED"),
+    EVENT_UNIT_BUFF_RECEIVED: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_BUFF_RECEIVED"),
+    EVENT_UNIT_BUFF_REFRESHED: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_BUFF_REFRESHED"),
+    EVENT_UNIT_BUFF_ENDED: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_BUFF_ENDED"),
+    EVENT_UNIT_PROJECTILE_LAUNCH: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_PROJECTILE_LAUNCH"),
+    EVENT_UNIT_PROJECTILE_HIT: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_PROJECTILE_HIT"),
+    EVENT_UNIT_ABILITY_ADDED: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_ABILITY_ADDED"),
+    EVENT_UNIT_ABILITY_REMOVED: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_ABILITY_REMOVED"),
+    EVENT_UNIT_ABILITY_AUTOCAST_ON: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_ABILITY_AUTOCAST_ON"),
+    EVENT_UNIT_ABILITY_AUTOCAST_OFF: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_ABILITY_AUTOCAST_OFF"),
+    EVENT_UNIT_SPELL_CHANNEL: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_SPELL_CHANNEL"),
+    EVENT_UNIT_SPELL_CAST: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_SPELL_CAST"),
+    EVENT_UNIT_SPELL_EFFECT: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_SPELL_EFFECT"),
+    EVENT_UNIT_SPELL_FINISH: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_SPELL_FINISH"),
+    EVENT_UNIT_SPELL_ENDCAST: getGlobal<Record<string, HUnitEvent>>("EVENT_UNIT_SPELL_ENDCAST"),
 };

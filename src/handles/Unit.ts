@@ -40,6 +40,16 @@ import {
 import { UnitEventStateLimit } from "../triggerEvents/unit/UnitEventStateLimit.js";
 import { UnitStateEmiter } from "../services/emitters/UnitStateEmiter.js";
 import { LimitOp, UnitState } from "./../services/emitters/UnitStateEmiter.js";
+import { UnitEventBuffReceived } from "../triggerEvents/unit/UnitEventBuffReceived.js";
+import { UnitEventBuffRefreshed } from "../triggerEvents/unit/UnitEventBuffRefreshed.js";
+import { UnitEventBuffEnded } from "../triggerEvents/unit/UnitEventBuffEnded.js";
+import { UnitEventProjectileLaunch } from "../triggerEvents/unit/UnitEventProjectileLaunch.js";
+import { UnitEventProjectileHit } from "../triggerEvents/unit/UnitEventProjectileHit.js";
+import { UnitEventSpellChannel } from "../triggerEvents/unit/UnitEventSpellChannel.js";
+import { UnitEventSpellCast } from "../triggerEvents/unit/UnitEventSpellCast.js";
+import { UnitEventSpellEffect } from "../triggerEvents/unit/UnitEventSpellEffect.js";
+import { UnitEventSpellFinish } from "../triggerEvents/unit/UnitEventSpellFinish.js";
+import { UnitEventSpellEndcast } from "../triggerEvents/unit/UnitEventSpellEndcast.js";
 
 const eventUnitEmiter = unitEmiter;
 
@@ -87,6 +97,20 @@ export interface UnitEventMap extends WidgetEventMap {
     loaded: (event: UnitEventLoaded) => void;
     attackFinished: (event: TriggerUnitEvent<"attackFinished">) => void;
     decayFinished: (event: TriggerUnitEvent<"decayFinished">) => void;
+    buffReceived: (event: UnitEventBuffReceived) => void;
+    buffRefreshed: (event: UnitEventBuffRefreshed) => void;
+    buffEnded: (event: UnitEventBuffEnded) => void;
+    projectileLaunch: (event: UnitEventProjectileLaunch) => void;
+    projectileHit: (event: UnitEventProjectileHit) => void;
+    abilityAdded: (event: TriggerUnitEvent<"abilityAdded">) => void;
+    abilityRemoved: (event: TriggerUnitEvent<"abilityRemoved">) => void;
+    abilityAutocastOn: (event: TriggerUnitEvent<"abilityAutocastOn">) => void;
+    abilityAutocastOff: (event: TriggerUnitEvent<"abilityAutocastOff">) => void;
+    spellChannel: (event: UnitEventSpellChannel) => void;
+    spellCast: (event: UnitEventSpellCast) => void;
+    spellEffect: (event: UnitEventSpellEffect) => void;
+    spellFinish: (event: UnitEventSpellFinish) => void;
+    spellEndcast: (event: UnitEventSpellEndcast) => void;
     [stateEvent]: (event: UnitEventStateLimit, emiter: UnitStateEmiter) => void;
 }
 
