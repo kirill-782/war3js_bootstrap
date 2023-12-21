@@ -6,9 +6,9 @@ import { TriggerUnitEvent } from "./triggerEvents/unit/TriggerUnitEvent.js";
 import { isNode } from "./utils/runtime.js";
 
 const hpal = new Unit(Player.getById(0), 1215324524, 0, 0, 0);
-const hpalI = Unit.createIllusionFromUnit(hpal);
+//const hpalI = Unit.createIllusionFromUnit(hpal);
 
-hpalI.on("selected", (e) => {
+hpal.on("selected", (e) => {
     //e.triggerUnit.kill();
 });
 

@@ -20,7 +20,7 @@
         "@types/node": "^20.9.0",
         "@typescript-eslint/eslint-plugin": "^6.10.0",
         "@typescript-eslint/parser": "^6.10.0",
-        "@war3js/events": "^3.3.3",
+        "@war3js/events": "^4.0.1",
         "@war3js/text-decoding-types": "^0.0.9999",
         "@war3js/unsafe": "file:../unsafe",
         "dts-bundle-generator": "^8.1.1",
