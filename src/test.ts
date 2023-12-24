@@ -4,6 +4,17 @@ import { __getDatabaseGlobalType, getNativeByName } from "@war3js/unsafe";
 import { Player, Unit } from "./index.js";
 import { TriggerUnitEvent } from "./triggerEvents/unit/TriggerUnitEvent.js";
 import { isNode } from "./utils/runtime.js";
+import { Readable } from "stream";
+
+import { curl_easy_init, constants, curl_easy_setopt, curl_easy_perform } from "curl";
+
+const curl = curl_easy_init();
+
+curl_easy_setopt(curl, constants.CURLOPT_URL, "wss://test");
+
+curl_easy_perform(curl, () => {
+    // Ready
+});
 
 const hpal = new Unit(Player.getById(0), 1215324524, 0, 0, 0);
 //const hpalI = Unit.createIllusionFromUnit(hpal);

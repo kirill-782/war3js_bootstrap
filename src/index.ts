@@ -10,6 +10,27 @@ import { Destructable } from "./handles/Destructable.js";
 import { Item } from "./handles/Item.js";
 import { HandleWrapper } from "./services/HandleWrapper.js";
 
+import { Readable, Writable, Transform, Duplex, pipeline, finished } from "readable-stream";
+
+export const stream: any = {
+    Readable,
+    Writable,
+    Transform,
+    Duplex,
+    pipeline,
+    finished,
+};
+
+Object.freeze(stream);
+
+import * as _Buffer from "buffer";
+
+export const buffer: any = {
+    ..._Buffer,
+};
+
+Object.freeze(buffer);
+
 export const isUjApi = !!getNativeByName("GetUjAPIVersion");
 export const console = new Console();
 
