@@ -54,6 +54,7 @@ builder.addMethods(Destructable, "destructable");
 builder.addMethods(Item, "item");
 
 export { TextDecoder, TextEncoder } from "text-decoding";
+export { Headers } from "@war3js/headers-polyfill";
 
 export * from "./handles/Widget.js";
 export * from "./handles/Unit.js";
@@ -73,6 +74,8 @@ export {
 } from "./utils/common.js";
 
 export { UnitState, LimitOp } from "./services/emitters/UnitStateEmiter.js";
+
+export { Websocket } from "./services/websocket/Websocket.js";
 
 // -- ONLY FOR dts-bundle
 

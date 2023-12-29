@@ -36,6 +36,8 @@ export const CreateItemNe = getNativeByName<HandleHolder<"item">, [number, numbe
 export const CreateTriggerNe = getNativeByName<HTrigger, []>("CreateTrigger", false, true);
 export const GetTriggeringTriggerNe = getNativeByName<HTrigger, []>("GetTriggeringTrigger", false, true);
 
+export const CreateTimerNe = getNativeByName<HandleHolder<"timer">, []>("CreateTimer", false, true);
+
 export const CreateUnitNe = getNativeByName<
     HandleHolder<"unit">,
     [HandleHolder<"player">, number, number, number, number]
@@ -63,10 +65,15 @@ export const CreateIllusionFromUnitExNe = getNativeByName<HandleHolder<"unit">, 
 );
 
 export const DestroyTrigger = getNativeByName<void, [HTrigger]>("DestroyTrigger");
+export const DestroyTimer = getNativeByName<void, [HTrigger]>("DestroyTimer");
 export const ResetTrigger = getNativeByName<void, [HTrigger]>("ResetTrigger");
 export const EnableTrigger = getNativeByName<void, [HTrigger]>("EnableTrigger");
 export const DisableTrigger = getNativeByName<void, [HTrigger]>("DisableTrigger");
 export const IsTriggerEnabled = getNativeByName<boolean, []>("IsTriggerEnabled");
+
+export const TimerStart = getNativeByName<void, [HandleHolder<"timer">, number, boolean, JassCodeCallback]>(
+    "TimerStart",
+);
 
 // eslint-disable-next-line bad-native-variable-name
 export const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");

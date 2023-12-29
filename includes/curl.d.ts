@@ -7,6 +7,8 @@ declare module "curl" {
 
     export function curl_easy_init(): CurlHandle;
 
+    export type HttpHeaders = Record<string, string | Array<string>>;
+
     interface CurlOptToType {
         CURLOPT_URL: string;
         CURLOPT_DOH_URL: string;
@@ -38,6 +40,8 @@ declare module "curl" {
         CURLOPT_SEEKFUNCTION: SeekCallback;
         CURLOPT_XFERINFOFUNCTION: ProgressCallback;
         CURLOPT_HEADERFUNCTION: HeaderCallback;
+
+        CURLOPT_HTTPHEADER: HttpHeaders;
     }
 
     export type ReaadCallback = (this: CurlHandle, buffer: ArrayBuffer) => number;
@@ -68,11 +72,7 @@ declare module "curl" {
 
     export function curl_easy_pause(curl: CurlHandle, bitmask: number): void;
 
-    export function curl_easy_headers(
-        curl: CurlHandle,
-        origin: number,
-        request: number,
-    ): Record<string, string | Array<string>>;
+    export function curl_easy_headers(curl: CurlHandle, origin: number, request: number): HttpHeaders;
 
     export function curl_easy_cleanup(curl: CurlHandle): void;
 
@@ -113,18 +113,23 @@ declare module "curl" {
 
     export function curl_ws_recv(curl: CurlHandle, buffer: ArrayBuffer | Uint8Array): CurlRecvResult;
 
+    interface CurlSendResult {
+        result: CurlEConstants[keyof CurlEConstants];
+        sent: number;
+    }
+
     export function curl_ws_send(
         curl: CurlHandle,
         buffer: ArrayBuffer | Uint8Array,
         fragsize: number,
         flags: number,
-    ): void;
+    ): CurlSendResult;
 
     export function update(): void;
 
     export const constants: CurlEConstants & CurlConstants & CurlInfoConstants & CurlOptConstants;
 
-    type CurlEConstants = {
+    export type CurlEConstants = {
         readonly CURLE_OK: 0;
         readonly CURLE_UNSUPPORTED_PROTOCOL: 1;
         readonly CURLE_FAILED_INIT: 2;
@@ -227,7 +232,7 @@ declare module "curl" {
         readonly CURLE_UNRECOVERABLE_POLL: 99;
     };
 
-    type CurlConstants = {
+    export type CurlConstants = {
         readonly CURL_WRITEFUNC_ERROR: number;
         readonly CURL_WRITEFUNC_PAUSE: number;
         readonly CURL_MAX_WRITE_SIZE: number;
@@ -242,6 +247,7 @@ declare module "curl" {
         readonly CURLWS_CONT: number;
         readonly CURLWS_CLOSE: number;
         readonly CURLWS_PING: number;
+        readonly CURLWS_OFFSET: number;
         readonly CURLPAUSE_RECV: number;
         readonly CURLPAUSE_SEND: number;
         readonly CURLPAUSE_ALL: number;
@@ -253,7 +259,7 @@ declare module "curl" {
         readonly CURLH_PSEUDO: number;
     };
 
-    type CurlInfoConstants = {
+    export type CurlInfoConstants = {
         readonly CURLINFO_NONE: unique symbol;
         readonly CURLINFO_EFFECTIVE_URL: unique symbol;
         readonly CURLINFO_RESPONSE_CODE: unique symbol;
@@ -329,7 +335,7 @@ declare module "curl" {
         readonly CURLINFO_LASTONE: unique symbol;
     };
 
-    type CurlOptConstants = {
+    export type CurlOptConstants = {
         readonly CURLOPT_WRITEDATA: unique symbol;
         readonly CURLOPT_URL: unique symbol;
         readonly CURLOPT_PORT: unique symbol;
