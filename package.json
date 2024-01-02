@@ -20,8 +20,10 @@
     "license": "MIT",
     "devDependencies": {
         "@types/node": "^20.9.0",
+        "@types/readable-stream": "^4.0.10",
         "@typescript-eslint/eslint-plugin": "^6.10.0",
         "@typescript-eslint/parser": "^6.10.0",
+        "@war3js/curl": "^0.0.1",
         "@war3js/events": "^4.0.1",
         "@war3js/headers-polyfill": "^4.0.3",
         "@war3js/text-decoding-types": "^0.0.9999",
@@ -37,7 +39,6 @@
         "ts-node": "^10.9.1",
         "typed-emitter": "^2.1.0",
         "typedoc": "^0.25.3",
-        "typescript": "^5.2.2",
-        "@types/readable-stream": "^4.0.10"
+        "typescript": "^5.2.2"
     }
 }
