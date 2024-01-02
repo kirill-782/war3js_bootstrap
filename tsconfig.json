@@ -13,7 +13,7 @@
         "esModuleInterop": true,
         "declarationDir": "build/tsc/types",
         "baseUrl": "./src",
-        "types": ["@war3js/text-decoding-types", "./includes/curl"]
+        "types": ["@war3js/text-decoding-types"]
     },
     "include": ["src/**/*"],
     "exclude": ["../typesAppenderConfig.d.ts"]

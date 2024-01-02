@@ -6,7 +6,7 @@ import { TriggerUnitEvent } from "./triggerEvents/unit/TriggerUnitEvent.js";
 import { isNode } from "./utils/runtime.js";
 import { Readable } from "stream";
 
-import { curl_easy_init, constants, curl_easy_setopt, curl_easy_perform } from "curl";
+import { curl_easy_init, constants, curl_easy_setopt, curl_easy_perform } from "@war3js/curl";
 
 const curl = curl_easy_init();
 

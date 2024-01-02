@@ -5,8 +5,8 @@
     "main": "index.js",
     "types": "index.d.ts",
     "scripts": {
-        "bundle-polyfill": "esbuild ./src/polyfill.ts --bundle --outfile=build/esbuild/polyfill.js --format=esm --external:curl  --external:unsafe --target=es2020 --alias:@war3js/unsafe=unsafe",
-        "bundle-bootstrap": "esbuild ./src/index.ts --bundle --outfile=build/esbuild/bootstrap.js --format=esm --external:curl --external:unsafe --target=es2020 --alias:@war3js/unsafe=unsafe",
+        "bundle-polyfill": "esbuild ./src/polyfill.ts --bundle --outfile=build/esbuild/polyfill.js --format=esm --external:curl  --external:unsafe --target=es2020 --alias:@war3js/unsafe=unsafe --alias:@war3js/curl=curl",
+        "bundle-bootstrap": "esbuild ./src/index.ts --bundle --outfile=build/esbuild/bootstrap.js --format=esm --external:curl --external:unsafe --target=es2020 --alias:@war3js/unsafe=unsafe --alias:@war3js/curl=curl",
         "bundle": "npm run bundle-polyfill && npm run bundle-bootstrap",
         "start": "ts-node-esm ./src/test.ts",
         "lint": "eslint ./src/ --ext .ts --rulesdir ./eslint/rules/",
@@ -23,12 +23,12 @@
         "@typescript-eslint/eslint-plugin": "^6.10.0",
         "@typescript-eslint/parser": "^6.10.0",
         "@war3js/events": "^4.0.1",
+        "@war3js/headers-polyfill": "^4.0.3",
         "@war3js/text-decoding-types": "^0.0.9999",
         "@war3js/unsafe": "file:../unsafe",
         "dts-bundle-generator": "^8.1.1",
         "esbuild": "^0.19.4",
         "eslint": "^8.53.0",
-        "@war3js/headers-polyfill": "^4.0.3",
         "jass-to-ast": "^2.0.2",
         "prettier": "3.0.3",
         "readable-stream": "^4.5.1",
@@ -37,9 +37,7 @@
         "ts-node": "^10.9.1",
         "typed-emitter": "^2.1.0",
         "typedoc": "^0.25.3",
-        "typescript": "^5.2.2"
-    },
-    "dependencies": {
+        "typescript": "^5.2.2",
         "@types/readable-stream": "^4.0.10"
     }
 }

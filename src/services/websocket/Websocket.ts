@@ -10,7 +10,7 @@ import {
     curl_ws_recv,
     curl_ws_send,
     curl_easy_cleanup,
-} from "curl";
+} from "@war3js/curl";
 import { CreateTimerNe, TimerStart } from "../../utils/common.js";
 import { TextDecoder, TextEncoder } from "text-decoding";
 
