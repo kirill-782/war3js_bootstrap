@@ -21,7 +21,12 @@ import {
 import path from "path";
 
 import * as bootstrapExport from "./index.js";
-import { AutoMappedMethodMetadata, getMethodMeta, isClassHasModified } from "./services/HandleBuilder.js";
+import {
+    AutoMappedMethodMetadata,
+    getAccessorMeta,
+    getMethodMeta,
+    isClassHasModified,
+} from "./services/ClassBuilder.js";
 import { getListNatives, __getDatabaseDocKey, getGlobalsKeys, __getDatabaseGlobalType } from "@war3js/unsafe";
 
 const project = new Project();
@@ -90,13 +95,20 @@ Object.keys(bootstrapExport).forEach((key) => {
         const className = value.name;
         const classDeclaration = declareGlobalBlock.getClassOrThrow(className);
 
-        Object.entries(value.prototype).forEach((entry) => {
-            const [memberName, memberValue] = entry;
+        Reflect.ownKeys(value.prototype).forEach((member) => {
+            const property = Reflect.getOwnPropertyDescriptor(value.prototype, member);
+            const memberValue = property.value;
+
+            if (typeof member === "symbol") return;
 
             if (typeof memberValue === "function") {
                 const methodMetadata = getMethodMeta(memberValue);
 
-                if (methodMetadata) appendGeneratedClassMethod(classDeclaration, memberName, methodMetadata);
+                if (methodMetadata) appendGeneratedClassMember(classDeclaration, member, methodMetadata);
+            } else {
+                const methodMetadata = getAccessorMeta(member, value);
+
+                if (methodMetadata) appendGeneratedClassMember(classDeclaration, member, methodMetadata);
             }
         });
     }
@@ -226,7 +238,7 @@ function moveExportToGlobal(exportedDeclarations: ExportedDeclarations[], global
     });
 }
 
-function appendGeneratedClassMethod(declaration: ClassDeclaration, name: string, metadata: AutoMappedMethodMetadata) {
+function appendGeneratedClassMember(declaration: ClassDeclaration, name: string, metadata: AutoMappedMethodMetadata) {
     switch (metadata.methodType) {
         case "method": {
             const method = declaration.addMember({
@@ -281,6 +293,30 @@ function appendGeneratedClassMethod(declaration: ClassDeclaration, name: string,
             });
 
             break;
+        }
+        case "instanceApiAccessor": {
+            declaration.addGetAccessor({
+                scope: Scope.Public,
+                name,
+                returnType: metadata.isIndexAccess
+                    ? `IndexAccessArray<${convertJassTypeToJsType(metadata.type)}>`
+                    : convertJassTypeToJsType(metadata.type),
+            });
+
+            if (!metadata.readonly) {
+                declaration.addSetAccessor({
+                    scope: Scope.Public,
+                    name,
+                    parameters: [
+                        {
+                            name: "value",
+                            type: metadata.isIndexAccess
+                                ? `IndexAccessArray<${convertJassTypeToJsType(metadata.type)}>`
+                                : convertJassTypeToJsType(metadata.type),
+                        },
+                    ],
+                });
+            }
         }
     }
 }

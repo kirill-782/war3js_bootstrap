@@ -1,1 +1,1 @@
-export const isNode = "process" in globalThis && globalThis?.process?.versions?.node;
+export const isNode = "process" in globalThis && (globalThis as any)?.process?.versions?.node;

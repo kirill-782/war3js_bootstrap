@@ -37,6 +37,7 @@
         "text-decoding": "^1.0.0",
         "ts-morph": "^20.0.0",
         "ts-node": "^10.9.1",
+        "tsup": "^8.0.1",
         "typed-emitter": "^2.1.0",
         "typedoc": "^0.25.3",
         "typescript": "^5.2.2"

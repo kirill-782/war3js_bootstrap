@@ -2,7 +2,7 @@ import { setToHandleHolder, getNativeByName } from "@war3js/unsafe";
 
 import { Console } from "./console/Console.js";
 import { toHandleHolderSoft } from "./utils/ToHandleHolder.js";
-import { HandleBuilder } from "./services/HandleBuilder.js";
+import { HandleBuilder, InstanceApiBuilder } from "./services/ClassBuilder.js";
 import { Widget } from "./handles/Widget.js";
 import { Unit } from "./handles/Unit.js";
 import { Player } from "./handles/Player.js";
@@ -24,6 +24,7 @@ export const stream: any = {
 Object.freeze(stream);
 
 import * as _Buffer from "buffer";
+import { AbilityData } from "./handles/instanceApi/AbilityData.js";
 
 export const buffer: any = {
     ..._Buffer,
@@ -39,19 +40,27 @@ const wrapper = new HandleWrapper();
 
 setToHandleHolder(toHandleHolderSoft);
 
-const builder = new HandleBuilder();
+const handleBuilder = new HandleBuilder();
 
-builder.addChainProperties(Widget, "widget");
-builder.addChainProperties(Unit, "unit");
-builder.addChainProperties(Player, "player");
-builder.addChainProperties(Destructable, "destructable");
-builder.addChainProperties(Item, "item");
+handleBuilder.addChainProperties(Widget, "widget");
+handleBuilder.addChainProperties(Unit, "unit");
+handleBuilder.addChainProperties(Player, "player");
+handleBuilder.addChainProperties(Destructable, "destructable");
+handleBuilder.addChainProperties(Item, "item");
 
-builder.addMethods(Widget, "widget");
-builder.addMethods(Unit, "unit");
-builder.addMethods(Player, "player");
-builder.addMethods(Destructable, "destructable");
-builder.addMethods(Item, "item");
+handleBuilder.addMethods(Widget, "widget");
+handleBuilder.addMethods(Unit, "unit");
+handleBuilder.addMethods(Player, "player");
+handleBuilder.addMethods(Destructable, "destructable");
+handleBuilder.addMethods(Item, "item");
+
+const instanceApiBuilder = new InstanceApiBuilder();
+
+instanceApiBuilder.appendAbilityData(AbilityData);
+
+export * from "./handles/instanceApi/AbilityData.js";
+
+export { IndexAccessArray } from "./services/ClassBuilder.js";
 
 export { TextDecoder, TextEncoder } from "text-decoding";
 export { Headers } from "@war3js/headers-polyfill";

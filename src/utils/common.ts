@@ -43,6 +43,8 @@ export const CreateUnitNe = getNativeByName<
     [HandleHolder<"player">, number, number, number, number]
 >("CreateUnit", false, true);
 
+export const CreateAbilityNe = getNativeByName<HandleHolder<"ability">, [number]>("CreateAbility", false, true);
+
 export const CreateCorpseNe = getNativeByName<
     HandleHolder<"unit">,
     [HandleHolder<"player">, number, number, number, number]
@@ -78,6 +80,153 @@ export const TimerStart = getNativeByName<void, [HandleHolder<"timer">, number, 
 // eslint-disable-next-line bad-native-variable-name
 export const PlayerNative = getNativeByName<HandleHolder<"player">, [number]>("Player");
 export const GetLocalPlayer = getNativeByName<HandleHolder<"player">, []>("GetLocalPlayer");
+
+// Insance API
+// Ability
+
+export const GetAbilityBaseRealFieldById = getNativeByName<number, [number, HandleHolder<"_enum">]>(
+    "GetAbilityBaseRealFieldById",
+);
+
+export const GetAbilityBaseIntegerFieldById = getNativeByName<number, [number, HandleHolder<"_enum">]>(
+    "GetAbilityBaseIntegerFieldById",
+);
+
+export const GetAbilityBaseBooleanFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">]>(
+    "GetAbilityBaseBooleanFieldById",
+);
+
+export const GetAbilityBaseStringFieldById = getNativeByName<string, [number, HandleHolder<"_enum">]>(
+    "GetAbilityBaseStringFieldById",
+);
+
+export const GetAbilityBaseRealLevelFieldById = getNativeByName<number, [number, HandleHolder<"_enum">, number]>(
+    "GetAbilityBaseRealLevelFieldById",
+);
+
+export const GetAbilityBaseIntegerLevelFieldById = getNativeByName<number, [number, HandleHolder<"_enum">, number]>(
+    "GetAbilityBaseIntegerLevelFieldById",
+);
+
+export const GetAbilityBaseBooleanLevelFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, number]>(
+    "GetAbilityBaseBooleanLevelFieldById",
+);
+
+export const GetAbilityBaseStringLevelFieldById = getNativeByName<string, [number, HandleHolder<"_enum">, number]>(
+    "GetAbilityBaseStringLevelFieldById",
+);
+
+export const SetAbilityBaseBooleanFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, boolean]>(
+    "SetAbilityBaseBooleanFieldById",
+);
+
+export const SetAbilityBaseStringFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, string]>(
+    "SetAbilityBaseStringFieldById",
+);
+
+export const SetAbilityBaseRealFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, number]>(
+    "SetAbilityBaseRealFieldById",
+);
+
+export const SetAbilityBaseIntegerFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, number]>(
+    "SetAbilityBaseIntegerFieldById",
+);
+
+export const SetAbilityBaseRealLevelFieldById = getNativeByName<
+    boolean,
+    [number, HandleHolder<"_enum">, number, number]
+>("SetAbilityBaseRealLevelFieldById");
+
+export const SetAbilityBaseIntegerLevelFieldById = getNativeByName<
+    boolean,
+    [number, HandleHolder<"_enum">, number, number]
+>("SetAbilityBaseIntegerLevelFieldById");
+
+export const SetAbilityBaseBooleanLevelFieldById = getNativeByName<
+    boolean,
+    [number, HandleHolder<"_enum">, number, boolean]
+>("SetAbilityBaseBooleanLevelFieldById");
+
+export const SetAbilityBaseStringLevelFieldById = getNativeByName<
+    boolean,
+    [number, HandleHolder<"_enum">, number, string]
+>("SetAbilityBaseStringLevelFieldById");
+
+export const GetAbilityRealField = getNativeByName<number, [HandleHolder<"ability">, HandleHolder<"_enum">]>(
+    "GetAbilityRealField",
+);
+
+export const GetAbilityIntegerField = getNativeByName<number, [HandleHolder<"ability">, HandleHolder<"_enum">]>(
+    "GetAbilityIntegerField",
+);
+
+export const GetAbilityBooleanField = getNativeByName<boolean, [HandleHolder<"ability">, HandleHolder<"_enum">]>(
+    "GetAbilityBooleanField",
+);
+
+export const GetAbilityStringField = getNativeByName<string, [HandleHolder<"ability">, HandleHolder<"_enum">]>(
+    "GetAbilityStringField",
+);
+
+export const GetAbilityRealLevelField = getNativeByName<
+    number,
+    [HandleHolder<"ability">, HandleHolder<"_enum">, number]
+>("GetAbilityRealLevelField");
+
+export const GetAbilityIntegerLevelField = getNativeByName<
+    number,
+    [HandleHolder<"ability">, HandleHolder<"_enum">, number]
+>("GetAbilityIntegerLevelField");
+
+export const GetAbilityBooleanLevelField = getNativeByName<
+    boolean,
+    [HandleHolder<"ability">, HandleHolder<"_enum">, number]
+>("GetAbilityBooleanLevelField");
+
+export const GetAbilityStringLevelField = getNativeByName<
+    string,
+    [HandleHolder<"ability">, HandleHolder<"_enum">, number]
+>("GetAbilityStringLevelField");
+
+export const SetAbilityBooleanField = getNativeByName<
+    boolean,
+    [HandleHolder<"ability">, HandleHolder<"_enum">, boolean]
+>("SetAbilityBooleanField");
+
+export const SetAbilityStringField = getNativeByName<boolean, [HandleHolder<"ability">, HandleHolder<"_enum">, string]>(
+    "SetAbilityStringField",
+);
+
+export const SetAbilityRealField = getNativeByName<boolean, [HandleHolder<"ability">, HandleHolder<"_enum">, number]>(
+    "SetAbilityRealField",
+);
+
+export const SetAbilityIntegerField = getNativeByName<
+    boolean,
+    [HandleHolder<"ability">, HandleHolder<"_enum">, number]
+>("SetAbilityIntegerField");
+
+export const SetAbilityRealLevelField = getNativeByName<
+    boolean,
+    [HandleHolder<"ability">, HandleHolder<"_enum">, number, number]
+>("SetAbilityRealLevelField");
+
+export const SetAbilityIntegerLevelField = getNativeByName<
+    boolean,
+    [HandleHolder<"ability">, HandleHolder<"_enum">, number, number]
+>("SetAbilityIntegerLevelField");
+
+export const SetAbilityBooleanLevelField = getNativeByName<
+    boolean,
+    [HandleHolder<"ability">, HandleHolder<"_enum">, number, boolean]
+>("SetAbilityBooleanLevelField");
+
+export const SetAbilityStringLevelField = getNativeByName<
+    boolean,
+    [HandleHolder<"ability">, HandleHolder<"_enum">, number, string]
+>("SetAbilityStringLevelField");
+
+// Trigger event API
 
 export const GetTriggerUnit = getNativeByName<HUnit, []>("GetTriggerUnit");
 export const GetEventDamage = getNativeByName<number, []>("GetEventDamage");
@@ -122,6 +271,8 @@ export const GetSpellTargetDestructable = getNativeByName<HDestructable, []>("Ge
 export const GetSpellTargetItem = getNativeByName<HItem, []>("GetSpellTargetItem");
 export const GetSpellTargetUnit = getNativeByName<HUnit, []>("GetSpellTargetUnit");
 
+// Trigger API
+
 export const TriggerRegisterUnitEventNe = getNativeByName<HEvent, [HTrigger, HandleHolder<"unit">, HUnitEvent]>(
     "TriggerRegisterUnitEvent",
     false,
@@ -138,6 +289,8 @@ export const TriggerAddActionNe = getNativeByName<HTriggerAction, [HTrigger, Jas
     false,
     true,
 );
+
+export const ABILITY_IF_LEVELS = getGlobal<Record<string, HandleHolder<"_enum">>>("ABILITY_IF_LEVELS");
 
 export const UnitStates = {
     UNIT_STATE_LIFE: getGlobal<Record<string, HUnitState>>("UNIT_STATE_LIFE"),
