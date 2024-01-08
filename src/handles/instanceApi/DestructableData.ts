@@ -19,7 +19,11 @@ export class DestructableLevelAccessor<T> {
 
     #accessorNatives: DestructableLevelAccessorNatives<T>;
 
-    constructor(destructableData: DestructableData, field: HandleHolder<"_enum">, accessNatives: DestructableLevelAccessorNatives<T>) {
+    constructor(
+        destructableData: DestructableData,
+        field: HandleHolder<"_enum">,
+        accessNatives: DestructableLevelAccessorNatives<T>,
+    ) {
         this.#destructableData = destructableData;
         this.#field = field;
 
