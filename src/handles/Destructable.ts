@@ -3,6 +3,10 @@ import { Widget, WidgetEventMap } from "./Widget.js";
 
 export interface DestructableEventMap extends WidgetEventMap {}
 
+export interface Destructable {
+    get handle(): HandleHolder<"destructable">;
+}
+
 export class Destructable<T extends DestructableEventMap = DestructableEventMap> extends Widget<T> {
     constructor(destructableHandle: HandleHolder<"item">);
     constructor(destructableHandle: Destructable);
