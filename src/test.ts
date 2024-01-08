@@ -10,5 +10,6 @@ x.appendAbilityData(AbilityData);
 
 const y = new AbilityData(0) as any;
 y.blAlwaysAutocastFae2[0] = true;
+y.blAlwaysAutocastFae2 = [true, false, false, true];
 
 debugger;

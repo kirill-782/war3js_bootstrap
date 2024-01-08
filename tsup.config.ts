@@ -4,7 +4,7 @@ export default defineConfig([
     {
         name: "main",
         entry: ["./src/index.ts"],
-        outDir: "./lib",
+        outDir: "./build/tsup-bundle",
         format: ["esm"],
         sourcemap: false,
         clean: true,
@@ -13,5 +13,6 @@ export default defineConfig([
         dts: true,
         target: "es5",
         tsconfig: "./tsconfig.build.json",
+        noExternal: ["@war3js/events", "text-decoding", "@war3js/headers-polyfill"],
     },
 ]);

@@ -14,7 +14,7 @@ import {
     HUnitState,
 } from "./src/utils/common.ts";
 
-declare const __ColnfigOnlyBundlePath = "./build/dts-bundle/out.d.ts";
+declare const __ColnfigOnlyBundlePath = "./build/tsup-bundle/index.d.ts";
 declare const __ColnfigOnlyFixedBundleOutPath = "./build/fullTypes/bootstrap.d.ts";
 declare const __ColnfigOnlyNativesOutPath = "./build/fullTypes/natives.d.ts";
 declare const __ColnfigOnlyConstantssOutPath = "./build/fullTypes/constants.d.ts";

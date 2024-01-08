@@ -10,7 +10,7 @@
         "bundle": "npm run bundle-polyfill && npm run bundle-bootstrap",
         "start": "ts-node-esm ./src/test.ts",
         "lint": "eslint ./src/ --ext .ts --rulesdir ./eslint/rules/",
-        "typesgen": "tsc && dts-bundle-generator build/tsc/types/index.d.ts -o build/dts-bundle/out.d.ts --export-referenced-types=false --external-inlines=readable-stream --external-inlines=@war3js/events --external-inlines=@war3js/headers-polyfill --external-imports=@war3js/unsafe --inline-declare-global=true && ts-node-esm ./src/typesAppener.ts && node ./utils/tsconfigPrepare.js && tsc -p ./build/fullTypes/tsconfig.json && node ./utils/tsconfigRemove.js",
+        "typesgen": "tsc && npx tsup --dts-only && ts-node-esm ./src/typesAppener.ts && node ./utils/tsconfigPrepare.js && tsc -p ./build/fullTypes/tsconfig.json && node ./utils/tsconfigRemove.js",
         "docgen": "node ./utils/tsconfigPrepare.js && typedoc && node ./utils/tsconfigRemove.js",
         "clean": "node ./utils/clean.js",
         "build": "npm run bundle && npm run typesgen && npm run docgen"

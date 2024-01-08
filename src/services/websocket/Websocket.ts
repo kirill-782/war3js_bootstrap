@@ -1,5 +1,4 @@
 import { EventEmitter, EventMap } from "@war3js/events";
-import { consoleLog } from "@war3js/unsafe";
 import {
     CurlHandle,
     PreformCallback,
@@ -18,6 +17,7 @@ import { Headers, getRawHeaders } from "@war3js/headers-polyfill";
 
 interface WebsocketEvents extends EventMap {
     open: () => void;
+    close: (code?: number, reason?: string) => void;
     message: (message: string | ArrayBuffer) => void;
 }
 
@@ -89,6 +89,7 @@ export class Websocket extends EventEmitter<WebsocketEvents> {
     #outgoingFrameQueue: Array<OutgointFrame> = [];
 
     #errorThrown = false;
+    #closeEmitted = false;
 
     constructor(url: string, headers?: Headers) {
         super();
@@ -230,11 +231,7 @@ export class Websocket extends EventEmitter<WebsocketEvents> {
                 if (this.#incomingMessage.type & constants.CURLWS_TEXT) {
                     const textDecoder = new TextDecoder("utf8");
 
-                    consoleLog(0, this.#incomingMessage.frames.length);
-
                     const textMessage = this.#incomingMessage.frames.reduce((prev, currentValue) => {
-                        consoleLog(0, "prev " + prev);
-                        consoleLog(0, "currentValue " + currentValue.byteLength);
                         return prev + textDecoder.decode(new Uint8Array(currentValue), { stream: true });
                     }, "");
 
@@ -265,23 +262,26 @@ export class Websocket extends EventEmitter<WebsocketEvents> {
                 }
             }
         } else if (flags & constants.CURLWS_CLOSE) {
-            consoleLog(0, "#CURLWS_CLOSE");
             if (this.#connectionSate === Websocket.CLOSING) {
                 this.#connectionSate = Websocket.CLOSED;
                 this.#free();
             } else {
+                this.#connectionSate = Websocket.CLOSING;
+                this.#outgoingFrameQueue = [];
+
                 if (payload.byteLength >= 2) {
-                    this.#connectionSate = Websocket.CLOSING;
-                    this.#outgoingFrameQueue = [];
+                    this.#emitClose(new DataView(payload).getUint16(0));
                     this.#sendClose(new DataView(payload).getUint16(0));
+                } else {
+                    this.#emitClose(1002);
                 }
             }
         }
     }
 
     #free() {
-        consoleLog(0, "#free");
         curl_easy_cleanup(this.#curlHandle);
+        this.#curlHandle = null;
 
         this.#currentOurgoingFrame = null;
         this.#outgoingFrameQueue = [];
@@ -293,8 +293,6 @@ export class Websocket extends EventEmitter<WebsocketEvents> {
     #readSocket() {
         while (true) {
             const readResult = curl_ws_recv(this.#curlHandle, this.#incomingFrame);
-
-            consoleLog(0, "curl_ws_recv", JSON.stringify(readResult));
 
             if (readResult.result === constants.CURLE_OK) {
                 if (readResult.recv + readResult.bytesLeft > maxReceivedFrameSize) {
@@ -327,8 +325,6 @@ export class Websocket extends EventEmitter<WebsocketEvents> {
     #sendSocket() {
         if (this.#currentOurgoingFrame) {
             const sendResult = curl_ws_send(this.#curlHandle, this.#currentOurgoingFrame, 0, constants.CURLWS_OFFSET);
-
-            consoleLog(0, "curl_ws_send", JSON.stringify(sendResult));
 
             if (sendResult.result === constants.CURLE_OK) {
                 if (sendResult.sent === this.#currentOurgoingFrame.byteLength) {
@@ -389,9 +385,20 @@ export class Websocket extends EventEmitter<WebsocketEvents> {
         }
     }
 
+    #emitClose(code?: number, reason?: string) {
+        if (!this.#closeEmitted) {
+            this.#closeEmitted = true;
+            this.emit("close", code, reason);
+        }
+    }
+
     #dropConnection(e?: Error) {
         if (e) this.#emitError(e);
+
+        this.#emitClose(1006);
+
         this.#free();
+
         this.#connectionSate = Websocket.CLOSED;
     }
 
@@ -430,13 +437,14 @@ export class Websocket extends EventEmitter<WebsocketEvents> {
         this.#connectionSate = code === 0 ? Websocket.OPEN : Websocket.CLOSED;
 
         if (this.#connectionSate === Websocket.CLOSED) {
+            this.#emitClose(1006);
             this.#emitError(new Error(string));
 
             curl_easy_cleanup(this.#curlHandle);
             this.#curlHandle = null;
         } else if (this.#connectionSate === Websocket.OPEN) {
             this.emit("open");
-            TimerStart(CreateTimerNe(), 1, true, this.#processSocket);
+            TimerStart(CreateTimerNe(), 0.1, true, this.#processSocket);
         }
     };
 }
