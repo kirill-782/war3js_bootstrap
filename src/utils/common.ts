@@ -14,6 +14,7 @@ export type HItem = HandleHolder<"item", Item>;
 
 // Handle only types
 export type HUnitEvent = HandleHolder<"unitevent">;
+export type HPlayerUnitEvent = HandleHolder<"playerunitevent">;
 export type HLimitOp = HandleHolder<"limitop">;
 export type HTrigger = HandleHolder<"trigger">;
 export type HTriggerAction = HandleHolder<"triggeraction">;
@@ -226,6 +227,149 @@ export const SetAbilityStringLevelField = getNativeByName<
     [HandleHolder<"ability">, HandleHolder<"_enum">, number, string]
 >("SetAbilityStringLevelField");
 
+// Unit
+
+export const GetUnitBaseIntegerFieldById = getNativeByName<number, [number, HandleHolder<"_enum">]>(
+    "GetUnitBaseIntegerFieldById",
+);
+
+export const GetUnitBaseBooleanFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">]>(
+    "GetUnitBaseBooleanFieldById",
+);
+
+export const GetUnitBaseRealFieldById = getNativeByName<number, [number, HandleHolder<"_enum">]>(
+    "GetUnitBaseRealFieldById",
+);
+export const GetUnitBaseStringFieldById = getNativeByName<string, [number, HandleHolder<"_enum">]>(
+    "GetUnitBaseStringFieldById",
+);
+export const GetUnitBaseWeaponIntegerFieldById = getNativeByName<number, [number, HandleHolder<"_enum">, number]>(
+    "GetUnitBaseWeaponIntegerFieldById",
+);
+export const GetUnitBaseWeaponBooleanFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, number]>(
+    "GetUnitBaseWeaponBooleanFieldById",
+);
+export const GetUnitBaseWeaponRealFieldById = getNativeByName<number, [number, HandleHolder<"_enum">, number]>(
+    "GetUnitBaseWeaponRealFieldById",
+);
+export const GetUnitBaseWeaponStringFieldById = getNativeByName<string, [number, HandleHolder<"_enum">, number]>(
+    "GetUnitBaseWeaponStringFieldById",
+);
+export const SetUnitBaseIntegerFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, number]>(
+    "SetUnitBaseIntegerFieldById",
+);
+export const SetUnitBaseBooleanFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, boolean]>(
+    "SetUnitBaseBooleanFieldById",
+);
+export const SetUnitBaseRealFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, number]>(
+    "SetUnitBaseRealFieldById",
+);
+export const SetUnitBaseStringFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, string]>(
+    "SetUnitBaseStringFieldById",
+);
+export const SetUnitBaseWeaponIntegerFieldById = getNativeByName<
+    boolean,
+    [number, HandleHolder<"_enum">, number, number]
+>("SetUnitBaseWeaponIntegerFieldById");
+export const SetUnitBaseWeaponBooleanFieldById = getNativeByName<
+    boolean,
+    [number, HandleHolder<"_enum">, number, boolean]
+>("SetUnitBaseWeaponBooleanFieldById");
+export const SetUnitBaseWeaponRealFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, number, number]>(
+    "SetUnitBaseWeaponRealFieldById",
+);
+export const SetUnitBaseWeaponStringFieldById = getNativeByName<
+    boolean,
+    [number, HandleHolder<"_enum">, number, string]
+>("SetUnitBaseWeaponStringFieldById");
+export const GetUnitIntegerField = getNativeByName<number, [HandleHolder<"unit">, HandleHolder<"_enum">]>(
+    "GetUnitIntegerField",
+);
+export const GetUnitBooleanField = getNativeByName<boolean, [HandleHolder<"unit">, HandleHolder<"_enum">]>(
+    "GetUnitBooleanField",
+);
+export const GetUnitRealField = getNativeByName<number, [HandleHolder<"unit">, HandleHolder<"_enum">]>(
+    "GetUnitRealField",
+);
+export const GetUnitStringField = getNativeByName<string, [HandleHolder<"unit">, HandleHolder<"_enum">]>(
+    "GetUnitStringField",
+);
+export const GetUnitWeaponIntegerField = getNativeByName<number, [HandleHolder<"unit">, HandleHolder<"_enum">, number]>(
+    "GetUnitWeaponIntegerField",
+);
+export const GetUnitWeaponBooleanField = getNativeByName<
+    boolean,
+    [HandleHolder<"unit">, HandleHolder<"_enum">, number]
+>("GetUnitWeaponBooleanField");
+export const GetUnitWeaponRealField = getNativeByName<number, [HandleHolder<"unit">, HandleHolder<"_enum">, number]>(
+    "GetUnitWeaponRealField",
+);
+export const GetUnitWeaponStringField = getNativeByName<string, [HandleHolder<"unit">, HandleHolder<"_enum">, number]>(
+    "GetUnitWeaponStringField",
+);
+
+// Item
+
+export const GetBaseItemIntegerFieldById = getNativeByName<number, [number, HandleHolder<"_enum">]>(
+    "GetBaseItemIntegerFieldById",
+);
+export const GetBaseItemBooleanFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">]>(
+    "GetBaseItemBooleanFieldById",
+);
+export const GetBaseItemRealFieldById = getNativeByName<number, [number, HandleHolder<"_enum">]>(
+    "GetBaseItemRealFieldById",
+);
+export const GetBaseItemStringFieldById = getNativeByName<string, [number, HandleHolder<"_enum">]>(
+    "GetBaseItemStringFieldById",
+);
+export const SetBaseItemIntegerFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, number]>(
+    "SetBaseItemIntegerFieldById",
+);
+export const SetBaseItemBooleanFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, boolean]>(
+    "SetBaseItemBooleanFieldById",
+);
+export const SetBaseItemRealFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, number]>(
+    "SetBaseItemRealFieldById",
+);
+export const SetBaseItemStringFieldById = getNativeByName<boolean, [number, HandleHolder<"_enum">, string]>(
+    "SetBaseItemStringFieldById",
+);
+export const GetItemIntegerField = getNativeByName<number, [HandleHolder<"item">, HandleHolder<"_enum">]>(
+    "GetItemIntegerField",
+);
+export const GetItemBooleanField = getNativeByName<boolean, [HandleHolder<"item">, HandleHolder<"_enum">]>(
+    "GetItemBooleanField",
+);
+export const GetItemRealField = getNativeByName<number, [HandleHolder<"item">, HandleHolder<"_enum">]>(
+    "GetItemRealField",
+);
+export const GetItemStringField = getNativeByName<string, [HandleHolder<"item">, HandleHolder<"_enum">]>(
+    "GetItemStringField",
+);
+export const SetItemIntegerField = getNativeByName<boolean, [HandleHolder<"item">, HandleHolder<"_enum">, number]>(
+    "SetItemIntegerField",
+);
+export const SetItemBooleanField = getNativeByName<boolean, [HandleHolder<"item">, HandleHolder<"_enum">, boolean]>(
+    "SetItemBooleanField",
+);
+export const SetItemRealField = getNativeByName<boolean, [HandleHolder<"item">, HandleHolder<"_enum">, number]>(
+    "SetItemRealField",
+);
+export const SetItemStringField = getNativeByName<boolean, [HandleHolder<"item">, HandleHolder<"_enum">, string]>(
+    "SetItemStringField",
+);
+
+// Destructable
+
+export const GetDestructableStringField = getNativeByName<
+    string,
+    [HandleHolder<"destructable">, HandleHolder<"_enum">]
+>("GetDestructableStringField");
+export const SetDestructableStringField = getNativeByName<
+    boolean,
+    [HandleHolder<"destructable">, HandleHolder<"_enum">, string]
+>("SetDestructableStringField");
+
 // Trigger event API
 
 export const GetTriggerUnit = getNativeByName<HUnit, []>("GetTriggerUnit");
@@ -278,6 +422,11 @@ export const TriggerRegisterUnitEventNe = getNativeByName<HEvent, [HTrigger, Han
     false,
     true,
 );
+
+export const TriggerRegisterPlayerUnitEventNe = getNativeByName<
+    HEvent,
+    [HTrigger, HandleHolder<"player">, HPlayerUnitEvent]
+>("TriggerRegisterPlayerUnitEvent", false, true);
 
 export const TriggerRegisterUnitStateEventNe = getNativeByName<
     HEvent,

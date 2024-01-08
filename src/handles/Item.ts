@@ -3,6 +3,10 @@ import { CreateItemNe } from "../utils/common.js";
 
 export interface ItemEventMap extends WidgetEventMap {}
 
+export interface Item {
+    get handle(): HandleHolder<"item">;
+}
+
 export class Item<T extends ItemEventMap = ItemEventMap> extends Widget<T> {
     constructor(itemHandle: HandleHolder<"item">);
     constructor(itemHandle: Item);
