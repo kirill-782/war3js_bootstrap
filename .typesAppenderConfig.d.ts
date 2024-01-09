@@ -1,3 +1,4 @@
+import { HandleHolder } from "@war3js/unsafe";
 import { Destructable } from "./src/handles/Destructable.ts";
 import { Handle } from "./src/handles/Handle.ts";
 import { Item } from "./src/handles/Item.ts";
@@ -14,7 +15,7 @@ import {
     HUnitState,
 } from "./src/utils/common.ts";
 
-declare const __ColnfigOnlyBundlePath = "./build/tsup-bundle/index.d.ts";
+declare const __ColnfigOnlyBundlePath = "./build/dts-bundle/out.d.ts";
 declare const __ColnfigOnlyFixedBundleOutPath = "./build/fullTypes/bootstrap.d.ts";
 declare const __ColnfigOnlyNativesOutPath = "./build/fullTypes/natives.d.ts";
 declare const __ColnfigOnlyConstantssOutPath = "./build/fullTypes/constants.d.ts";

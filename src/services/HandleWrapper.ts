@@ -1,4 +1,4 @@
-import { fakeHandleType } from "@war3js/unsafe";
+import { HandleHolder, fakeHandleType } from "@war3js/unsafe";
 import { Handle, HandleConstructor } from "../handles/Handle.js";
 import { Player } from "../handles/Player.js";
 import { Unit } from "../handles/Unit.js";

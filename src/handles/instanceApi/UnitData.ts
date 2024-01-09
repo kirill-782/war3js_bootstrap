@@ -1,4 +1,5 @@
 /* eslint-disable matching-export-value-to-file-name */
+import { HandleHolder } from "@war3js/unsafe";
 import { Unit } from "../Unit.js";
 
 export interface UnitLevelAccessorNatives<T> {
