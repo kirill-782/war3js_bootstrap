@@ -1,6 +1,6 @@
 import { EventEmitter, EventMap } from "@war3js/events";
 
-import { setOnNewHandle, setOnHandleDestroy } from "@war3js/unsafe";
+import { setOnNewHandle, setOnHandleDestroy, HandleHolder } from "@war3js/unsafe";
 
 export interface NativeEventsEventMap extends EventMap {
     newHandle: (handle: HandleHolder<string>, constructorNative: string) => void;

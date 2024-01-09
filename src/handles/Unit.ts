@@ -50,6 +50,7 @@ import { UnitEventSpellCast } from "../triggerEvents/unit/UnitEventSpellCast.js"
 import { UnitEventSpellEffect } from "../triggerEvents/unit/UnitEventSpellEffect.js";
 import { UnitEventSpellFinish } from "../triggerEvents/unit/UnitEventSpellFinish.js";
 import { UnitEventSpellEndcast } from "../triggerEvents/unit/UnitEventSpellEndcast.js";
+import { HandleHolder } from "@war3js/unsafe";
 
 const eventUnitEmiter = unitEmiter;
 

@@ -1,3 +1,4 @@
+import { HandleHolder } from "@war3js/unsafe";
 import { Handle } from "../handles/Handle.js";
 
 export function toHandleHolderSoft(value: any): HandleHolder<string> | null | undefined {

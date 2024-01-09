@@ -1,4 +1,5 @@
 /* eslint-disable matching-export-value-to-file-name */
+import { HandleHolder } from "@war3js/unsafe";
 import { ABILITY_IF_LEVELS, GetAbilityBaseIntegerFieldById, GetAbilityIntegerField } from "../../utils/common.js";
 import { Ability } from "../Ability.js";
 

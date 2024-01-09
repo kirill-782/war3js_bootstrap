@@ -1,3 +1,4 @@
+import { HandleHolder } from "@war3js/unsafe";
 import { CreateDestructableNe } from "../utils/common.js";
 import { Widget, WidgetEventMap } from "./Widget.js";
 

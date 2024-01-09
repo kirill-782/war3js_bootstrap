@@ -1,3 +1,4 @@
+import { HandleHolder } from "@war3js/unsafe";
 import { Handle, HandleEventMap } from "./Handle.js";
 
 export interface WidgetEventMap extends HandleEventMap {

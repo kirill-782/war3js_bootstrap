@@ -13,6 +13,6 @@ export default defineConfig([
         dts: true,
         target: "es5",
         tsconfig: "./tsconfig.build.json",
-        noExternal: ["@war3js/events", "text-decoding", "@war3js/headers-polyfill"],
+        noExternal: ["@war3js/events", "@war3js/unsafe", "text-decoding", "@war3js/headers-polyfill"],
     },
 ]);

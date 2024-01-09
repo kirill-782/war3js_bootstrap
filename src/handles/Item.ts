@@ -1,5 +1,6 @@
 import { Widget, WidgetEventMap } from "./Widget.js";
 import { CreateItemNe } from "../utils/common.js";
+import { HandleHolder } from "@war3js/unsafe";
 
 export interface ItemEventMap extends WidgetEventMap {}
 

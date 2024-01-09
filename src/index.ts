@@ -85,29 +85,3 @@ export {
 export { UnitState, LimitOp } from "./services/emitters/UnitStateEmiter.js";
 
 export { Websocket } from "./services/websocket/Websocket.js";
-
-// -- ONLY FOR dts-bundle
-
-declare global {
-    /**
-     * A low-level object that replaces the handle type in war3js.
-     * It is not recommended to use it as an object, as some fields may start to be used by the war3js backend.
-     */
-    interface HandleHolder<T extends string = string, P = unknown> {
-        /**
-         * Returns jass handle type. For fake handles this is _enum.
-         */
-        get type(): T;
-        /**
-         * The library object this handle is bound to
-         */
-        payload: P;
-
-        /**
-         * Compares handle's internal pointers as numbers. ``null`` is interpreted as 0
-         * @param handle another handle for compare
-         * @returns true if jass
-         */
-        equals: (handle: HandleHolder<string> | null) => boolean;
-    }
-}

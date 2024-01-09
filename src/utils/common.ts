@@ -1,4 +1,4 @@
-import { getNativeByName, getGlobal } from "@war3js/unsafe";
+import { getNativeByName, getGlobal, HandleHolder } from "@war3js/unsafe";
 import { Unit } from "../handles/Unit.js";
 import { Player } from "../handles/Player.js";
 import { Widget } from "../handles/Widget.js";

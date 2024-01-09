@@ -1,3 +1,4 @@
+import { HandleHolder } from "@war3js/unsafe";
 import { CreateAbilityNe } from "../utils/common.js";
 import { Handle, HandleEventMap } from "./Handle.js";
 
