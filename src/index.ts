@@ -62,6 +62,8 @@ export * from "./handles/instanceApi/AbilityData.js";
 
 export { IndexAccessArray } from "./services/ClassBuilder.js";
 
+export { HandleHolder } from "@war3js/unsafe";
+
 export { TextDecoder, TextEncoder } from "text-decoding";
 export { Headers } from "@war3js/headers-polyfill";
 
