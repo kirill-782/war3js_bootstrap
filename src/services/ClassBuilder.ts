@@ -341,17 +341,17 @@ export class InstanceApiBuilder {
 
         {
             interface InstanceApiAccessNatives<T> {
-                get: (ability: HandleHolder<"ability">, field: HandleHolder<"_enum">) => T;
-                set: (ability: HandleHolder<"ability">, field: HandleHolder<"_enum">, value: T) => boolean;
+                get: (ability: HandleHolder<"ability">, field: HandleHolder<"agentdatafield">) => T;
+                set: (ability: HandleHolder<"ability">, field: HandleHolder<"agentdatafield">, value: T) => boolean;
 
-                baseGet: (abilId: number, field: HandleHolder<"_enum">) => T;
-                baseSet: (ability: number, field: HandleHolder<"_enum">, value: T) => boolean;
+                baseGet: (abilId: number, field: HandleHolder<"agentdatafield">) => T;
+                baseSet: (ability: number, field: HandleHolder<"agentdatafield">, value: T) => boolean;
             }
 
             function defineAccessor<T>(
                 accessNatives: InstanceApiAccessNatives<T>,
                 propertyName: string,
-                fieldId: HandleHolder<"_enum">,
+                fieldId: HandleHolder<"agentdatafield">,
                 isReadOnly: boolean,
             ) {
                 propertyName =
@@ -399,7 +399,7 @@ export class InstanceApiBuilder {
                         baseSet: SetAbilityBaseRealFieldById,
                     },
                     screamCaseToCamelCase(i.split("_").slice(2).join("_")),
-                    getGlobal(i) as HandleHolder<"_enum">,
+                    getGlobal(i) as HandleHolder<"agentdatafield">,
                     false,
                 );
             });
@@ -415,7 +415,7 @@ export class InstanceApiBuilder {
                         baseSet: SetAbilityBaseIntegerFieldById,
                     },
                     screamCaseToCamelCase(i.split("_").slice(2).join("_")),
-                    getGlobal(i) as HandleHolder<"_enum">,
+                    getGlobal(i) as HandleHolder<"agentdatafield">,
                     false,
                 );
             });
@@ -431,7 +431,7 @@ export class InstanceApiBuilder {
                         baseSet: SetAbilityBaseBooleanFieldById,
                     },
                     screamCaseToCamelCase(i.split("_").slice(2).join("_")),
-                    getGlobal(i) as HandleHolder<"_enum">,
+                    getGlobal(i) as HandleHolder<"agentdatafield">,
                     false,
                 );
             });
@@ -447,7 +447,7 @@ export class InstanceApiBuilder {
                         baseSet: SetAbilityBaseStringFieldById,
                     },
                     screamCaseToCamelCase(i.split("_").slice(2).join("_")),
-                    getGlobal(i) as HandleHolder<"_enum">,
+                    getGlobal(i) as HandleHolder<"agentdatafield">,
                     false,
                 );
             });
@@ -459,7 +459,7 @@ export class InstanceApiBuilder {
             function defineAccessor<T>(
                 accessNatives: AbilityLevelAccessorNatives<T>,
                 propertyName: string,
-                fieldId: HandleHolder<"_enum">,
+                fieldId: HandleHolder<"agentdatafield">,
                 isReadOnly: boolean,
             ) {
                 propertyName =
@@ -582,7 +582,7 @@ export class InstanceApiBuilder {
                         baseSet: SetAbilityBaseRealLevelFieldById,
                     },
                     screamCaseToCamelCase(i.split("_").slice(2).join("_")),
-                    getGlobal(i) as HandleHolder<"_enum">,
+                    getGlobal(i) as HandleHolder<"agentdatafield">,
                     false,
                 );
             });
@@ -598,7 +598,7 @@ export class InstanceApiBuilder {
                         baseSet: SetAbilityBaseIntegerLevelFieldById,
                     },
                     screamCaseToCamelCase(i.split("_").slice(2).join("_")),
-                    getGlobal(i) as HandleHolder<"_enum">,
+                    getGlobal(i) as HandleHolder<"agentdatafield">,
                     false,
                 );
             });
@@ -614,7 +614,7 @@ export class InstanceApiBuilder {
                         baseSet: SetAbilityBaseBooleanLevelFieldById,
                     },
                     screamCaseToCamelCase(i.split("_").slice(2).join("_")),
-                    getGlobal(i) as HandleHolder<"_enum">,
+                    getGlobal(i) as HandleHolder<"agentdatafield">,
                     false,
                 );
             });
@@ -630,7 +630,7 @@ export class InstanceApiBuilder {
                         baseSet: SetAbilityBaseStringLevelFieldById,
                     },
                     screamCaseToCamelCase(i.split("_").slice(2).join("_")),
-                    getGlobal(i) as HandleHolder<"_enum">,
+                    getGlobal(i) as HandleHolder<"agentdatafield">,
                     false,
                 );
             });

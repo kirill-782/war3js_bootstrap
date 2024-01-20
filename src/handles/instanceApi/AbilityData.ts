@@ -4,11 +4,11 @@ import { ABILITY_IF_LEVELS, GetAbilityBaseIntegerFieldById, GetAbilityIntegerFie
 import { Ability } from "../Ability.js";
 
 export interface AbilityLevelAccessorNatives<T> {
-    get: (ability: HandleHolder<"ability">, field: HandleHolder<"_enum">, level: number) => T;
-    set: (ability: HandleHolder<"ability">, field: HandleHolder<"_enum">, level: number, value: T) => boolean;
+    get: (ability: HandleHolder<"ability">, field: HandleHolder<"agentdatafield">, level: number) => T;
+    set: (ability: HandleHolder<"ability">, field: HandleHolder<"agentdatafield">, level: number, value: T) => boolean;
 
-    baseGet: (abilId: number, field: HandleHolder<"_enum">, level: number) => T;
-    baseSet: (ability: number, field: HandleHolder<"_enum">, level: number, value: T) => boolean;
+    baseGet: (abilId: number, field: HandleHolder<"agentdatafield">, level: number) => T;
+    baseSet: (ability: number, field: HandleHolder<"agentdatafield">, level: number, value: T) => boolean;
 }
 
 export interface AbilityData {
@@ -17,11 +17,15 @@ export interface AbilityData {
 
 export class AbilityLevelAccessor<T> implements Iterable<T> {
     #abilityData: AbilityData;
-    #field: HandleHolder<"_enum">;
+    #field: HandleHolder<"agentdatafield">;
 
     #accessorNatives: AbilityLevelAccessorNatives<T>;
 
-    constructor(abilityData: AbilityData, field: HandleHolder<"_enum">, accessNatives: AbilityLevelAccessorNatives<T>) {
+    constructor(
+        abilityData: AbilityData,
+        field: HandleHolder<"agentdatafield">,
+        accessNatives: AbilityLevelAccessorNatives<T>,
+    ) {
         this.#abilityData = abilityData;
         this.#field = field;
 
